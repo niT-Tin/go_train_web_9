@@ -1,0 +1,404 @@
+syntax = "proto3";
+// import "google/protobuf/empty.proto";
+package proto;
+option go_package = ".;proto";
+
+service Train {
+  rpc GetTrainDailyList(TrainDailyPageInfo) returns (TrainDailyListResponse);
+  rpc GetTrainDaily(TrainDailyRequest) returns (TrainDailyResponse);
+  rpc GetTrainList(TrainPageInfo) returns (TrainListResponse);
+  rpc GetTrain(TrainRequest) returns (TrainResponse);
+  rpc CreateTrain(TrainRequest) returns (TrainResponse);
+  rpc UpdateTrain(TrainRequest) returns (TrainResponse);
+  rpc DeleteTrain(TrainRequest) returns (TrainResponse);
+  rpc GetTrainDailyListByDate(TrainDailyPageInfo) returns (TrainDailyListResponse);
+  rpc GetAllTrain(TrainRequest) returns (TrainListResponse);
+  rpc GenerateTrainDaily(TrainRequest) returns (TrainListResponse);
+}
+
+service Station {
+  rpc GetStationDailyList(StationDailyPageInfo) returns (StationDailyListResponse);
+  rpc GetStationDaily(StationDailyRequest) returns (StationDailyResponse);
+  rpc GetStationList(StationPageInfo) returns (StationListResponse);
+  rpc GetStation(StationRequest) returns (StationResponse);
+  rpc CreateStation(StationRequest) returns (StationResponse);
+  rpc UpdateStation(StationRequest) returns (StationResponse);
+  rpc DeleteStation(StationRequest) returns (StationResponse);
+  rpc GetStationDailyListByDate(StationDailyPageInfo) returns (StationDailyListResponse);
+  rpc GetAllStation(StationRequest) returns (StationListResponse);
+  rpc GenerateStationDaily(StationRequest) returns (StationListResponse);
+}
+
+// 这里的车票是指车次的票，而不是用户已经购买的票
+service Ticket {
+  rpc GetTicketList(TicketPageInfo) returns (TicketListResponse);
+  rpc GetTicket(TicketRequest) returns (TicketResponse);
+  rpc CreateTicket(TicketRequest) returns (TicketResponse);
+  rpc UpdateTicket(TicketRequest) returns (TicketResponse);
+  rpc DeleteTicket(TicketRequest) returns (TicketResponse);
+  rpc GetTicketListByDate(TicketPageInfo) returns (TicketListResponse);
+  rpc GetAllTicket(TicketRequest) returns (TicketListResponse);
+  rpc GenerateTicket(TicketRequest) returns (TicketListResponse);
+}
+
+service Carriage {
+  rpc GetCarriageDailyList(CarriageDailyPageInfo) returns (CarriageDailyListResponse);
+  rpc GetCarriageDaily(CarriageDailyRequest) returns (CarriageDailyResponse);
+  rpc GetCarriageList(CarriagePageInfo) returns (CarriageListResponse);
+  rpc GetCarriage(CarriageRequest) returns (CarriageResponse);
+  rpc CreateCarriage(CarriageRequest) returns (CarriageResponse);
+  rpc UpdateCarriage(CarriageRequest) returns (CarriageResponse);
+  rpc DeleteCarriage(CarriageRequest) returns (CarriageResponse);
+  rpc GetCarriageDailyListByDate(CarriageDailyPageInfo) returns (CarriageDailyListResponse);
+  rpc GetAllCarriage(CarriageRequest) returns (CarriageListResponse);
+  rpc GenerateCarriageDaily(CarriageRequest) returns (CarriageListResponse);
+}
+
+service Seat {
+  rpc GetSeatDailyList(SeatDailyPageInfo) returns (SeatDailyListResponse);
+  rpc GetSeatDaily(SeatDailyRequest) returns (SeatDailyResponse);
+  rpc GetSeatList(SeatPageInfo) returns (SeatListResponse);
+  rpc GetSeat(SeatRequest) returns (SeatResponse);
+  rpc CreateSeat(SeatRequest) returns (SeatResponse);
+  rpc UpdateSeat(SeatRequest) returns (SeatResponse);
+  rpc DeleteSeat(SeatRequest) returns (SeatResponse);
+  rpc GetSeatDailyListByDate(SeatDailyPageInfo) returns (SeatDailyListResponse);
+  rpc GetAllSeat(SeatRequest) returns (SeatListResponse);
+  rpc GenerateSeatDaily(SeatRequest) returns (SeatListResponse);
+}
+
+message TrainInfo {
+  int64 id = 1;
+  string code = 2;
+  string type = 3;
+  string startStation = 4;
+  string endStation = 5;
+  int64 startTime = 6;
+  int64 endTime = 7;
+  int64 createTime = 8;
+  int64 updateTime = 9;
+  string startPinyin = 10;
+  string endPinyin = 11;
+}
+
+message TrainPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+}
+
+message TrainListResponse {
+  uint32 total = 1;
+  repeated TrainResponse data = 2;
+}
+
+message TrainRequest {
+  int64 id = 1;
+  string code = 2;
+  string type = 3;
+  string startStation = 4;
+  string endStation = 5;
+  int64 startTime = 6;
+  int64 endTime = 7;
+  string startPinyin = 8;
+  string endPinyin = 9;
+}
+
+message TrainResponse {
+  TrainInfo data = 1;
+}
+
+message TrainDailyInfo {
+  string date = 1;
+  TrainInfo train = 2;
+}
+
+message TrainDailyListResponse {
+  uint32 total = 1;
+  repeated TrainDailyResponse data = 2;
+}
+
+message TrainDailyPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+  // 日期
+  string date = 3;
+}
+
+message TrainDailyRequest {
+  int64 id = 1;
+  string code = 2;
+  string type = 3;
+  string startStation = 4;
+  string endStation = 5;
+  int64 startTime = 6;
+  int64 endTime = 7;
+  string startPinyin = 8;
+  string endPinyin = 9;
+  string date = 10;
+}
+
+message TrainDailyResponse {
+  TrainDailyInfo data = 1;
+}
+
+message StationInfo {
+  int64 id = 1;
+  string name = 2;
+  string pinyin = 3;
+  string firstLetter = 4;
+  int64 createTime = 5;
+  int64 updateTime = 6;
+}
+
+message StationDailyInfo {
+  string date = 1;
+  StationInfo station = 2;
+}
+
+message StationDailyListResponse {
+  uint32 total = 1;
+  repeated StationDailyResponse data = 2;
+}
+
+message StationDailyPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+  // 日期
+  string date = 3;
+}
+
+message StationDailyRequest {
+  int64 id = 1;
+  string name = 2;
+  string pinyin = 3;
+  string firstLetter = 4;
+  string date = 5;
+}
+
+message StationDailyResponse {
+  StationDailyInfo data = 1;
+}
+
+message StationListResponse {
+  uint32 total = 1;
+  repeated StationResponse data = 2;
+}
+
+message StationPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+}
+
+message StationResponse {
+  StationInfo data = 1;
+}
+
+message StationRequest {
+  int64 id = 1;
+  string name = 2;
+  string pinyin = 3;
+  string firstLetter = 4;
+}
+
+message TicketInfo {
+  int64 id = 1;
+  string trainCode = 2;
+  string startStation = 3;
+  string startPinyin = 4;
+  int64 startTime = 5;
+  int64 startIndex = 6;
+  string endStation = 7;
+  string endPinyin = 8;
+  int64 endIndex = 9;
+  int64 endTime = 10;
+  int64 createTime = 11;
+  int64 updateTime = 12;
+  float firstClassPrice = 13;
+  int64 firstClassLast = 14;
+  float secondClassPrice = 15;
+  int64 secondClassLast = 16;
+  float softberthPrice = 17;
+  int64 softberthLast = 18;
+  float hardberthPrice = 19;
+  int64 hardberthLast = 20;
+  string date = 21;
+}
+
+message TicketPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+}
+
+message TicketListResponse {
+  uint32 total = 1;
+  repeated TicketResponse data = 2;
+}
+
+message TicketRequest {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 startStation = 3;
+  int32 startPinyin = 4;
+  int32 startTime = 5;
+  int64 endTime = 10;
+  int32 startIndex = 6;
+  int32 endStation = 7;
+  int32 endPinyin = 8;
+}
+
+message TicketResponse {
+  TicketInfo data = 1;
+}
+
+message CarriageInfo {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 carriageIndex = 3;
+  string seatType = 4;
+  int32 seatCount = 5;
+  int32 row = 6;
+  int32 column = 7;
+  int64 createTime = 8;
+  int64 updateTime = 9;
+}
+
+message CarriageDailyInfo {
+  string date = 1;
+  CarriageInfo carriage = 2;
+}
+
+message CarriageDailyListResponse {
+  uint32 total = 1;
+  repeated CarriageDailyResponse data = 2;
+}
+
+message CarriageDailyPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+  // 日期
+  string date = 3;
+}
+
+message CarriageDailyRequest {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 carriageIndex = 3;
+  string seatType = 4;
+  int32 seatCount = 5;
+  int32 row = 6;
+  int32 column = 7;
+  string date = 8;
+}
+
+message CarriageDailyResponse {
+  CarriageDailyInfo data = 1;
+}
+
+message CarriagePageInfo {
+  string trainCode = 1;
+}
+
+message CarriageListResponse {
+  uint32 total = 1;
+  repeated CarriageResponse data = 2;
+}
+
+message CarriageRequest {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 carriageIndex = 3;
+  string seatType = 4;
+  int32 seatCount = 5;
+  int32 row = 6;
+  int32 column = 7;
+}
+
+message CarriageResponse {
+  CarriageInfo data = 1;
+}
+
+message SeatInfo {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 carriageIndex = 3;
+  string seatType = 4;
+  int32 seatIndex = 5;
+  string row = 6;
+  string column = 7;
+  int64 createTime = 8;
+  int64 updateTime = 9;
+}
+
+message SeatDailyInfo {
+  string date = 1;
+  SeatInfo seat = 2;
+}
+
+message SeatDailyListResponse {
+  uint32 total = 1;
+  repeated SeatDailyResponse data = 2;
+}
+
+message SeatDailyPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+  // 日期
+  string date = 3;
+}
+
+message SeatDailyRequest {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 carriageIndex = 3;
+  string seatType = 4;
+  int32 seatIndex = 5;
+  string row = 6;
+  string column = 7;
+  string date = 8;
+}
+
+message SeatDailyResponse {
+  SeatDailyInfo data = 1;
+}
+
+message SeatPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+  SeatInfo seat = 3;
+  string date = 4;
+}
+
+message SeatListResponse {
+  uint32 total = 1;
+  repeated SeatResponse data = 2;
+}
+
+message SeatRequest {
+  int64 id = 1;
+  string trainCode = 2;
+  int32 carriageIndex = 3;
+  string seatType = 4;
+  int32 seatIndex = 5;
+  string row = 6;
+  string column = 7;
+}
+
+message SeatResponse {
+  SeatInfo data = 1;
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  </head>
+  <body>
+    <button type="button" id="qcd">获取验证码</button>
+    <button type="button" id="query">查询</button> 
+    <img id="cd" src="data:image/png;base64,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" alt=""/>
+    <div id="content" style="background-color: aquamarine; width: 300px; height: 500px;">
+      
+    </div>
+  </body>
+  <script type="text/javascript">
+    $("#query").click(function(){
+      console.log("clicked")
+      $.ajax({
+        url: "http://127.0.0.1:8080/u/v1/user/list",
+        type: "GET",
+        dataType: "json",
+        beforeSend: function(request) {
+          request.setRequestHeader("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJJRCI6MSwiTmlja05hbWUiOiJsaXV6ZWhhbzAiLCJBdXRob3JpdHlJZCI6MSwiZXhwIjoxNjkyMTU0NTUwLCJpc3MiOiJsaXV6ZWhhbyIsIm5iZiI6MTY4OTU2MjU1MH0._WYWHyoeIqgggaEboylD-4aQj725TvKZSQ2U6izgzj0")
+        },
+        success: function(data){
+          console.log(data.data);
+          var html = "";
+          for(var i = 0; i < data.length; i++){
+            html += "<p>" + data[i].id + " " + data[i].name + " " + data[i].age + "</p>";
+          }
+          $("#content").text(html);
+        },
+        error: function(){
+          alert("error");
+        }
+      });
+    });
+  </script>
+</html>

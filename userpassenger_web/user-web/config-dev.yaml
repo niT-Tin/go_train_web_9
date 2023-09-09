@@ -1,0 +1,12 @@
+nacos:
+  host: '10.102.213.148'
+  port: 8848
+  namespace: '7fbb2ffe-4da7-43ea-af06-b4e78620b593'
+  user: 'nacos'
+  password: 'nacos'
+  dataid: 'user-web-dev.yaml'
+  group: 'dev'
+  timeoutms: 5000
+  cachedir: 'tmp/nacos/cache'
+  logdir: 'tmp/nacos/log'
+  loglevel: 'debug'

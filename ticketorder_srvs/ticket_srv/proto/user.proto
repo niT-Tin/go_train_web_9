@@ -1,0 +1,94 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package proto;
+option go_package = ".;proto";
+
+service User {
+  rpc GetUserList(PageInfo) returns (UserListResponse); // 获取用户列表
+  rpc GetUserByMobile(MobileRequest) returns (UserInfoResponse); // 通过手机号查询用户
+  rpc GetUserById(IdRequest) returns (UserInfoResponse); // 通过Id查询用户
+  rpc CreateUser(CreateUserInfo) returns (UserInfoResponse); // 创建用户
+  rpc UpdateUser(UpdateUserInfo) returns (google.protobuf.Empty); // 更新用户
+  rpc CheckPassWord(PasswordCheckInfo) returns (CheckResponse); // 校验密码
+
+  rpc AddPassenger(PassengerInfo) returns (PassengerInfo); // 添加乘客
+  rpc UpdatePassenger(PassengerInfo) returns (google.protobuf.Empty); // 更新乘客
+  rpc DeletePassenger(IdRequest) returns (google.protobuf.Empty); // 删除乘客
+  rpc GetPassengerList(PassengerPageInfo) returns (PassengerListResponse); // 获取乘客列表
+}
+
+
+message PassengerListResponse {
+  uint32 total = 1;
+  repeated PassengerInfo data = 2;
+}
+
+message PassengerInfo {
+  int32 id = 1;
+  int32 userId = 2;
+  string name = 3;
+  string idCard = 4;
+  int64 type = 5;
+}
+
+message PassengerPageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+  // 用户id
+  int32 userId = 3;
+}
+
+message PageInfo {
+  // 页码
+  uint32 pn = 1;
+  // 每页数量
+  uint32 ps = 2;
+}
+
+message CheckResponse {
+  bool success = 1;
+}
+
+message PasswordCheckInfo {
+  string password = 1;
+  string encryptedPassword = 2;
+}
+
+message UpdateUserInfo {
+  int32 id = 1;
+  string nickName = 2;
+  string gender = 3;
+  uint64 birthDay = 4;
+}
+
+message CreateUserInfo {
+  string nickName = 1; 
+  string password = 2;
+  string mobile = 3;
+}
+
+message IdRequest {
+  int32 id = 1;
+}
+
+message MobileRequest {
+  string mobile = 1;
+}
+
+message UserInfoResponse {
+  int32 id = 1;
+  string password = 2;
+  string mobile = 3;
+  string nickName = 4;
+  uint64 birthDay = 5;
+  string gender = 6;
+  uint32 role = 7;
+}
+
+message UserListResponse {
+  uint32 total = 1;
+  repeated UserInfoResponse data = 2;
+}
+

@@ -1,0 +1,10 @@
+name: 'user-srv'
+mysql:
+    host: '10.102.109.196'
+    port: 3306
+    user: 'root'
+    pass: 'lzh'
+    name: 'lzhshop_user_srv'
+consul:
+    host: '10.102.109.196'
+    port: 8500
