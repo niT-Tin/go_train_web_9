@@ -141,6 +141,34 @@ func (s *StationServer) GetAllStation(ctx context.Context, stationreq *proto.Sta
 	return rsp, nil
 }
 
-func (s *StationServer) GenerateStationDaily(_ context.Context, _ *proto.StationRequest) (*proto.StationListResponse, error) {
-	panic("not implemented") // TODO: Implement
+func (s *StationServer) GenerateStationDaily(ctx context.Context, stationreq *proto.StationDailyRequest) (*proto.StationListResponse, error) {
+	// 删除某日某车次的车站信息
+	result := global.DB.Delete(&model.DailyTrainStation{}, "train_code = ? and date = ?", stationreq.TrainCode, stationreq.Date)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+	// 获取某日某车次的车站信息
+	dt, _ := time.Parse("2006-01-02", stationreq.Date)
+	var stations []model.DailyTrainStation
+	res := global.DB.Where(&model.DailyTrainStation{TrainCode: stationreq.TrainCode, Date: dt}).Find(&stations)
+	if res.Error != nil {
+		return nil, res.Error
+	}
+	if len(stations) == 0 {
+		return nil, status.Errorf(codes.NotFound, "车站信息不存在")
+	}
+	for _, station := range stations {
+		// 多此一举
+		tp, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
+		station.TrainCode = stationreq.TrainCode
+		station.CreateTime = time.Now()
+		station.UpdateTime = time.Now()
+		station.Date = tp
+		result := global.DB.Create(&station)
+		if result.Error != nil {
+			return nil, result.Error
+		}
+	}
+	zap.S().Infof("车站信息生成成功 date: %s, train_code: %s", stationreq.Date, stationreq.TrainCode)
+	return &proto.StationListResponse{}, nil
 }
