@@ -27,6 +27,12 @@ func (s *SeatServer) GetSeatDaily(ctx context.Context, dailyreq *proto.SeatDaily
 	return seatDailyRsp, nil
 }
 
+// Seat Server Implement
+// TODO: 之后删除
+func (s *SeatServer) GetSeatDailyList(_ context.Context, _ *proto.SeatDailyPageInfo) (*proto.SeatDailyListResponse, error) {
+	panic("not implemented") // TODO: Implement
+}
+
 func (s *SeatServer) GetSeatList(ctx context.Context, pageinfo *proto.SeatPageInfo) (*proto.SeatListResponse, error) {
 	var seatList []model.TrainSeat
 	bt, _ := time.Parse("2006-01-02", pageinfo.Date)

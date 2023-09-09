@@ -31,14 +31,12 @@ service Station {
 
 // 这里的车票是指车次的票，而不是用户已经购买的票
 service Ticket {
-  rpc GetTicketList(TicketPageInfo) returns (TicketListResponse);
-  rpc GetTicket(TicketRequest) returns (TicketResponse);
-  rpc CreateTicket(TicketRequest) returns (TicketResponse);
-  rpc UpdateTicket(TicketRequest) returns (TicketResponse);
+  // 有时间再说
+  // rpc CreateTicket(TicketRequest) returns (TicketResponse);
   rpc DeleteTicket(TicketRequest) returns (TicketResponse);
-  rpc GetTicketListByDate(TicketPageInfo) returns (TicketListResponse);
-  rpc GetAllTicket(TicketRequest) returns (TicketListResponse);
+  rpc GetAllTicket(TicketPageInfo) returns (TicketListResponse);
   rpc GenerateTicket(TicketRequest) returns (TicketListResponse);
+  rpc GetTicketList(TicketRequest) returns (TicketListResponse);
 }
 
 service Carriage {
@@ -254,6 +252,7 @@ message TicketRequest {
   int32 startIndex = 6;
   int32 endStation = 7;
   int32 endPinyin = 8;
+  string date = 9;
 }
 
 message TicketResponse {
