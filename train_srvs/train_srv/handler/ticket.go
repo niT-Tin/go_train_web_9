@@ -58,68 +58,63 @@ func (t *TicketServer) GetTicketList(ctx context.Context, ticketreq *proto.Ticke
 	return ticketresp, nil
 }
 
+// 每日每趟车次的车票生成
 func (t *TicketServer) GenerateTicket(ctx context.Context, ticketreq *proto.TicketRequest) (*proto.TicketListResponse, error) {
-	var tickets []model.DailyTrainTicket
-	var ticketresp proto.TicketListResponse
-	ss := &services.StationService{}
-	dts, err := ss.GetStationsByTrainCodeDaily(ticketreq.TrainCode, ticketreq.Date)
-	ts := &services.SeatService{}
-	tts := &services.TrainService{}
-	t2, err2 := tts.GetTrainByCode(ticketreq.TrainCode)
-	dt, _ := time.Parse("2006-01-02", ticketreq.Date)
-	if err2 != nil {
-		return nil, err2
-	}
+	ts := &services.TicketService{}
+	dtt, err := ts.GenerateDailyTicket(ticketreq.TrainCode, ticketreq.Date)
 	if err != nil {
 		return nil, err
 	}
-	for i := 0; i < len(dts); i++ {
-		var kms float64
-		for j := i + 1; j < len(dts); j++ {
-			kms = dts[j].Km + dts[i].Km
-			fc_count := ts.CountSeat(ticketreq.Date, ticketreq.TrainCode, global.SeatTypeFirstClass)
+	ticketresp := &proto.TicketListResponse{}
+	for _, ticket := range dtt {
+		ticketrsp := TicketModel2Response(ticket)
+		ticketresp.Data = append(ticketresp.Data, ticketrsp)
+	}
+	return ticketresp, nil
+}
 
-			sc_count := ts.CountSeat(ticketreq.Date, ticketreq.TrainCode, global.SeatTypeSecondClass)
-			sf_count := ts.CountSeat(ticketreq.Date, ticketreq.TrainCode, global.SeatTypeSoftBerth)
-			hb_count := ts.CountSeat(ticketreq.Date, ticketreq.TrainCode, global.SeatTypeHardBerth)
-
-			fcp := kms * float64(global.SeatFarePerKmFirstClass) * float64(tts.GetRate(global.TrainType(t2.Type)))
-			scp := kms * float64(global.SeatFarePerKmSecondClass) * float64(tts.GetRate(global.TrainType(t2.Type)))
-			sfp := kms * float64(global.SeatFarePerKmSoftberth) * float64(tts.GetRate(global.TrainType(t2.Type)))
-			hbp := kms * float64(global.SeatFarePerKmHardberth) * float64(tts.GetRate(global.TrainType(t2.Type)))
-
-			ticket := model.DailyTrainTicket{
-				TrainCode:        ticketreq.TrainCode,
-				Start:            dts[i].Name,
-				End:              dts[j].Name,
-				StartPinyin:      dts[i].NamePinyin,
-				EndPinyin:        dts[j].NamePinyin,
-				StartTime:        dts[i].OutTime,
-				EndTime:          dts[j].InTime,
-				Date:             dt,
-				FirstClassLast:   int32(fc_count),
-				SecondClassLast:  int32(sc_count),
-				SoftBerthLast:    int32(sf_count),
-				HardBerthLast:    int32(hb_count),
-				FirstClassPrice:  fcp,
-				SecondClassPrice: scp,
-				SoftBerthPrice:   sfp,
-				HardBerthPrice:   hbp,
-			}
-			tickets = append(tickets, ticket)
-			ticketrsp := TicketModel2Response(ticket)
-			ticketresp.Data = append(ticketresp.Data, ticketrsp)
+// 扣减车票信息
+func (t *TicketServer) ReductTicket(ctx context.Context, ticketreq *proto.BusinessRequest) (*proto.TicketResponse, error) {
+	ts := &services.TicketService{}
+	var tseats []*model.TrainSeat
+	for _, seat := range ticketreq.Seats {
+		tseat := &model.TrainSeat{
+			TrainCode:         seat.TrainCode,
+			CarriageIndex:     seat.CarriageIndex,
+			SeatType:          seat.SeatType,
+			Row_:              seat.Row,
+			Col:               seat.Column,
+			CarriageSeatIndex: seat.SeatIndex,
 		}
+		tseats = append(tseats, tseat)
 	}
-	result := global.DB.CreateInBatches(tickets, len(tickets))
-	if result.Error != nil {
-		zap.S().Errorf("生成车票失败")
-		return nil, result.Error
+	err := ts.DeducInventory(ticketreq.Date, ticketreq.StartStation, ticketreq.EndStation, ticketreq.StartTime, tseats)
+	if err != nil {
+		zap.S().Errorf("扣减车票失败")
+		return nil, err
 	}
-	if result.RowsAffected == 0 && len(tickets) > 0 {
-		zap.S().Errorf("生成车票失败")
-		return nil, status.Errorf(codes.Internal, "生成车票失败")
+	return &proto.TicketResponse{}, nil
+}
+
+// 归还车票信息
+func (t *TicketServer) RebackTicket(ctx context.Context, ticketreq *proto.BusinessRequest) (*proto.TicketResponse, error) {
+	ts := &services.TicketService{}
+	var tseats []*model.TrainSeat
+	for _, seat := range ticketreq.Seats {
+		tseat := &model.TrainSeat{
+			TrainCode:         seat.TrainCode,
+			CarriageIndex:     seat.CarriageIndex,
+			SeatType:          seat.SeatType,
+			Row_:              seat.Row,
+			Col:               seat.Column,
+			CarriageSeatIndex: seat.SeatIndex,
+		}
+		tseats = append(tseats, tseat)
 	}
-	zap.S().Infof("生成车票成功 车票数量: %d", result.RowsAffected)
-	return &ticketresp, nil
+	err := ts.ReBackInventory(ticketreq.OrderId, ticketreq.Date, ticketreq.StartStation, ticketreq.EndStation, ticketreq.StartTime, tseats)
+	if err != nil {
+		zap.S().Errorf("归还车票失败")
+		return nil, err
+	}
+	return &proto.TicketResponse{}, nil
 }

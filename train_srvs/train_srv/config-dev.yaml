@@ -5,7 +5,7 @@ nacos:
   namespace: '0c56dfe6-d4a7-42ba-b2be-9502f91ece03'
   user: 'nacos'
   password: 'nacos'
-  dataid: 'user-srv-dev.yaml'
+  dataid: 'train-srv-dev.yaml'
   group: 'dev'
   timeoutms: 5000
   cachedir: 'tmp/nacos/cache'

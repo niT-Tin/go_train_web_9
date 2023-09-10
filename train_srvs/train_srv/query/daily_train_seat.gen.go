@@ -35,7 +35,7 @@ func newDailyTrainSeat(db *gorm.DB, opts ...gen.DOOption) dailyTrainSeat {
 	_dailyTrainSeat.Col = field.NewString(tableName, "col")
 	_dailyTrainSeat.SeatType = field.NewString(tableName, "seat_type")
 	_dailyTrainSeat.CarriageSeatIndex = field.NewInt32(tableName, "carriage_seat_index")
-	_dailyTrainSeat.Sell = field.NewString(tableName, "sell")
+	_dailyTrainSeat.Sell = field.NewInt64(tableName, "sell")
 	_dailyTrainSeat.CreateTime = field.NewTime(tableName, "create_time")
 	_dailyTrainSeat.UpdateTime = field.NewTime(tableName, "update_time")
 
@@ -56,7 +56,7 @@ type dailyTrainSeat struct {
 	Col               field.String // 列号|枚举[SeatColEnum]
 	SeatType          field.String // 座位类型|枚举[SeatTypeEnum]
 	CarriageSeatIndex field.Int32  // 同车箱座序
-	Sell              field.String // 售卖情况|将经过的车站用01拼接，0表示可卖，1表示已卖
+	Sell              field.Int64  // 售卖情况|0表示可卖，1表示已卖
 	CreateTime        field.Time   // 新增时间
 	UpdateTime        field.Time   // 修改时间
 
@@ -83,7 +83,7 @@ func (d *dailyTrainSeat) updateTableName(table string) *dailyTrainSeat {
 	d.Col = field.NewString(table, "col")
 	d.SeatType = field.NewString(table, "seat_type")
 	d.CarriageSeatIndex = field.NewInt32(table, "carriage_seat_index")
-	d.Sell = field.NewString(table, "sell")
+	d.Sell = field.NewInt64(table, "sell")
 	d.CreateTime = field.NewTime(table, "create_time")
 	d.UpdateTime = field.NewTime(table, "update_time")
 

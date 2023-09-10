@@ -5,6 +5,7 @@ import (
 	"gotrains/train_srvs/train_srv/global"
 	"gotrains/train_srvs/train_srv/model"
 	"gotrains/train_srvs/train_srv/proto"
+	"gotrains/train_srvs/train_srv/services"
 	"time"
 
 	"google.golang.org/grpc/codes"
@@ -136,6 +137,11 @@ func (c *CarriageServer) GetAllCarriage(ctx context.Context, carriagereq *proto.
 	return rsp, nil
 }
 
-func (c *CarriageServer) GenerateCarriageDaily(ctx context.Context, carriagereq *proto.CarriageRequest) (*proto.CarriageListResponse, error) {
-	panic("not implemented") // TODO: Implement
+func (c *CarriageServer) GenerateCarriageDaily(ctx context.Context, carriagereq *proto.CarriageDailyRequest) (*proto.CarriageListResponse, error) {
+	cs := &services.CarriageService{}
+	err := cs.GenerateDailyCarriage(carriagereq.TrainCode, carriagereq.Date)
+	if err != nil {
+		return nil, err
+	}
+	return &proto.CarriageListResponse{}, nil
 }

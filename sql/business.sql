@@ -137,7 +137,8 @@ create table `daily_train_seat` (
   `col` char(1) not null comment '列号|枚举[SeatColEnum]',
   `seat_type` char(1) not null comment '座位类型|枚举[SeatTypeEnum]',
   `carriage_seat_index` int not null comment '同车箱座序',
-  `sell` varchar(50) not null comment '售卖情况|将经过的车站用01拼接，0表示可卖，1表示已卖',
+  `sell` bigint not null comment '售卖情况|0表示可卖，1表示已卖',
+  -- `sell` varchar(50) not null comment '售卖情况|将经过的车站用01拼接，0表示可卖，1表示已卖',
   `create_time` datetime(3) comment '新增时间',
   `update_time` datetime(3) comment '修改时间',
   primary key (`id`)

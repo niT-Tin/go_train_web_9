@@ -5,6 +5,7 @@ import (
 	"gotrains/train_srvs/train_srv/global"
 	"gotrains/train_srvs/train_srv/model"
 	"gotrains/train_srvs/train_srv/proto"
+	"gotrains/train_srvs/train_srv/services"
 	"gotrains/train_srvs/train_srv/utils"
 	"time"
 
@@ -142,33 +143,11 @@ func (s *StationServer) GetAllStation(ctx context.Context, stationreq *proto.Sta
 }
 
 func (s *StationServer) GenerateStationDaily(ctx context.Context, stationreq *proto.StationDailyRequest) (*proto.StationListResponse, error) {
-	// 删除某日某车次的车站信息
-	result := global.DB.Delete(&model.DailyTrainStation{}, "train_code = ? and date = ?", stationreq.TrainCode, stationreq.Date)
-	if result.Error != nil {
-		return nil, result.Error
+	ss := &services.StationService{}
+	tp, _ := time.Parse("2006-01-02", stationreq.Date)
+	_, err := ss.GenerateStationDaily(&model.DailyTrainStation{TrainCode: stationreq.TrainCode, Date: tp})
+	if err != nil {
+		return nil, err
 	}
-	// 获取某日某车次的车站信息
-	dt, _ := time.Parse("2006-01-02", stationreq.Date)
-	var stations []model.DailyTrainStation
-	res := global.DB.Where(&model.DailyTrainStation{TrainCode: stationreq.TrainCode, Date: dt}).Find(&stations)
-	if res.Error != nil {
-		return nil, res.Error
-	}
-	if len(stations) == 0 {
-		return nil, status.Errorf(codes.NotFound, "车站信息不存在")
-	}
-	for _, station := range stations {
-		// 多此一举
-		tp, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
-		station.TrainCode = stationreq.TrainCode
-		station.CreateTime = time.Now()
-		station.UpdateTime = time.Now()
-		station.Date = tp
-		result := global.DB.Create(&station)
-		if result.Error != nil {
-			return nil, result.Error
-		}
-	}
-	zap.S().Infof("车站信息生成成功 date: %s, train_code: %s", stationreq.Date, stationreq.TrainCode)
 	return &proto.StationListResponse{}, nil
 }

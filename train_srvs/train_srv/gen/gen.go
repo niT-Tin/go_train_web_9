@@ -18,7 +18,8 @@ func main() {
 
 	// Generate basic type-safe DAO API for struct `model.User` following conventions
 	g.ApplyBasic(
-		g.GenerateAllTable()...,
+		g.GenerateModel("daily_train_seat"),
+		// g.GenerateAllTable()...,
 	)
 
 	// Generate Type Safe API with Dynamic SQL defined on Querier interface for `model.User` and `model.Company`

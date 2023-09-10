@@ -46,7 +46,7 @@ type TrainClient interface {
 	DeleteTrain(ctx context.Context, in *TrainRequest, opts ...grpc.CallOption) (*TrainResponse, error)
 	GetTrainDailyListByDate(ctx context.Context, in *TrainDailyPageInfo, opts ...grpc.CallOption) (*TrainDailyListResponse, error)
 	GetAllTrain(ctx context.Context, in *TrainRequest, opts ...grpc.CallOption) (*TrainListResponse, error)
-	GenerateTrainDaily(ctx context.Context, in *TrainRequest, opts ...grpc.CallOption) (*TrainListResponse, error)
+	GenerateTrainDaily(ctx context.Context, in *TrainDailyRequest, opts ...grpc.CallOption) (*TrainListResponse, error)
 }
 
 type trainClient struct {
@@ -138,7 +138,7 @@ func (c *trainClient) GetAllTrain(ctx context.Context, in *TrainRequest, opts ..
 	return out, nil
 }
 
-func (c *trainClient) GenerateTrainDaily(ctx context.Context, in *TrainRequest, opts ...grpc.CallOption) (*TrainListResponse, error) {
+func (c *trainClient) GenerateTrainDaily(ctx context.Context, in *TrainDailyRequest, opts ...grpc.CallOption) (*TrainListResponse, error) {
 	out := new(TrainListResponse)
 	err := c.cc.Invoke(ctx, Train_GenerateTrainDaily_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -160,7 +160,7 @@ type TrainServer interface {
 	DeleteTrain(context.Context, *TrainRequest) (*TrainResponse, error)
 	GetTrainDailyListByDate(context.Context, *TrainDailyPageInfo) (*TrainDailyListResponse, error)
 	GetAllTrain(context.Context, *TrainRequest) (*TrainListResponse, error)
-	GenerateTrainDaily(context.Context, *TrainRequest) (*TrainListResponse, error)
+	GenerateTrainDaily(context.Context, *TrainDailyRequest) (*TrainListResponse, error)
 	mustEmbedUnimplementedTrainServer()
 }
 
@@ -195,7 +195,7 @@ func (UnimplementedTrainServer) GetTrainDailyListByDate(context.Context, *TrainD
 func (UnimplementedTrainServer) GetAllTrain(context.Context, *TrainRequest) (*TrainListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllTrain not implemented")
 }
-func (UnimplementedTrainServer) GenerateTrainDaily(context.Context, *TrainRequest) (*TrainListResponse, error) {
+func (UnimplementedTrainServer) GenerateTrainDaily(context.Context, *TrainDailyRequest) (*TrainListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateTrainDaily not implemented")
 }
 func (UnimplementedTrainServer) mustEmbedUnimplementedTrainServer() {}
@@ -374,7 +374,7 @@ func _Train_GetAllTrain_Handler(srv interface{}, ctx context.Context, dec func(i
 }
 
 func _Train_GenerateTrainDaily_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TrainRequest)
+	in := new(TrainDailyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -386,7 +386,7 @@ func _Train_GenerateTrainDaily_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: Train_GenerateTrainDaily_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TrainServer).GenerateTrainDaily(ctx, req.(*TrainRequest))
+		return srv.(TrainServer).GenerateTrainDaily(ctx, req.(*TrainDailyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -469,7 +469,7 @@ type StationClient interface {
 	DeleteStation(ctx context.Context, in *StationRequest, opts ...grpc.CallOption) (*StationResponse, error)
 	GetStationDailyListByDate(ctx context.Context, in *StationDailyPageInfo, opts ...grpc.CallOption) (*StationDailyListResponse, error)
 	GetAllStation(ctx context.Context, in *StationRequest, opts ...grpc.CallOption) (*StationListResponse, error)
-	GenerateStationDaily(ctx context.Context, in *StationRequest, opts ...grpc.CallOption) (*StationListResponse, error)
+	GenerateStationDaily(ctx context.Context, in *StationDailyRequest, opts ...grpc.CallOption) (*StationListResponse, error)
 }
 
 type stationClient struct {
@@ -561,7 +561,7 @@ func (c *stationClient) GetAllStation(ctx context.Context, in *StationRequest, o
 	return out, nil
 }
 
-func (c *stationClient) GenerateStationDaily(ctx context.Context, in *StationRequest, opts ...grpc.CallOption) (*StationListResponse, error) {
+func (c *stationClient) GenerateStationDaily(ctx context.Context, in *StationDailyRequest, opts ...grpc.CallOption) (*StationListResponse, error) {
 	out := new(StationListResponse)
 	err := c.cc.Invoke(ctx, Station_GenerateStationDaily_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -583,7 +583,7 @@ type StationServer interface {
 	DeleteStation(context.Context, *StationRequest) (*StationResponse, error)
 	GetStationDailyListByDate(context.Context, *StationDailyPageInfo) (*StationDailyListResponse, error)
 	GetAllStation(context.Context, *StationRequest) (*StationListResponse, error)
-	GenerateStationDaily(context.Context, *StationRequest) (*StationListResponse, error)
+	GenerateStationDaily(context.Context, *StationDailyRequest) (*StationListResponse, error)
 	mustEmbedUnimplementedStationServer()
 }
 
@@ -618,7 +618,7 @@ func (UnimplementedStationServer) GetStationDailyListByDate(context.Context, *St
 func (UnimplementedStationServer) GetAllStation(context.Context, *StationRequest) (*StationListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllStation not implemented")
 }
-func (UnimplementedStationServer) GenerateStationDaily(context.Context, *StationRequest) (*StationListResponse, error) {
+func (UnimplementedStationServer) GenerateStationDaily(context.Context, *StationDailyRequest) (*StationListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateStationDaily not implemented")
 }
 func (UnimplementedStationServer) mustEmbedUnimplementedStationServer() {}
@@ -797,7 +797,7 @@ func _Station_GetAllStation_Handler(srv interface{}, ctx context.Context, dec fu
 }
 
 func _Station_GenerateStationDaily_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(StationRequest)
+	in := new(StationDailyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -809,7 +809,7 @@ func _Station_GenerateStationDaily_Handler(srv interface{}, ctx context.Context,
 		FullMethod: Station_GenerateStationDaily_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(StationServer).GenerateStationDaily(ctx, req.(*StationRequest))
+		return srv.(StationServer).GenerateStationDaily(ctx, req.(*StationDailyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -871,6 +871,8 @@ const (
 	Ticket_GetAllTicket_FullMethodName   = "/proto.Ticket/GetAllTicket"
 	Ticket_GenerateTicket_FullMethodName = "/proto.Ticket/GenerateTicket"
 	Ticket_GetTicketList_FullMethodName  = "/proto.Ticket/GetTicketList"
+	Ticket_ReductTicket_FullMethodName   = "/proto.Ticket/ReductTicket"
+	Ticket_RebackTicket_FullMethodName   = "/proto.Ticket/RebackTicket"
 )
 
 // TicketClient is the client API for Ticket service.
@@ -883,6 +885,8 @@ type TicketClient interface {
 	GetAllTicket(ctx context.Context, in *TicketPageInfo, opts ...grpc.CallOption) (*TicketListResponse, error)
 	GenerateTicket(ctx context.Context, in *TicketRequest, opts ...grpc.CallOption) (*TicketListResponse, error)
 	GetTicketList(ctx context.Context, in *TicketRequest, opts ...grpc.CallOption) (*TicketListResponse, error)
+	ReductTicket(ctx context.Context, in *BusinessRequest, opts ...grpc.CallOption) (*TicketResponse, error)
+	RebackTicket(ctx context.Context, in *BusinessRequest, opts ...grpc.CallOption) (*TicketResponse, error)
 }
 
 type ticketClient struct {
@@ -929,6 +933,24 @@ func (c *ticketClient) GetTicketList(ctx context.Context, in *TicketRequest, opt
 	return out, nil
 }
 
+func (c *ticketClient) ReductTicket(ctx context.Context, in *BusinessRequest, opts ...grpc.CallOption) (*TicketResponse, error) {
+	out := new(TicketResponse)
+	err := c.cc.Invoke(ctx, Ticket_ReductTicket_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *ticketClient) RebackTicket(ctx context.Context, in *BusinessRequest, opts ...grpc.CallOption) (*TicketResponse, error) {
+	out := new(TicketResponse)
+	err := c.cc.Invoke(ctx, Ticket_RebackTicket_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TicketServer is the server API for Ticket service.
 // All implementations must embed UnimplementedTicketServer
 // for forward compatibility
@@ -939,6 +961,8 @@ type TicketServer interface {
 	GetAllTicket(context.Context, *TicketPageInfo) (*TicketListResponse, error)
 	GenerateTicket(context.Context, *TicketRequest) (*TicketListResponse, error)
 	GetTicketList(context.Context, *TicketRequest) (*TicketListResponse, error)
+	ReductTicket(context.Context, *BusinessRequest) (*TicketResponse, error)
+	RebackTicket(context.Context, *BusinessRequest) (*TicketResponse, error)
 	mustEmbedUnimplementedTicketServer()
 }
 
@@ -957,6 +981,12 @@ func (UnimplementedTicketServer) GenerateTicket(context.Context, *TicketRequest)
 }
 func (UnimplementedTicketServer) GetTicketList(context.Context, *TicketRequest) (*TicketListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTicketList not implemented")
+}
+func (UnimplementedTicketServer) ReductTicket(context.Context, *BusinessRequest) (*TicketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ReductTicket not implemented")
+}
+func (UnimplementedTicketServer) RebackTicket(context.Context, *BusinessRequest) (*TicketResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RebackTicket not implemented")
 }
 func (UnimplementedTicketServer) mustEmbedUnimplementedTicketServer() {}
 
@@ -1043,6 +1073,42 @@ func _Ticket_GetTicketList_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Ticket_ReductTicket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BusinessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TicketServer).ReductTicket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Ticket_ReductTicket_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TicketServer).ReductTicket(ctx, req.(*BusinessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Ticket_RebackTicket_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BusinessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TicketServer).RebackTicket(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Ticket_RebackTicket_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TicketServer).RebackTicket(ctx, req.(*BusinessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Ticket_ServiceDesc is the grpc.ServiceDesc for Ticket service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -1065,6 +1131,14 @@ var Ticket_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTicketList",
 			Handler:    _Ticket_GetTicketList_Handler,
+		},
+		{
+			MethodName: "ReductTicket",
+			Handler:    _Ticket_ReductTicket_Handler,
+		},
+		{
+			MethodName: "RebackTicket",
+			Handler:    _Ticket_RebackTicket_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -1097,7 +1171,7 @@ type CarriageClient interface {
 	DeleteCarriage(ctx context.Context, in *CarriageRequest, opts ...grpc.CallOption) (*CarriageResponse, error)
 	GetCarriageDailyListByDate(ctx context.Context, in *CarriageDailyPageInfo, opts ...grpc.CallOption) (*CarriageDailyListResponse, error)
 	GetAllCarriage(ctx context.Context, in *CarriageRequest, opts ...grpc.CallOption) (*CarriageListResponse, error)
-	GenerateCarriageDaily(ctx context.Context, in *CarriageRequest, opts ...grpc.CallOption) (*CarriageListResponse, error)
+	GenerateCarriageDaily(ctx context.Context, in *CarriageDailyRequest, opts ...grpc.CallOption) (*CarriageListResponse, error)
 }
 
 type carriageClient struct {
@@ -1189,7 +1263,7 @@ func (c *carriageClient) GetAllCarriage(ctx context.Context, in *CarriageRequest
 	return out, nil
 }
 
-func (c *carriageClient) GenerateCarriageDaily(ctx context.Context, in *CarriageRequest, opts ...grpc.CallOption) (*CarriageListResponse, error) {
+func (c *carriageClient) GenerateCarriageDaily(ctx context.Context, in *CarriageDailyRequest, opts ...grpc.CallOption) (*CarriageListResponse, error) {
 	out := new(CarriageListResponse)
 	err := c.cc.Invoke(ctx, Carriage_GenerateCarriageDaily_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -1211,7 +1285,7 @@ type CarriageServer interface {
 	DeleteCarriage(context.Context, *CarriageRequest) (*CarriageResponse, error)
 	GetCarriageDailyListByDate(context.Context, *CarriageDailyPageInfo) (*CarriageDailyListResponse, error)
 	GetAllCarriage(context.Context, *CarriageRequest) (*CarriageListResponse, error)
-	GenerateCarriageDaily(context.Context, *CarriageRequest) (*CarriageListResponse, error)
+	GenerateCarriageDaily(context.Context, *CarriageDailyRequest) (*CarriageListResponse, error)
 	mustEmbedUnimplementedCarriageServer()
 }
 
@@ -1246,7 +1320,7 @@ func (UnimplementedCarriageServer) GetCarriageDailyListByDate(context.Context, *
 func (UnimplementedCarriageServer) GetAllCarriage(context.Context, *CarriageRequest) (*CarriageListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllCarriage not implemented")
 }
-func (UnimplementedCarriageServer) GenerateCarriageDaily(context.Context, *CarriageRequest) (*CarriageListResponse, error) {
+func (UnimplementedCarriageServer) GenerateCarriageDaily(context.Context, *CarriageDailyRequest) (*CarriageListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateCarriageDaily not implemented")
 }
 func (UnimplementedCarriageServer) mustEmbedUnimplementedCarriageServer() {}
@@ -1425,7 +1499,7 @@ func _Carriage_GetAllCarriage_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _Carriage_GenerateCarriageDaily_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CarriageRequest)
+	in := new(CarriageDailyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1437,7 +1511,7 @@ func _Carriage_GenerateCarriageDaily_Handler(srv interface{}, ctx context.Contex
 		FullMethod: Carriage_GenerateCarriageDaily_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(CarriageServer).GenerateCarriageDaily(ctx, req.(*CarriageRequest))
+		return srv.(CarriageServer).GenerateCarriageDaily(ctx, req.(*CarriageDailyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1495,32 +1569,28 @@ var Carriage_ServiceDesc = grpc.ServiceDesc{
 }
 
 const (
-	Seat_GetSeatDailyList_FullMethodName       = "/proto.Seat/GetSeatDailyList"
-	Seat_GetSeatDaily_FullMethodName           = "/proto.Seat/GetSeatDaily"
-	Seat_GetSeatList_FullMethodName            = "/proto.Seat/GetSeatList"
-	Seat_GetSeat_FullMethodName                = "/proto.Seat/GetSeat"
-	Seat_CreateSeat_FullMethodName             = "/proto.Seat/CreateSeat"
-	Seat_UpdateSeat_FullMethodName             = "/proto.Seat/UpdateSeat"
-	Seat_DeleteSeat_FullMethodName             = "/proto.Seat/DeleteSeat"
-	Seat_GetSeatDailyListByDate_FullMethodName = "/proto.Seat/GetSeatDailyListByDate"
-	Seat_GetAllSeat_FullMethodName             = "/proto.Seat/GetAllSeat"
-	Seat_GenerateSeatDaily_FullMethodName      = "/proto.Seat/GenerateSeatDaily"
+	Seat_GetSeatDailyByTrainCode_FullMethodName = "/proto.Seat/GetSeatDailyByTrainCode"
+	Seat_GetSeatList_FullMethodName             = "/proto.Seat/GetSeatList"
+	Seat_GetSeat_FullMethodName                 = "/proto.Seat/GetSeat"
+	Seat_UpdateSeat_FullMethodName              = "/proto.Seat/UpdateSeat"
+	Seat_DeleteSeat_FullMethodName              = "/proto.Seat/DeleteSeat"
+	Seat_GenerateSeatDaily_FullMethodName       = "/proto.Seat/GenerateSeatDaily"
 )
 
 // SeatClient is the client API for Seat service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SeatClient interface {
-	GetSeatDailyList(ctx context.Context, in *SeatDailyPageInfo, opts ...grpc.CallOption) (*SeatDailyListResponse, error)
-	GetSeatDaily(ctx context.Context, in *SeatDailyRequest, opts ...grpc.CallOption) (*SeatDailyResponse, error)
+	// rpc GetSeatDailyList(SeatDailyPageInfo) returns (SeatDailyListResponse);
+	GetSeatDailyByTrainCode(ctx context.Context, in *SeatDailyRequest, opts ...grpc.CallOption) (*SeatDailyResponse, error)
 	GetSeatList(ctx context.Context, in *SeatPageInfo, opts ...grpc.CallOption) (*SeatListResponse, error)
 	GetSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatResponse, error)
-	CreateSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatResponse, error)
+	// rpc CreateSeat(SeatRequest) returns (SeatResponse);
 	UpdateSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatResponse, error)
 	DeleteSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatResponse, error)
-	GetSeatDailyListByDate(ctx context.Context, in *SeatDailyPageInfo, opts ...grpc.CallOption) (*SeatDailyListResponse, error)
-	GetAllSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatListResponse, error)
-	GenerateSeatDaily(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatListResponse, error)
+	// rpc GetSeatDailyListByDate(SeatDailyPageInfo) returns (SeatDailyListResponse);
+	// rpc GetAllSeat(SeatRequest) returns (SeatListResponse);
+	GenerateSeatDaily(ctx context.Context, in *SeatDailyRequest, opts ...grpc.CallOption) (*SeatListResponse, error)
 }
 
 type seatClient struct {
@@ -1531,18 +1601,9 @@ func NewSeatClient(cc grpc.ClientConnInterface) SeatClient {
 	return &seatClient{cc}
 }
 
-func (c *seatClient) GetSeatDailyList(ctx context.Context, in *SeatDailyPageInfo, opts ...grpc.CallOption) (*SeatDailyListResponse, error) {
-	out := new(SeatDailyListResponse)
-	err := c.cc.Invoke(ctx, Seat_GetSeatDailyList_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *seatClient) GetSeatDaily(ctx context.Context, in *SeatDailyRequest, opts ...grpc.CallOption) (*SeatDailyResponse, error) {
+func (c *seatClient) GetSeatDailyByTrainCode(ctx context.Context, in *SeatDailyRequest, opts ...grpc.CallOption) (*SeatDailyResponse, error) {
 	out := new(SeatDailyResponse)
-	err := c.cc.Invoke(ctx, Seat_GetSeatDaily_FullMethodName, in, out, opts...)
+	err := c.cc.Invoke(ctx, Seat_GetSeatDailyByTrainCode_FullMethodName, in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -1567,15 +1628,6 @@ func (c *seatClient) GetSeat(ctx context.Context, in *SeatRequest, opts ...grpc.
 	return out, nil
 }
 
-func (c *seatClient) CreateSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatResponse, error) {
-	out := new(SeatResponse)
-	err := c.cc.Invoke(ctx, Seat_CreateSeat_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *seatClient) UpdateSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatResponse, error) {
 	out := new(SeatResponse)
 	err := c.cc.Invoke(ctx, Seat_UpdateSeat_FullMethodName, in, out, opts...)
@@ -1594,25 +1646,7 @@ func (c *seatClient) DeleteSeat(ctx context.Context, in *SeatRequest, opts ...gr
 	return out, nil
 }
 
-func (c *seatClient) GetSeatDailyListByDate(ctx context.Context, in *SeatDailyPageInfo, opts ...grpc.CallOption) (*SeatDailyListResponse, error) {
-	out := new(SeatDailyListResponse)
-	err := c.cc.Invoke(ctx, Seat_GetSeatDailyListByDate_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *seatClient) GetAllSeat(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatListResponse, error) {
-	out := new(SeatListResponse)
-	err := c.cc.Invoke(ctx, Seat_GetAllSeat_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *seatClient) GenerateSeatDaily(ctx context.Context, in *SeatRequest, opts ...grpc.CallOption) (*SeatListResponse, error) {
+func (c *seatClient) GenerateSeatDaily(ctx context.Context, in *SeatDailyRequest, opts ...grpc.CallOption) (*SeatListResponse, error) {
 	out := new(SeatListResponse)
 	err := c.cc.Invoke(ctx, Seat_GenerateSeatDaily_FullMethodName, in, out, opts...)
 	if err != nil {
@@ -1625,16 +1659,16 @@ func (c *seatClient) GenerateSeatDaily(ctx context.Context, in *SeatRequest, opt
 // All implementations must embed UnimplementedSeatServer
 // for forward compatibility
 type SeatServer interface {
-	GetSeatDailyList(context.Context, *SeatDailyPageInfo) (*SeatDailyListResponse, error)
-	GetSeatDaily(context.Context, *SeatDailyRequest) (*SeatDailyResponse, error)
+	// rpc GetSeatDailyList(SeatDailyPageInfo) returns (SeatDailyListResponse);
+	GetSeatDailyByTrainCode(context.Context, *SeatDailyRequest) (*SeatDailyResponse, error)
 	GetSeatList(context.Context, *SeatPageInfo) (*SeatListResponse, error)
 	GetSeat(context.Context, *SeatRequest) (*SeatResponse, error)
-	CreateSeat(context.Context, *SeatRequest) (*SeatResponse, error)
+	// rpc CreateSeat(SeatRequest) returns (SeatResponse);
 	UpdateSeat(context.Context, *SeatRequest) (*SeatResponse, error)
 	DeleteSeat(context.Context, *SeatRequest) (*SeatResponse, error)
-	GetSeatDailyListByDate(context.Context, *SeatDailyPageInfo) (*SeatDailyListResponse, error)
-	GetAllSeat(context.Context, *SeatRequest) (*SeatListResponse, error)
-	GenerateSeatDaily(context.Context, *SeatRequest) (*SeatListResponse, error)
+	// rpc GetSeatDailyListByDate(SeatDailyPageInfo) returns (SeatDailyListResponse);
+	// rpc GetAllSeat(SeatRequest) returns (SeatListResponse);
+	GenerateSeatDaily(context.Context, *SeatDailyRequest) (*SeatListResponse, error)
 	mustEmbedUnimplementedSeatServer()
 }
 
@@ -1642,11 +1676,8 @@ type SeatServer interface {
 type UnimplementedSeatServer struct {
 }
 
-func (UnimplementedSeatServer) GetSeatDailyList(context.Context, *SeatDailyPageInfo) (*SeatDailyListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSeatDailyList not implemented")
-}
-func (UnimplementedSeatServer) GetSeatDaily(context.Context, *SeatDailyRequest) (*SeatDailyResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSeatDaily not implemented")
+func (UnimplementedSeatServer) GetSeatDailyByTrainCode(context.Context, *SeatDailyRequest) (*SeatDailyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSeatDailyByTrainCode not implemented")
 }
 func (UnimplementedSeatServer) GetSeatList(context.Context, *SeatPageInfo) (*SeatListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSeatList not implemented")
@@ -1654,22 +1685,13 @@ func (UnimplementedSeatServer) GetSeatList(context.Context, *SeatPageInfo) (*Sea
 func (UnimplementedSeatServer) GetSeat(context.Context, *SeatRequest) (*SeatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSeat not implemented")
 }
-func (UnimplementedSeatServer) CreateSeat(context.Context, *SeatRequest) (*SeatResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSeat not implemented")
-}
 func (UnimplementedSeatServer) UpdateSeat(context.Context, *SeatRequest) (*SeatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateSeat not implemented")
 }
 func (UnimplementedSeatServer) DeleteSeat(context.Context, *SeatRequest) (*SeatResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSeat not implemented")
 }
-func (UnimplementedSeatServer) GetSeatDailyListByDate(context.Context, *SeatDailyPageInfo) (*SeatDailyListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetSeatDailyListByDate not implemented")
-}
-func (UnimplementedSeatServer) GetAllSeat(context.Context, *SeatRequest) (*SeatListResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAllSeat not implemented")
-}
-func (UnimplementedSeatServer) GenerateSeatDaily(context.Context, *SeatRequest) (*SeatListResponse, error) {
+func (UnimplementedSeatServer) GenerateSeatDaily(context.Context, *SeatDailyRequest) (*SeatListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateSeatDaily not implemented")
 }
 func (UnimplementedSeatServer) mustEmbedUnimplementedSeatServer() {}
@@ -1685,38 +1707,20 @@ func RegisterSeatServer(s grpc.ServiceRegistrar, srv SeatServer) {
 	s.RegisterService(&Seat_ServiceDesc, srv)
 }
 
-func _Seat_GetSeatDailyList_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SeatDailyPageInfo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SeatServer).GetSeatDailyList(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Seat_GetSeatDailyList_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SeatServer).GetSeatDailyList(ctx, req.(*SeatDailyPageInfo))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Seat_GetSeatDaily_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Seat_GetSeatDailyByTrainCode_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SeatDailyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SeatServer).GetSeatDaily(ctx, in)
+		return srv.(SeatServer).GetSeatDailyByTrainCode(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: Seat_GetSeatDaily_FullMethodName,
+		FullMethod: Seat_GetSeatDailyByTrainCode_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SeatServer).GetSeatDaily(ctx, req.(*SeatDailyRequest))
+		return srv.(SeatServer).GetSeatDailyByTrainCode(ctx, req.(*SeatDailyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1757,24 +1761,6 @@ func _Seat_GetSeat_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Seat_CreateSeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SeatRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SeatServer).CreateSeat(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Seat_CreateSeat_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SeatServer).CreateSeat(ctx, req.(*SeatRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Seat_UpdateSeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SeatRequest)
 	if err := dec(in); err != nil {
@@ -1811,44 +1797,8 @@ func _Seat_DeleteSeat_Handler(srv interface{}, ctx context.Context, dec func(int
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Seat_GetSeatDailyListByDate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SeatDailyPageInfo)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SeatServer).GetSeatDailyListByDate(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Seat_GetSeatDailyListByDate_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SeatServer).GetSeatDailyListByDate(ctx, req.(*SeatDailyPageInfo))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Seat_GetAllSeat_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SeatRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(SeatServer).GetAllSeat(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: Seat_GetAllSeat_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SeatServer).GetAllSeat(ctx, req.(*SeatRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _Seat_GenerateSeatDaily_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SeatRequest)
+	in := new(SeatDailyRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -1860,7 +1810,7 @@ func _Seat_GenerateSeatDaily_Handler(srv interface{}, ctx context.Context, dec f
 		FullMethod: Seat_GenerateSeatDaily_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SeatServer).GenerateSeatDaily(ctx, req.(*SeatRequest))
+		return srv.(SeatServer).GenerateSeatDaily(ctx, req.(*SeatDailyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -1873,12 +1823,8 @@ var Seat_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*SeatServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetSeatDailyList",
-			Handler:    _Seat_GetSeatDailyList_Handler,
-		},
-		{
-			MethodName: "GetSeatDaily",
-			Handler:    _Seat_GetSeatDaily_Handler,
+			MethodName: "GetSeatDailyByTrainCode",
+			Handler:    _Seat_GetSeatDailyByTrainCode_Handler,
 		},
 		{
 			MethodName: "GetSeatList",
@@ -1889,24 +1835,12 @@ var Seat_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _Seat_GetSeat_Handler,
 		},
 		{
-			MethodName: "CreateSeat",
-			Handler:    _Seat_CreateSeat_Handler,
-		},
-		{
 			MethodName: "UpdateSeat",
 			Handler:    _Seat_UpdateSeat_Handler,
 		},
 		{
 			MethodName: "DeleteSeat",
 			Handler:    _Seat_DeleteSeat_Handler,
-		},
-		{
-			MethodName: "GetSeatDailyListByDate",
-			Handler:    _Seat_GetSeatDailyListByDate_Handler,
-		},
-		{
-			MethodName: "GetAllSeat",
-			Handler:    _Seat_GetAllSeat_Handler,
 		},
 		{
 			MethodName: "GenerateSeatDaily",

@@ -5,6 +5,7 @@ import (
 	"gotrains/train_srvs/train_srv/global"
 	"gotrains/train_srvs/train_srv/model"
 	"gotrains/train_srvs/train_srv/proto"
+	"gotrains/train_srvs/train_srv/services"
 	"gotrains/train_srvs/train_srv/utils"
 	"time"
 
@@ -170,6 +171,11 @@ func (t *TrainServer) GetAllTrain(ctx context.Context, trainreq *proto.TrainRequ
 }
 
 // TODO: 之后实现
-func (t *TrainServer) GenerateTrainDaily(_ context.Context, _ *proto.TrainRequest) (*proto.TrainListResponse, error) {
-	panic("not implemented") // TODO: Implement
+func (t *TrainServer) GenerateTrainDaily(ctx context.Context, trainreq *proto.TrainDailyRequest) (*proto.TrainListResponse, error) {
+	ts := &services.TrainService{}
+	err := ts.GenerateTrainDaily(trainreq.Code, trainreq.Date)
+	if err != nil {
+		return nil, err
+	}
+	return &proto.TrainListResponse{}, nil
 }

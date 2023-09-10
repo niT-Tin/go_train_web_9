@@ -13,7 +13,7 @@ service Train {
   rpc DeleteTrain(TrainRequest) returns (TrainResponse);
   rpc GetTrainDailyListByDate(TrainDailyPageInfo) returns (TrainDailyListResponse);
   rpc GetAllTrain(TrainRequest) returns (TrainListResponse);
-  rpc GenerateTrainDaily(TrainRequest) returns (TrainListResponse);
+  rpc GenerateTrainDaily(TrainDailyRequest) returns (TrainListResponse);
 }
 
 service Station {
@@ -26,7 +26,7 @@ service Station {
   rpc DeleteStation(StationRequest) returns (StationResponse);
   rpc GetStationDailyListByDate(StationDailyPageInfo) returns (StationDailyListResponse);
   rpc GetAllStation(StationRequest) returns (StationListResponse);
-  rpc GenerateStationDaily(StationRequest) returns (StationListResponse);
+  rpc GenerateStationDaily(StationDailyRequest) returns (StationListResponse);
 }
 
 // 这里的车票是指车次的票，而不是用户已经购买的票
@@ -37,6 +37,8 @@ service Ticket {
   rpc GetAllTicket(TicketPageInfo) returns (TicketListResponse);
   rpc GenerateTicket(TicketRequest) returns (TicketListResponse);
   rpc GetTicketList(TicketRequest) returns (TicketListResponse);
+  rpc ReductTicket(BusinessRequest) returns (TicketResponse);
+  rpc RebackTicket(BusinessRequest) returns (TicketResponse);
 }
 
 service Carriage {
@@ -49,20 +51,20 @@ service Carriage {
   rpc DeleteCarriage(CarriageRequest) returns (CarriageResponse);
   rpc GetCarriageDailyListByDate(CarriageDailyPageInfo) returns (CarriageDailyListResponse);
   rpc GetAllCarriage(CarriageRequest) returns (CarriageListResponse);
-  rpc GenerateCarriageDaily(CarriageRequest) returns (CarriageListResponse);
+  rpc GenerateCarriageDaily(CarriageDailyRequest) returns (CarriageListResponse);
 }
 
 service Seat {
-  rpc GetSeatDailyList(SeatDailyPageInfo) returns (SeatDailyListResponse);
-  rpc GetSeatDaily(SeatDailyRequest) returns (SeatDailyResponse);
+  // rpc GetSeatDailyList(SeatDailyPageInfo) returns (SeatDailyListResponse);
+  rpc GetSeatDailyByTrainCode(SeatDailyRequest) returns (SeatDailyResponse);
   rpc GetSeatList(SeatPageInfo) returns (SeatListResponse);
   rpc GetSeat(SeatRequest) returns (SeatResponse);
-  rpc CreateSeat(SeatRequest) returns (SeatResponse);
+  // rpc CreateSeat(SeatRequest) returns (SeatResponse);
   rpc UpdateSeat(SeatRequest) returns (SeatResponse);
   rpc DeleteSeat(SeatRequest) returns (SeatResponse);
-  rpc GetSeatDailyListByDate(SeatDailyPageInfo) returns (SeatDailyListResponse);
-  rpc GetAllSeat(SeatRequest) returns (SeatListResponse);
-  rpc GenerateSeatDaily(SeatRequest) returns (SeatListResponse);
+  // rpc GetSeatDailyListByDate(SeatDailyPageInfo) returns (SeatDailyListResponse);
+  // rpc GetAllSeat(SeatRequest) returns (SeatListResponse);
+  rpc GenerateSeatDaily(SeatDailyRequest) returns (SeatListResponse);
 }
 
 message TrainInfo {
@@ -177,6 +179,7 @@ message StationDailyRequest {
   string pinyin = 3;
   string firstLetter = 4;
   string date = 5;
+  string trainCode = 6;
 }
 
 message StationDailyResponse {
@@ -242,6 +245,15 @@ message TicketListResponse {
   repeated TicketResponse data = 2;
 }
 
+message BusinessRequest {
+  repeated SeatInfo seats = 1;
+  string date = 2;
+  string orderId = 3;
+  string startStation = 4;
+  string endStation = 5;
+  string startTime = 6;
+}
+
 message TicketRequest {
   int64 id = 1;
   string trainCode = 2;
@@ -253,6 +265,7 @@ message TicketRequest {
   int32 endStation = 7;
   int32 endPinyin = 8;
   string date = 9;
+  // repeated SeatInfo seats = 11;
 }
 
 message TicketResponse {

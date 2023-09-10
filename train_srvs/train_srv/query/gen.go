@@ -16,79 +16,34 @@ import (
 )
 
 var (
-	Q                  = new(Query)
-	DailyTrain         *dailyTrain
-	DailyTrainCarriage *dailyTrainCarriage
-	DailyTrainSeat     *dailyTrainSeat
-	DailyTrainStation  *dailyTrainStation
-	DailyTrainTicket   *dailyTrainTicket
-	Station            *station
-	Train              *train
-	TrainCarriage      *trainCarriage
-	TrainSeat          *trainSeat
-	TrainStation       *trainStation
+	Q              = new(Query)
+	DailyTrainSeat *dailyTrainSeat
 )
 
 func SetDefault(db *gorm.DB, opts ...gen.DOOption) {
 	*Q = *Use(db, opts...)
-	DailyTrain = &Q.DailyTrain
-	DailyTrainCarriage = &Q.DailyTrainCarriage
 	DailyTrainSeat = &Q.DailyTrainSeat
-	DailyTrainStation = &Q.DailyTrainStation
-	DailyTrainTicket = &Q.DailyTrainTicket
-	Station = &Q.Station
-	Train = &Q.Train
-	TrainCarriage = &Q.TrainCarriage
-	TrainSeat = &Q.TrainSeat
-	TrainStation = &Q.TrainStation
 }
 
 func Use(db *gorm.DB, opts ...gen.DOOption) *Query {
 	return &Query{
-		db:                 db,
-		DailyTrain:         newDailyTrain(db, opts...),
-		DailyTrainCarriage: newDailyTrainCarriage(db, opts...),
-		DailyTrainSeat:     newDailyTrainSeat(db, opts...),
-		DailyTrainStation:  newDailyTrainStation(db, opts...),
-		DailyTrainTicket:   newDailyTrainTicket(db, opts...),
-		Station:            newStation(db, opts...),
-		Train:              newTrain(db, opts...),
-		TrainCarriage:      newTrainCarriage(db, opts...),
-		TrainSeat:          newTrainSeat(db, opts...),
-		TrainStation:       newTrainStation(db, opts...),
+		db:             db,
+		DailyTrainSeat: newDailyTrainSeat(db, opts...),
 	}
 }
 
 type Query struct {
 	db *gorm.DB
 
-	DailyTrain         dailyTrain
-	DailyTrainCarriage dailyTrainCarriage
-	DailyTrainSeat     dailyTrainSeat
-	DailyTrainStation  dailyTrainStation
-	DailyTrainTicket   dailyTrainTicket
-	Station            station
-	Train              train
-	TrainCarriage      trainCarriage
-	TrainSeat          trainSeat
-	TrainStation       trainStation
+	DailyTrainSeat dailyTrainSeat
 }
 
 func (q *Query) Available() bool { return q.db != nil }
 
 func (q *Query) clone(db *gorm.DB) *Query {
 	return &Query{
-		db:                 db,
-		DailyTrain:         q.DailyTrain.clone(db),
-		DailyTrainCarriage: q.DailyTrainCarriage.clone(db),
-		DailyTrainSeat:     q.DailyTrainSeat.clone(db),
-		DailyTrainStation:  q.DailyTrainStation.clone(db),
-		DailyTrainTicket:   q.DailyTrainTicket.clone(db),
-		Station:            q.Station.clone(db),
-		Train:              q.Train.clone(db),
-		TrainCarriage:      q.TrainCarriage.clone(db),
-		TrainSeat:          q.TrainSeat.clone(db),
-		TrainStation:       q.TrainStation.clone(db),
+		db:             db,
+		DailyTrainSeat: q.DailyTrainSeat.clone(db),
 	}
 }
 
@@ -102,45 +57,18 @@ func (q *Query) WriteDB() *Query {
 
 func (q *Query) ReplaceDB(db *gorm.DB) *Query {
 	return &Query{
-		db:                 db,
-		DailyTrain:         q.DailyTrain.replaceDB(db),
-		DailyTrainCarriage: q.DailyTrainCarriage.replaceDB(db),
-		DailyTrainSeat:     q.DailyTrainSeat.replaceDB(db),
-		DailyTrainStation:  q.DailyTrainStation.replaceDB(db),
-		DailyTrainTicket:   q.DailyTrainTicket.replaceDB(db),
-		Station:            q.Station.replaceDB(db),
-		Train:              q.Train.replaceDB(db),
-		TrainCarriage:      q.TrainCarriage.replaceDB(db),
-		TrainSeat:          q.TrainSeat.replaceDB(db),
-		TrainStation:       q.TrainStation.replaceDB(db),
+		db:             db,
+		DailyTrainSeat: q.DailyTrainSeat.replaceDB(db),
 	}
 }
 
 type queryCtx struct {
-	DailyTrain         IDailyTrainDo
-	DailyTrainCarriage IDailyTrainCarriageDo
-	DailyTrainSeat     IDailyTrainSeatDo
-	DailyTrainStation  IDailyTrainStationDo
-	DailyTrainTicket   IDailyTrainTicketDo
-	Station            IStationDo
-	Train              ITrainDo
-	TrainCarriage      ITrainCarriageDo
-	TrainSeat          ITrainSeatDo
-	TrainStation       ITrainStationDo
+	DailyTrainSeat IDailyTrainSeatDo
 }
 
 func (q *Query) WithContext(ctx context.Context) *queryCtx {
 	return &queryCtx{
-		DailyTrain:         q.DailyTrain.WithContext(ctx),
-		DailyTrainCarriage: q.DailyTrainCarriage.WithContext(ctx),
-		DailyTrainSeat:     q.DailyTrainSeat.WithContext(ctx),
-		DailyTrainStation:  q.DailyTrainStation.WithContext(ctx),
-		DailyTrainTicket:   q.DailyTrainTicket.WithContext(ctx),
-		Station:            q.Station.WithContext(ctx),
-		Train:              q.Train.WithContext(ctx),
-		TrainCarriage:      q.TrainCarriage.WithContext(ctx),
-		TrainSeat:          q.TrainSeat.WithContext(ctx),
-		TrainStation:       q.TrainStation.WithContext(ctx),
+		DailyTrainSeat: q.DailyTrainSeat.WithContext(ctx),
 	}
 }
 

@@ -94,7 +94,11 @@ func main() {
 	grpc_health_v1.RegisterHealthServer(g, health.NewServer())
 	serviceId := fmt.Sprintf("%s", uuid.NewV4())
 	client := Register(global.Config.ConsulInfo.Host, *Port, "train_srv", []string{"train_srv"}, serviceId)
-	proto.RegisterUserServer(g, &handler.UserServer{})
+	proto.RegisterTrainServer(g, &handler.TrainServer{})
+	proto.RegisterStationServer(g, &handler.StationServer{})
+	proto.RegisterCarriageServer(g, &handler.CarriageServer{})
+	proto.RegisterSeatServer(g, &handler.SeatServer{})
+	proto.RegisterTicketServer(g, &handler.TicketServer{})
 
 	lis, err := net.Listen("tcp", *IP+":"+fmt.Sprint(*Port))
 	if err != nil {

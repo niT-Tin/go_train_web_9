@@ -20,7 +20,7 @@ type DailyTrainSeat struct {
 	Col               string    `gorm:"column:col;not null;comment:列号|枚举[SeatColEnum]" json:"col"`                    // 列号|枚举[SeatColEnum]
 	SeatType          string    `gorm:"column:seat_type;not null;comment:座位类型|枚举[SeatTypeEnum]" json:"seat_type"`     // 座位类型|枚举[SeatTypeEnum]
 	CarriageSeatIndex int32     `gorm:"column:carriage_seat_index;not null;comment:同车箱座序" json:"carriage_seat_index"` // 同车箱座序
-	Sell              string    `gorm:"column:sell;not null;comment:售卖情况|将经过的车站用01拼接，0表示可卖，1表示已卖" json:"sell"`        // 售卖情况|将经过的车站用01拼接，0表示可卖，1表示已卖
+	Sell              int64     `gorm:"column:sell;not null;comment:售卖情况|0表示可卖，1表示已卖" json:"sell"`                    // 售卖情况|0表示可卖，1表示已卖
 	CreateTime        time.Time `gorm:"column:create_time;comment:新增时间" json:"create_time"`                           // 新增时间
 	UpdateTime        time.Time `gorm:"column:update_time;comment:修改时间" json:"update_time"`                           // 修改时间
 }
