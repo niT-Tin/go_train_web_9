@@ -257,13 +257,13 @@ message BusinessRequest {
 message TicketRequest {
   int64 id = 1;
   string trainCode = 2;
-  int32 startStation = 3;
-  int32 startPinyin = 4;
-  int32 startTime = 5;
-  int64 endTime = 10;
+  string startStation = 3;
+  string startPinyin = 4;
+  string startTime = 5;
+  string endTime = 10;
   int32 startIndex = 6;
-  int32 endStation = 7;
-  int32 endPinyin = 8;
+  string endStation = 7;
+  string endPinyin = 8;
   string date = 9;
   // repeated SeatInfo seats = 11;
 }

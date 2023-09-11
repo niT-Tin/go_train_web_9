@@ -34,14 +34,14 @@ func (s *SeatServer) GetSeatDailyByTrainCode(ctx context.Context, dailyreq *prot
 // 	panic("not implemented")
 // }
 
-// 限定为traincode和date以及carriageindex
+// 限定为traincode和date
 func (s *SeatServer) GetSeatList(ctx context.Context, pageinfo *proto.SeatPageInfo) (*proto.SeatListResponse, error) {
 	var seatList []model.TrainSeat
 	bt, _ := time.Parse("2006-01-02", pageinfo.Date)
 	result := global.DB.Where(&model.DailyTrainSeat{
-		TrainCode:     pageinfo.Seat.TrainCode,
-		CarriageIndex: pageinfo.Seat.CarriageIndex,
-		Date:          bt,
+		TrainCode: pageinfo.Seat.TrainCode,
+		// CarriageIndex: pageinfo.Seat.CarriageIndex,
+		Date: bt,
 	}).
 		Find(&seatList)
 	if result.Error != nil {

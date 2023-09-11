@@ -1,0 +1,24 @@
+2023-07-30T16:21:18.033+0800	DEBUG	rpc/rpc_client.go:292	config-0-752e080a-a9bd-4b91-a9ef-b0c19c77f460 register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-07-30T16:21:18.033+0800	DEBUG	rpc/rpc_client.go:292	config-0-752e080a-a9bd-4b91-a9ef-b0c19c77f460 register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-07-30T16:21:18.033+0800	DEBUG	rpc/rpc_client.go:292	config-0-752e080a-a9bd-4b91-a9ef-b0c19c77f460 register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-07-30T16:21:18.033+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-752e080a-a9bd-4b91-a9ef-b0c19c77f460 try to connect to server on start up, server: {serverIp:10.102.213.148 serverPort:8848 serverGrpcPort:9848}
+2023-07-30T16:21:18.034+0800	INFO	util/common.go:96	Local IP:192.168.210.1
+2023-07-30T16:21:18.137+0800	INFO	rpc/rpc_client.go:234	config-0-752e080a-a9bd-4b91-a9ef-b0c19c77f460 success to connect to server {serverIp:10.102.213.148 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1690705278035_10.102.213.148_37676
+2023-07-30T16:37:50.199+0800	DEBUG	rpc/rpc_client.go:292	config-0-953ba08d-e800-4855-ba70-6db4f8033d68 register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-07-30T16:37:50.199+0800	DEBUG	rpc/rpc_client.go:292	config-0-953ba08d-e800-4855-ba70-6db4f8033d68 register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-07-30T16:37:50.199+0800	DEBUG	rpc/rpc_client.go:292	config-0-953ba08d-e800-4855-ba70-6db4f8033d68 register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-07-30T16:37:50.199+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-953ba08d-e800-4855-ba70-6db4f8033d68 try to connect to server on start up, server: {serverIp:10.102.213.148 serverPort:8848 serverGrpcPort:9848}
+2023-07-30T16:37:50.200+0800	INFO	util/common.go:96	Local IP:192.168.210.1
+2023-07-30T16:37:50.302+0800	INFO	rpc/rpc_client.go:234	config-0-953ba08d-e800-4855-ba70-6db4f8033d68 success to connect to server {serverIp:10.102.213.148 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1690706270201_10.102.213.148_57538
+2023-09-11T10:13:16.433+0800	DEBUG	rpc/rpc_client.go:290	config-0-e5003426-a7d2-4bd5-af37-024c33a4664f register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-09-11T10:13:16.433+0800	DEBUG	rpc/rpc_client.go:290	config-0-e5003426-a7d2-4bd5-af37-024c33a4664f register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-09-11T10:13:16.433+0800	DEBUG	rpc/rpc_client.go:290	config-0-e5003426-a7d2-4bd5-af37-024c33a4664f register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-09-11T10:13:16.433+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-e5003426-a7d2-4bd5-af37-024c33a4664f try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-11T10:13:16.434+0800	INFO	util/common.go:96	Local IP:172.18.0.1
+2023-09-11T10:13:16.558+0800	INFO	rpc/rpc_client.go:234	config-0-e5003426-a7d2-4bd5-af37-024c33a4664f success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694398396436_10.102.109.196_45916
+2023-09-11T15:29:07.023+0800	DEBUG	rpc/rpc_client.go:290	config-0-0991f6aa-b43d-4e3c-8daf-545106cfd293 register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-09-11T15:29:07.023+0800	DEBUG	rpc/rpc_client.go:290	config-0-0991f6aa-b43d-4e3c-8daf-545106cfd293 register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-09-11T15:29:07.023+0800	DEBUG	rpc/rpc_client.go:290	config-0-0991f6aa-b43d-4e3c-8daf-545106cfd293 register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-09-11T15:29:07.023+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-0991f6aa-b43d-4e3c-8daf-545106cfd293 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-11T15:29:07.023+0800	INFO	util/common.go:96	Local IP:172.18.0.1
+2023-09-11T15:29:07.127+0800	INFO	rpc/rpc_client.go:234	config-0-0991f6aa-b43d-4e3c-8daf-545106cfd293 success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694417347026_10.102.109.196_51608
