@@ -35,10 +35,12 @@ type User struct {
 
 type Passenger struct {
 	BaseModel
-	Name   string        `gorm:"column:name;type:varchar(20);not null;"`
-	UserID int32         `gorm:"column:user_id;type:int;not null;"`
-	IdCard string        `gorm:"column:id_card;type:varchar(18);not null;unique_index;"`
-	Type   PassengerType `gorm:"column:type;type:int;not null;"`
+	Name     string        `gorm:"column:name;type:varchar(20);not null;"`
+	UserID   int32         `gorm:"column:user_id;type:int;not null;"`
+	IdCard   string        `gorm:"column:id_card;type:varchar(18);not null;unique_index;"`
+	Type     PassengerType `gorm:"column:type;type:int;not null;"`
+	SeatType string        `gorm:"column:seat_type;type:varchar(10);not null;"`
+	Seat     string        `gorm:"column:seat;type:varchar(10);not null;"`
 }
 
 func (p *PassengerType) Scan(value interface{}) error {

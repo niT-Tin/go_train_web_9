@@ -94,7 +94,7 @@ func main() {
 	grpc_health_v1.RegisterHealthServer(g, health.NewServer())
 	serviceId := fmt.Sprintf("%s", uuid.NewV4())
 	client := Register(global.Config.ConsulInfo.Host, *Port, "ticketorder_srv", []string{"ticketorder_srv"}, serviceId)
-	proto.RegisterUserServer(g, &handler.UserServer{})
+	proto.RegisterOrderServer(g, &handler.OrderServer{})
 
 	lis, err := net.Listen("tcp", *IP+":"+fmt.Sprint(*Port))
 	if err != nil {

@@ -1,0 +1,25 @@
+name: 'user-web'
+port: ':8080'
+user_srv:
+  host: '127.0.0.1'
+  port: 40679
+  name: 'user_srv'
+
+jwt:
+  key: 'Pn5wO!E&l5%fnLnuVk^v0ZkXRgqT8qom'
+
+ali_sms:
+  access_key_id: 'LTAI5tPg6XEW6CD32H5Y5Tjp'
+  access_secret: 'ZyJQCFUZ7yOaPSW9xPn89LKFKaR7V3'
+  template_code: 'SMS_462015641'
+  sign_name: '昊giegie'
+  code_len: 5
+  expire: 300
+
+redis:
+  host: '127.0.0.1'
+  port: 6379
+
+consul:
+  host: '10.102.109.196'
+  port: 8500

@@ -38,7 +38,7 @@ func InitDB() {
 	if nil != err {
 		panic(err)
 	}
-	err = global.DB.AutoMigrate(&model.User{}, &model.Passenger{})
+	err = global.DB.AutoMigrate(&model.Order{})
 	if err != nil {
 		panic(err)
 	}

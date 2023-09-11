@@ -1,0 +1,77 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+package proto;
+option go_package = ".;proto";
+
+service Order {
+  rpc CreateOrder(CreateOrderInfo) returns (OrderInfoResponse); // 创建订单
+  rpc GetOrderList(OrderPageInfo) returns (OrderListResponse); // 获取订单列表
+  rpc GetOrderById(oIdRequest) returns (OrderInfoResponse); // 通过id获取订单
+  rpc UpdateOrder(UpdateOrderInfo) returns (google.protobuf.Empty); // 更新订单
+  rpc DeleteOrder(oIdRequest) returns (google.protobuf.Empty); // 删除订单
+  rpc GetOrderListByUserId(OrderPageInfo) returns (OrderListResponse); // 通过用户id获取订单列表
+  // rpc DeletePassenger(oIdRequest) returns (google.protobuf.Empty); // 删除乘客
+}
+
+message CreateOrderInfo {
+  int32 id = 1;
+  OrderInfo orderInfo = 2;
+}
+
+message OrderPageInfo {
+  uint32 pn = 1;
+  uint32 ps = 2;
+  int32 userId = 3;
+}
+
+message oIdRequest {
+  int32 userId = 1;
+}
+
+message UpdateOrderInfo {
+  string orderSn = 1;
+  repeated oPassengerInfo passengers = 2;
+}
+
+message OrderInfo {
+  int32 id = 1;
+  int32 userId = 2;
+  string orderSn = 3;
+  string status = 4;
+  int32 trainId = 5;
+  string startStation = 6;
+  string endStation = 7;
+  string startTime = 8;
+  string endTime = 9;
+  string seatType = 10;
+  string seatNumber = 11;
+  float price = 12;
+  repeated oPassengerInfo passengers = 13;
+  string trainCode = 14;
+}
+
+message OrderInfoResponse {
+  int32 id = 1;
+  string orderSn = 2;
+  string userId = 3;
+}
+
+message oPassengerInfo {
+  int32 id = 1;
+  int32 userId = 2;
+  string name = 3;
+  string idCard = 4;
+  int64 type = 5;
+  string seat = 6;
+}
+
+message OrderStatus {
+  int32 id = 1;
+  string status = 2;
+  string orderSn = 3;
+}
+
+message OrderListResponse {
+  uint32 total = 1;
+  repeated OrderInfoResponse data = 2;
+}

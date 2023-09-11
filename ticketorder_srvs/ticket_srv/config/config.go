@@ -17,8 +17,10 @@ type ServerConfig struct {
 	Name string `mapstructure:"name" json:"name" yaml:"name"`
 	// Host       string       `mapstructure:"host" json:"host" yaml:"host"`
 	// Port       int          `mapstructure:"port" json:"port" yaml:"port"`
-	MySqlInfo  MysqlConfig  `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
-	ConsulInfo ConsulConfig `mapstructure:"consul" json:"consul" yaml:"consul"`
+	MySqlInfo    MysqlConfig  `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	ConsulInfo   ConsulConfig `mapstructure:"consul" json:"consul" yaml:"consul"`
+	TrainSrvName string       `mapstructure:"train_srv" json:"train_srv" yaml:"train_srv"`
+	UserSrvName  string       `mapstructure:"user_srv" json:"user_srv" yaml:"user_srv"`
 }
 
 type NewServerConfig struct {

@@ -29,6 +29,8 @@ message PassengerInfo {
   string name = 3;
   string idCard = 4;
   int64 type = 5;
+  string seatType = 6;
+  string seat = 7;
 }
 
 message PassengerPageInfo {
