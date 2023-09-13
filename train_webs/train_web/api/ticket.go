@@ -200,7 +200,7 @@ func GetTickets(c *gin.Context) {
 	e, b := sentinel.Entry(global.TicketResource, sentinel.WithTrafficType(base.Inbound))
 	if b != nil {
 		c.JSON(http.StatusTooManyRequests, gin.H{
-			"message": "请求过于频繁",
+			"message": "请求过于频繁，请稍后再试",
 			"success": false,
 		})
 		return
