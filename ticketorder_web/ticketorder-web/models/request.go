@@ -26,6 +26,7 @@ const (
 )
 
 type Passenger struct {
+	Id       int32         `json:"id"`
 	Name     string        `json:"name"`
 	UserID   int32         `json:"user_id"`
 	IdCard   string        `json:"id_card"`

@@ -102,6 +102,7 @@ func GetPassengerList(c *gin.Context) {
 			continue
 		}
 		ps := models.Passenger{
+			Id:       value.Id,
 			Name:     value.Name,
 			IdCard:   value.IdCard,
 			Type:     models.PassengerType(value.Type),
@@ -150,6 +151,38 @@ func AddPassenger(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "添加成功",
+	})
+}
+
+func DeletePassenger(c *gin.Context) {
+	cUser := getClaimes(c)
+	zap.S().Infof("访问用户: %d", cUser.ID)
+	id := strings.TrimSpace(c.Param("id"))
+	i, err2 := strconv.Atoi(id)
+	if err2 != nil {
+		zap.S().Errorw("DeletePassenger 参数错误", "msg", err2.Error())
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": "参数错误",
+		})
+	}
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"success": false,
+			"message": "参数错误",
+		})
+		return
+	}
+	_, err := global.UserClient.DeletePassenger(context.Background(), &proto.IdRequest{
+		Id: int32(i),
+	})
+	if err != nil {
+		HandleGrpcErrorToHttp(err, c)
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "删除成功",
 	})
 }
 

@@ -12,5 +12,6 @@ func InitPassengerRouter(r *gin.RouterGroup) {
 	{
 		br.GET("list", middlewares.JWTAuth(), api.GetPassengerList)
 		br.POST("add", middlewares.JWTAuth(), api.AddPassenger)
+		br.DELETE("delete/:id", middlewares.JWTAuth(), api.DeletePassenger)
 	}
 }

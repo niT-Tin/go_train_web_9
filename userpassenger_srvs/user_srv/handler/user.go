@@ -200,6 +200,9 @@ func (u *UserServer) GetPassengerList(ctx context.Context, passengerPageInfo *pr
 	}
 	rsp.Total = uint32(result.RowsAffected)
 	for _, passenger := range passengerList {
+		if passenger.IsDelete {
+			continue
+		}
 		rsp.Data = append(rsp.Data, &proto.PassengerInfo{
 			Id:     passenger.ID,
 			Name:   passenger.Name,
