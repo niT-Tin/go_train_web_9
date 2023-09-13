@@ -163,6 +163,7 @@ func TicketModel2Response(ticket model.DailyTrainTicket) *proto.TicketResponse {
 	ticketInfoRsp := proto.TicketResponse{
 		Data: &proto.TicketInfo{
 			Id:               ticket.ID,
+			Date:             ticket.Date.Format("2006-01-02"),
 			TrainCode:        ticket.TrainCode,
 			StartStation:     ticket.Start,
 			StartPinyin:      ticket.StartPinyin,

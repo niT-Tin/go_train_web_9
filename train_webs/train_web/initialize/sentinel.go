@@ -21,7 +21,7 @@ func InitSentinel() {
 			Resource:               global.TicketResource,
 			TokenCalculateStrategy: flow.Direct,
 			ControlBehavior:        flow.Reject, //匀速通过
-			Threshold:              2,           //100ms只能就已经来了1W的并发， 1s就是10W的并发
+			Threshold:              20,          //100ms只能就已经来了1W的并发， 1s就是10W的并发
 			StatIntervalInMs:       10000,
 		},
 	})

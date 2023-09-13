@@ -216,13 +216,12 @@ func GetTickets(c *gin.Context) {
 	}
 	var tickets []models.TicketInfo
 	for _, value := range resp.Data {
-		dt, _ := time.Parse("2006-01-02 15:04:05", value.Data.Date)
 		st := time.Unix(value.Data.StartTime, 0)
 		et := time.Unix(value.Data.EndTime, 0)
 		ticket := models.TicketInfo{
 			ID:               int64(value.Data.Id),
 			TrainCode:        value.Data.TrainCode,
-			Date:             dt.Format("2006-01-02"),
+			Date:             value.Data.Date,
 			Start:            value.Data.StartStation,
 			StartPinyin:      value.Data.StartPinyin,
 			StartTime:        st.Format("2006-01-02 15:04:05"),
@@ -285,25 +284,30 @@ func Travels(c *gin.Context) {
 		Index    int    `json:"index"`
 		Name     string `json:"name"`
 		InTime   string `json:"in_time"`
-		EndTime  string `json:"end_time"`
+		OuteTime string `json:"out_time"`
+		StopTime string `json:"stop_time"`
 		Duration string `json:"duration"`
 	}{}
+	nowTime := time.Now()
 	for i := 0; i < travelss; i++ {
-		startTime := time.Now().Add(time.Hour * time.Duration(i))
-		endTime := time.Now().Add(time.Hour * time.Duration(i+1))
+		startTime := nowTime.Add(time.Hour * time.Duration(i))
+		endTime := startTime.Add(time.Hour * time.Duration(i+1))
 		travel := struct {
 			Index    int    `json:"index"`
 			Name     string `json:"name"`
 			InTime   string `json:"in_time"`
-			EndTime  string `json:"end_time"`
+			OuteTime string `json:"out_time"`
+			StopTime string `json:"stop_time"`
 			Duration string `json:"duration"`
 		}{}
 		travel.Index = i + 1
 		travel.Name = fmt.Sprintf("%s%d", "火车站", i+1+startM)
 		travel.InTime = startTime.Format("2006-01-02 15:04:05")
-		travel.EndTime = endTime.Format("2006-01-02 15:04:05")
-		travel.Duration = "1小时"
+		travel.OuteTime = endTime.Format("2006-01-02 15:04:05")
+		travel.Duration = ""
+		travel.StopTime = endTime.Sub(startTime).String()
 		travels = append(travels, travel)
+		startTime = endTime.Add(time.Hour * time.Duration(i))
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "查询成功",
