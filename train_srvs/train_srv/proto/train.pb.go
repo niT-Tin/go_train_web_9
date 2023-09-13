@@ -4,13 +4,12 @@
 // 	protoc        v4.23.3
 // source: train.proto
 
-// import "google/protobuf/empty.proto";
-
 package proto
 
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 	reflect "reflect"
 	sync "sync"
 )
@@ -149,6 +148,53 @@ func (x *TrainInfo) GetEndPinyin() string {
 	return ""
 }
 
+type DateRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Date string `protobuf:"bytes,1,opt,name=date,proto3" json:"date,omitempty"`
+}
+
+func (x *DateRequest) Reset() {
+	*x = DateRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_train_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *DateRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DateRequest) ProtoMessage() {}
+
+func (x *DateRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_train_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DateRequest.ProtoReflect.Descriptor instead.
+func (*DateRequest) Descriptor() ([]byte, []int) {
+	return file_train_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *DateRequest) GetDate() string {
+	if x != nil {
+		return x.Date
+	}
+	return ""
+}
+
 type TrainPageInfo struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -163,7 +209,7 @@ type TrainPageInfo struct {
 func (x *TrainPageInfo) Reset() {
 	*x = TrainPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[1]
+		mi := &file_train_proto_msgTypes[2]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -176,7 +222,7 @@ func (x *TrainPageInfo) String() string {
 func (*TrainPageInfo) ProtoMessage() {}
 
 func (x *TrainPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[1]
+	mi := &file_train_proto_msgTypes[2]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -189,7 +235,7 @@ func (x *TrainPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainPageInfo.ProtoReflect.Descriptor instead.
 func (*TrainPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{1}
+	return file_train_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *TrainPageInfo) GetPn() uint32 {
@@ -218,7 +264,7 @@ type TrainListResponse struct {
 func (x *TrainListResponse) Reset() {
 	*x = TrainListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[2]
+		mi := &file_train_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -231,7 +277,7 @@ func (x *TrainListResponse) String() string {
 func (*TrainListResponse) ProtoMessage() {}
 
 func (x *TrainListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[2]
+	mi := &file_train_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -244,7 +290,7 @@ func (x *TrainListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainListResponse.ProtoReflect.Descriptor instead.
 func (*TrainListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{2}
+	return file_train_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *TrainListResponse) GetTotal() uint32 {
@@ -280,7 +326,7 @@ type TrainRequest struct {
 func (x *TrainRequest) Reset() {
 	*x = TrainRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[3]
+		mi := &file_train_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -293,7 +339,7 @@ func (x *TrainRequest) String() string {
 func (*TrainRequest) ProtoMessage() {}
 
 func (x *TrainRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[3]
+	mi := &file_train_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -306,7 +352,7 @@ func (x *TrainRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainRequest.ProtoReflect.Descriptor instead.
 func (*TrainRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{3}
+	return file_train_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *TrainRequest) GetId() int64 {
@@ -383,7 +429,7 @@ type TrainResponse struct {
 func (x *TrainResponse) Reset() {
 	*x = TrainResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[4]
+		mi := &file_train_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -396,7 +442,7 @@ func (x *TrainResponse) String() string {
 func (*TrainResponse) ProtoMessage() {}
 
 func (x *TrainResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[4]
+	mi := &file_train_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -409,7 +455,7 @@ func (x *TrainResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainResponse.ProtoReflect.Descriptor instead.
 func (*TrainResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{4}
+	return file_train_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *TrainResponse) GetData() *TrainInfo {
@@ -431,7 +477,7 @@ type TrainDailyInfo struct {
 func (x *TrainDailyInfo) Reset() {
 	*x = TrainDailyInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[5]
+		mi := &file_train_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -444,7 +490,7 @@ func (x *TrainDailyInfo) String() string {
 func (*TrainDailyInfo) ProtoMessage() {}
 
 func (x *TrainDailyInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[5]
+	mi := &file_train_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -457,7 +503,7 @@ func (x *TrainDailyInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainDailyInfo.ProtoReflect.Descriptor instead.
 func (*TrainDailyInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{5}
+	return file_train_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *TrainDailyInfo) GetDate() string {
@@ -486,7 +532,7 @@ type TrainDailyListResponse struct {
 func (x *TrainDailyListResponse) Reset() {
 	*x = TrainDailyListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[6]
+		mi := &file_train_proto_msgTypes[7]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -499,7 +545,7 @@ func (x *TrainDailyListResponse) String() string {
 func (*TrainDailyListResponse) ProtoMessage() {}
 
 func (x *TrainDailyListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[6]
+	mi := &file_train_proto_msgTypes[7]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -512,7 +558,7 @@ func (x *TrainDailyListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainDailyListResponse.ProtoReflect.Descriptor instead.
 func (*TrainDailyListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{6}
+	return file_train_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *TrainDailyListResponse) GetTotal() uint32 {
@@ -545,7 +591,7 @@ type TrainDailyPageInfo struct {
 func (x *TrainDailyPageInfo) Reset() {
 	*x = TrainDailyPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[7]
+		mi := &file_train_proto_msgTypes[8]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -558,7 +604,7 @@ func (x *TrainDailyPageInfo) String() string {
 func (*TrainDailyPageInfo) ProtoMessage() {}
 
 func (x *TrainDailyPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[7]
+	mi := &file_train_proto_msgTypes[8]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -571,7 +617,7 @@ func (x *TrainDailyPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainDailyPageInfo.ProtoReflect.Descriptor instead.
 func (*TrainDailyPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{7}
+	return file_train_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *TrainDailyPageInfo) GetPn() uint32 {
@@ -615,7 +661,7 @@ type TrainDailyRequest struct {
 func (x *TrainDailyRequest) Reset() {
 	*x = TrainDailyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[8]
+		mi := &file_train_proto_msgTypes[9]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -628,7 +674,7 @@ func (x *TrainDailyRequest) String() string {
 func (*TrainDailyRequest) ProtoMessage() {}
 
 func (x *TrainDailyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[8]
+	mi := &file_train_proto_msgTypes[9]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -641,7 +687,7 @@ func (x *TrainDailyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainDailyRequest.ProtoReflect.Descriptor instead.
 func (*TrainDailyRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{8}
+	return file_train_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *TrainDailyRequest) GetId() int64 {
@@ -725,7 +771,7 @@ type TrainDailyResponse struct {
 func (x *TrainDailyResponse) Reset() {
 	*x = TrainDailyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[9]
+		mi := &file_train_proto_msgTypes[10]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -738,7 +784,7 @@ func (x *TrainDailyResponse) String() string {
 func (*TrainDailyResponse) ProtoMessage() {}
 
 func (x *TrainDailyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[9]
+	mi := &file_train_proto_msgTypes[10]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -751,7 +797,7 @@ func (x *TrainDailyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TrainDailyResponse.ProtoReflect.Descriptor instead.
 func (*TrainDailyResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{9}
+	return file_train_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *TrainDailyResponse) GetData() *TrainDailyInfo {
@@ -777,7 +823,7 @@ type StationInfo struct {
 func (x *StationInfo) Reset() {
 	*x = StationInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[10]
+		mi := &file_train_proto_msgTypes[11]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -790,7 +836,7 @@ func (x *StationInfo) String() string {
 func (*StationInfo) ProtoMessage() {}
 
 func (x *StationInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[10]
+	mi := &file_train_proto_msgTypes[11]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -803,7 +849,7 @@ func (x *StationInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationInfo.ProtoReflect.Descriptor instead.
 func (*StationInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{10}
+	return file_train_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *StationInfo) GetId() int64 {
@@ -860,7 +906,7 @@ type StationDailyInfo struct {
 func (x *StationDailyInfo) Reset() {
 	*x = StationDailyInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[11]
+		mi := &file_train_proto_msgTypes[12]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -873,7 +919,7 @@ func (x *StationDailyInfo) String() string {
 func (*StationDailyInfo) ProtoMessage() {}
 
 func (x *StationDailyInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[11]
+	mi := &file_train_proto_msgTypes[12]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -886,7 +932,7 @@ func (x *StationDailyInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationDailyInfo.ProtoReflect.Descriptor instead.
 func (*StationDailyInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{11}
+	return file_train_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *StationDailyInfo) GetDate() string {
@@ -915,7 +961,7 @@ type StationDailyListResponse struct {
 func (x *StationDailyListResponse) Reset() {
 	*x = StationDailyListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[12]
+		mi := &file_train_proto_msgTypes[13]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -928,7 +974,7 @@ func (x *StationDailyListResponse) String() string {
 func (*StationDailyListResponse) ProtoMessage() {}
 
 func (x *StationDailyListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[12]
+	mi := &file_train_proto_msgTypes[13]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -941,7 +987,7 @@ func (x *StationDailyListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationDailyListResponse.ProtoReflect.Descriptor instead.
 func (*StationDailyListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{12}
+	return file_train_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *StationDailyListResponse) GetTotal() uint32 {
@@ -974,7 +1020,7 @@ type StationDailyPageInfo struct {
 func (x *StationDailyPageInfo) Reset() {
 	*x = StationDailyPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[13]
+		mi := &file_train_proto_msgTypes[14]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -987,7 +1033,7 @@ func (x *StationDailyPageInfo) String() string {
 func (*StationDailyPageInfo) ProtoMessage() {}
 
 func (x *StationDailyPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[13]
+	mi := &file_train_proto_msgTypes[14]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1000,7 +1046,7 @@ func (x *StationDailyPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationDailyPageInfo.ProtoReflect.Descriptor instead.
 func (*StationDailyPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{13}
+	return file_train_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *StationDailyPageInfo) GetPn() uint32 {
@@ -1040,7 +1086,7 @@ type StationDailyRequest struct {
 func (x *StationDailyRequest) Reset() {
 	*x = StationDailyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[14]
+		mi := &file_train_proto_msgTypes[15]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1053,7 +1099,7 @@ func (x *StationDailyRequest) String() string {
 func (*StationDailyRequest) ProtoMessage() {}
 
 func (x *StationDailyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[14]
+	mi := &file_train_proto_msgTypes[15]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1066,7 +1112,7 @@ func (x *StationDailyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationDailyRequest.ProtoReflect.Descriptor instead.
 func (*StationDailyRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{14}
+	return file_train_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *StationDailyRequest) GetId() int64 {
@@ -1122,7 +1168,7 @@ type StationDailyResponse struct {
 func (x *StationDailyResponse) Reset() {
 	*x = StationDailyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[15]
+		mi := &file_train_proto_msgTypes[16]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1135,7 +1181,7 @@ func (x *StationDailyResponse) String() string {
 func (*StationDailyResponse) ProtoMessage() {}
 
 func (x *StationDailyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[15]
+	mi := &file_train_proto_msgTypes[16]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1148,7 +1194,7 @@ func (x *StationDailyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationDailyResponse.ProtoReflect.Descriptor instead.
 func (*StationDailyResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{15}
+	return file_train_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *StationDailyResponse) GetData() *StationDailyInfo {
@@ -1170,7 +1216,7 @@ type StationListResponse struct {
 func (x *StationListResponse) Reset() {
 	*x = StationListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[16]
+		mi := &file_train_proto_msgTypes[17]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1183,7 +1229,7 @@ func (x *StationListResponse) String() string {
 func (*StationListResponse) ProtoMessage() {}
 
 func (x *StationListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[16]
+	mi := &file_train_proto_msgTypes[17]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1196,7 +1242,7 @@ func (x *StationListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationListResponse.ProtoReflect.Descriptor instead.
 func (*StationListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{16}
+	return file_train_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *StationListResponse) GetTotal() uint32 {
@@ -1227,7 +1273,7 @@ type StationPageInfo struct {
 func (x *StationPageInfo) Reset() {
 	*x = StationPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[17]
+		mi := &file_train_proto_msgTypes[18]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1240,7 +1286,7 @@ func (x *StationPageInfo) String() string {
 func (*StationPageInfo) ProtoMessage() {}
 
 func (x *StationPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[17]
+	mi := &file_train_proto_msgTypes[18]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1253,7 +1299,7 @@ func (x *StationPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationPageInfo.ProtoReflect.Descriptor instead.
 func (*StationPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{17}
+	return file_train_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *StationPageInfo) GetPn() uint32 {
@@ -1281,7 +1327,7 @@ type StationResponse struct {
 func (x *StationResponse) Reset() {
 	*x = StationResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[18]
+		mi := &file_train_proto_msgTypes[19]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1294,7 +1340,7 @@ func (x *StationResponse) String() string {
 func (*StationResponse) ProtoMessage() {}
 
 func (x *StationResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[18]
+	mi := &file_train_proto_msgTypes[19]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1307,7 +1353,7 @@ func (x *StationResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationResponse.ProtoReflect.Descriptor instead.
 func (*StationResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{18}
+	return file_train_proto_rawDescGZIP(), []int{19}
 }
 
 func (x *StationResponse) GetData() *StationInfo {
@@ -1331,7 +1377,7 @@ type StationRequest struct {
 func (x *StationRequest) Reset() {
 	*x = StationRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[19]
+		mi := &file_train_proto_msgTypes[20]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1344,7 +1390,7 @@ func (x *StationRequest) String() string {
 func (*StationRequest) ProtoMessage() {}
 
 func (x *StationRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[19]
+	mi := &file_train_proto_msgTypes[20]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1357,7 +1403,7 @@ func (x *StationRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use StationRequest.ProtoReflect.Descriptor instead.
 func (*StationRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{19}
+	return file_train_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *StationRequest) GetId() int64 {
@@ -1419,7 +1465,7 @@ type TicketInfo struct {
 func (x *TicketInfo) Reset() {
 	*x = TicketInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[20]
+		mi := &file_train_proto_msgTypes[21]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1432,7 +1478,7 @@ func (x *TicketInfo) String() string {
 func (*TicketInfo) ProtoMessage() {}
 
 func (x *TicketInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[20]
+	mi := &file_train_proto_msgTypes[21]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1445,7 +1491,7 @@ func (x *TicketInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TicketInfo.ProtoReflect.Descriptor instead.
 func (*TicketInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{20}
+	return file_train_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *TicketInfo) GetId() int64 {
@@ -1609,7 +1655,7 @@ type TicketPageInfo struct {
 func (x *TicketPageInfo) Reset() {
 	*x = TicketPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[21]
+		mi := &file_train_proto_msgTypes[22]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1622,7 +1668,7 @@ func (x *TicketPageInfo) String() string {
 func (*TicketPageInfo) ProtoMessage() {}
 
 func (x *TicketPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[21]
+	mi := &file_train_proto_msgTypes[22]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1635,7 +1681,7 @@ func (x *TicketPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TicketPageInfo.ProtoReflect.Descriptor instead.
 func (*TicketPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{21}
+	return file_train_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *TicketPageInfo) GetPn() uint32 {
@@ -1664,7 +1710,7 @@ type TicketListResponse struct {
 func (x *TicketListResponse) Reset() {
 	*x = TicketListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[22]
+		mi := &file_train_proto_msgTypes[23]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1677,7 +1723,7 @@ func (x *TicketListResponse) String() string {
 func (*TicketListResponse) ProtoMessage() {}
 
 func (x *TicketListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[22]
+	mi := &file_train_proto_msgTypes[23]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1690,7 +1736,7 @@ func (x *TicketListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TicketListResponse.ProtoReflect.Descriptor instead.
 func (*TicketListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{22}
+	return file_train_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *TicketListResponse) GetTotal() uint32 {
@@ -1723,7 +1769,7 @@ type BusinessRequest struct {
 func (x *BusinessRequest) Reset() {
 	*x = BusinessRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[23]
+		mi := &file_train_proto_msgTypes[24]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1736,7 +1782,7 @@ func (x *BusinessRequest) String() string {
 func (*BusinessRequest) ProtoMessage() {}
 
 func (x *BusinessRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[23]
+	mi := &file_train_proto_msgTypes[24]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1749,7 +1795,7 @@ func (x *BusinessRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use BusinessRequest.ProtoReflect.Descriptor instead.
 func (*BusinessRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{23}
+	return file_train_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *BusinessRequest) GetSeats() []*SeatInfo {
@@ -1814,7 +1860,7 @@ type TicketRequest struct {
 func (x *TicketRequest) Reset() {
 	*x = TicketRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[24]
+		mi := &file_train_proto_msgTypes[25]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1827,7 +1873,7 @@ func (x *TicketRequest) String() string {
 func (*TicketRequest) ProtoMessage() {}
 
 func (x *TicketRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[24]
+	mi := &file_train_proto_msgTypes[25]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1840,7 +1886,7 @@ func (x *TicketRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TicketRequest.ProtoReflect.Descriptor instead.
 func (*TicketRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{24}
+	return file_train_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *TicketRequest) GetId() int64 {
@@ -1924,7 +1970,7 @@ type TicketResponse struct {
 func (x *TicketResponse) Reset() {
 	*x = TicketResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[25]
+		mi := &file_train_proto_msgTypes[26]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1937,7 +1983,7 @@ func (x *TicketResponse) String() string {
 func (*TicketResponse) ProtoMessage() {}
 
 func (x *TicketResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[25]
+	mi := &file_train_proto_msgTypes[26]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1950,7 +1996,7 @@ func (x *TicketResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TicketResponse.ProtoReflect.Descriptor instead.
 func (*TicketResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{25}
+	return file_train_proto_rawDescGZIP(), []int{26}
 }
 
 func (x *TicketResponse) GetData() *TicketInfo {
@@ -1979,7 +2025,7 @@ type CarriageInfo struct {
 func (x *CarriageInfo) Reset() {
 	*x = CarriageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[26]
+		mi := &file_train_proto_msgTypes[27]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -1992,7 +2038,7 @@ func (x *CarriageInfo) String() string {
 func (*CarriageInfo) ProtoMessage() {}
 
 func (x *CarriageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[26]
+	mi := &file_train_proto_msgTypes[27]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2005,7 +2051,7 @@ func (x *CarriageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageInfo.ProtoReflect.Descriptor instead.
 func (*CarriageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{26}
+	return file_train_proto_rawDescGZIP(), []int{27}
 }
 
 func (x *CarriageInfo) GetId() int64 {
@@ -2083,7 +2129,7 @@ type CarriageDailyInfo struct {
 func (x *CarriageDailyInfo) Reset() {
 	*x = CarriageDailyInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[27]
+		mi := &file_train_proto_msgTypes[28]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2096,7 +2142,7 @@ func (x *CarriageDailyInfo) String() string {
 func (*CarriageDailyInfo) ProtoMessage() {}
 
 func (x *CarriageDailyInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[27]
+	mi := &file_train_proto_msgTypes[28]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2109,7 +2155,7 @@ func (x *CarriageDailyInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageDailyInfo.ProtoReflect.Descriptor instead.
 func (*CarriageDailyInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{27}
+	return file_train_proto_rawDescGZIP(), []int{28}
 }
 
 func (x *CarriageDailyInfo) GetDate() string {
@@ -2138,7 +2184,7 @@ type CarriageDailyListResponse struct {
 func (x *CarriageDailyListResponse) Reset() {
 	*x = CarriageDailyListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[28]
+		mi := &file_train_proto_msgTypes[29]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2151,7 +2197,7 @@ func (x *CarriageDailyListResponse) String() string {
 func (*CarriageDailyListResponse) ProtoMessage() {}
 
 func (x *CarriageDailyListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[28]
+	mi := &file_train_proto_msgTypes[29]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2164,7 +2210,7 @@ func (x *CarriageDailyListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageDailyListResponse.ProtoReflect.Descriptor instead.
 func (*CarriageDailyListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{28}
+	return file_train_proto_rawDescGZIP(), []int{29}
 }
 
 func (x *CarriageDailyListResponse) GetTotal() uint32 {
@@ -2197,7 +2243,7 @@ type CarriageDailyPageInfo struct {
 func (x *CarriageDailyPageInfo) Reset() {
 	*x = CarriageDailyPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[29]
+		mi := &file_train_proto_msgTypes[30]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2210,7 +2256,7 @@ func (x *CarriageDailyPageInfo) String() string {
 func (*CarriageDailyPageInfo) ProtoMessage() {}
 
 func (x *CarriageDailyPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[29]
+	mi := &file_train_proto_msgTypes[30]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2223,7 +2269,7 @@ func (x *CarriageDailyPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageDailyPageInfo.ProtoReflect.Descriptor instead.
 func (*CarriageDailyPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{29}
+	return file_train_proto_rawDescGZIP(), []int{30}
 }
 
 func (x *CarriageDailyPageInfo) GetPn() uint32 {
@@ -2265,7 +2311,7 @@ type CarriageDailyRequest struct {
 func (x *CarriageDailyRequest) Reset() {
 	*x = CarriageDailyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[30]
+		mi := &file_train_proto_msgTypes[31]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2278,7 +2324,7 @@ func (x *CarriageDailyRequest) String() string {
 func (*CarriageDailyRequest) ProtoMessage() {}
 
 func (x *CarriageDailyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[30]
+	mi := &file_train_proto_msgTypes[31]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2291,7 +2337,7 @@ func (x *CarriageDailyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageDailyRequest.ProtoReflect.Descriptor instead.
 func (*CarriageDailyRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{30}
+	return file_train_proto_rawDescGZIP(), []int{31}
 }
 
 func (x *CarriageDailyRequest) GetId() int64 {
@@ -2361,7 +2407,7 @@ type CarriageDailyResponse struct {
 func (x *CarriageDailyResponse) Reset() {
 	*x = CarriageDailyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[31]
+		mi := &file_train_proto_msgTypes[32]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2374,7 +2420,7 @@ func (x *CarriageDailyResponse) String() string {
 func (*CarriageDailyResponse) ProtoMessage() {}
 
 func (x *CarriageDailyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[31]
+	mi := &file_train_proto_msgTypes[32]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2387,7 +2433,7 @@ func (x *CarriageDailyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageDailyResponse.ProtoReflect.Descriptor instead.
 func (*CarriageDailyResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{31}
+	return file_train_proto_rawDescGZIP(), []int{32}
 }
 
 func (x *CarriageDailyResponse) GetData() *CarriageDailyInfo {
@@ -2408,7 +2454,7 @@ type CarriagePageInfo struct {
 func (x *CarriagePageInfo) Reset() {
 	*x = CarriagePageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[32]
+		mi := &file_train_proto_msgTypes[33]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2421,7 +2467,7 @@ func (x *CarriagePageInfo) String() string {
 func (*CarriagePageInfo) ProtoMessage() {}
 
 func (x *CarriagePageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[32]
+	mi := &file_train_proto_msgTypes[33]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2434,7 +2480,7 @@ func (x *CarriagePageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriagePageInfo.ProtoReflect.Descriptor instead.
 func (*CarriagePageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{32}
+	return file_train_proto_rawDescGZIP(), []int{33}
 }
 
 func (x *CarriagePageInfo) GetTrainCode() string {
@@ -2456,7 +2502,7 @@ type CarriageListResponse struct {
 func (x *CarriageListResponse) Reset() {
 	*x = CarriageListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[33]
+		mi := &file_train_proto_msgTypes[34]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2469,7 +2515,7 @@ func (x *CarriageListResponse) String() string {
 func (*CarriageListResponse) ProtoMessage() {}
 
 func (x *CarriageListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[33]
+	mi := &file_train_proto_msgTypes[34]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2482,7 +2528,7 @@ func (x *CarriageListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageListResponse.ProtoReflect.Descriptor instead.
 func (*CarriageListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{33}
+	return file_train_proto_rawDescGZIP(), []int{34}
 }
 
 func (x *CarriageListResponse) GetTotal() uint32 {
@@ -2516,7 +2562,7 @@ type CarriageRequest struct {
 func (x *CarriageRequest) Reset() {
 	*x = CarriageRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[34]
+		mi := &file_train_proto_msgTypes[35]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2529,7 +2575,7 @@ func (x *CarriageRequest) String() string {
 func (*CarriageRequest) ProtoMessage() {}
 
 func (x *CarriageRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[34]
+	mi := &file_train_proto_msgTypes[35]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2542,7 +2588,7 @@ func (x *CarriageRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageRequest.ProtoReflect.Descriptor instead.
 func (*CarriageRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{34}
+	return file_train_proto_rawDescGZIP(), []int{35}
 }
 
 func (x *CarriageRequest) GetId() int64 {
@@ -2605,7 +2651,7 @@ type CarriageResponse struct {
 func (x *CarriageResponse) Reset() {
 	*x = CarriageResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[35]
+		mi := &file_train_proto_msgTypes[36]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2618,7 +2664,7 @@ func (x *CarriageResponse) String() string {
 func (*CarriageResponse) ProtoMessage() {}
 
 func (x *CarriageResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[35]
+	mi := &file_train_proto_msgTypes[36]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2631,7 +2677,7 @@ func (x *CarriageResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CarriageResponse.ProtoReflect.Descriptor instead.
 func (*CarriageResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{35}
+	return file_train_proto_rawDescGZIP(), []int{36}
 }
 
 func (x *CarriageResponse) GetData() *CarriageInfo {
@@ -2660,7 +2706,7 @@ type SeatInfo struct {
 func (x *SeatInfo) Reset() {
 	*x = SeatInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[36]
+		mi := &file_train_proto_msgTypes[37]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2673,7 +2719,7 @@ func (x *SeatInfo) String() string {
 func (*SeatInfo) ProtoMessage() {}
 
 func (x *SeatInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[36]
+	mi := &file_train_proto_msgTypes[37]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2686,7 +2732,7 @@ func (x *SeatInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatInfo.ProtoReflect.Descriptor instead.
 func (*SeatInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{36}
+	return file_train_proto_rawDescGZIP(), []int{37}
 }
 
 func (x *SeatInfo) GetId() int64 {
@@ -2764,7 +2810,7 @@ type SeatDailyInfo struct {
 func (x *SeatDailyInfo) Reset() {
 	*x = SeatDailyInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[37]
+		mi := &file_train_proto_msgTypes[38]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2777,7 +2823,7 @@ func (x *SeatDailyInfo) String() string {
 func (*SeatDailyInfo) ProtoMessage() {}
 
 func (x *SeatDailyInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[37]
+	mi := &file_train_proto_msgTypes[38]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2790,7 +2836,7 @@ func (x *SeatDailyInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatDailyInfo.ProtoReflect.Descriptor instead.
 func (*SeatDailyInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{37}
+	return file_train_proto_rawDescGZIP(), []int{38}
 }
 
 func (x *SeatDailyInfo) GetDate() string {
@@ -2819,7 +2865,7 @@ type SeatDailyListResponse struct {
 func (x *SeatDailyListResponse) Reset() {
 	*x = SeatDailyListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[38]
+		mi := &file_train_proto_msgTypes[39]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2832,7 +2878,7 @@ func (x *SeatDailyListResponse) String() string {
 func (*SeatDailyListResponse) ProtoMessage() {}
 
 func (x *SeatDailyListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[38]
+	mi := &file_train_proto_msgTypes[39]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2845,7 +2891,7 @@ func (x *SeatDailyListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatDailyListResponse.ProtoReflect.Descriptor instead.
 func (*SeatDailyListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{38}
+	return file_train_proto_rawDescGZIP(), []int{39}
 }
 
 func (x *SeatDailyListResponse) GetTotal() uint32 {
@@ -2878,7 +2924,7 @@ type SeatDailyPageInfo struct {
 func (x *SeatDailyPageInfo) Reset() {
 	*x = SeatDailyPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[39]
+		mi := &file_train_proto_msgTypes[40]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2891,7 +2937,7 @@ func (x *SeatDailyPageInfo) String() string {
 func (*SeatDailyPageInfo) ProtoMessage() {}
 
 func (x *SeatDailyPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[39]
+	mi := &file_train_proto_msgTypes[40]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2904,7 +2950,7 @@ func (x *SeatDailyPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatDailyPageInfo.ProtoReflect.Descriptor instead.
 func (*SeatDailyPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{39}
+	return file_train_proto_rawDescGZIP(), []int{40}
 }
 
 func (x *SeatDailyPageInfo) GetPn() uint32 {
@@ -2946,7 +2992,7 @@ type SeatDailyRequest struct {
 func (x *SeatDailyRequest) Reset() {
 	*x = SeatDailyRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[40]
+		mi := &file_train_proto_msgTypes[41]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -2959,7 +3005,7 @@ func (x *SeatDailyRequest) String() string {
 func (*SeatDailyRequest) ProtoMessage() {}
 
 func (x *SeatDailyRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[40]
+	mi := &file_train_proto_msgTypes[41]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -2972,7 +3018,7 @@ func (x *SeatDailyRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatDailyRequest.ProtoReflect.Descriptor instead.
 func (*SeatDailyRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{40}
+	return file_train_proto_rawDescGZIP(), []int{41}
 }
 
 func (x *SeatDailyRequest) GetId() int64 {
@@ -3042,7 +3088,7 @@ type SeatDailyResponse struct {
 func (x *SeatDailyResponse) Reset() {
 	*x = SeatDailyResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[41]
+		mi := &file_train_proto_msgTypes[42]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3055,7 +3101,7 @@ func (x *SeatDailyResponse) String() string {
 func (*SeatDailyResponse) ProtoMessage() {}
 
 func (x *SeatDailyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[41]
+	mi := &file_train_proto_msgTypes[42]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3068,7 +3114,7 @@ func (x *SeatDailyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatDailyResponse.ProtoReflect.Descriptor instead.
 func (*SeatDailyResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{41}
+	return file_train_proto_rawDescGZIP(), []int{42}
 }
 
 func (x *SeatDailyResponse) GetData() *SeatDailyInfo {
@@ -3094,7 +3140,7 @@ type SeatPageInfo struct {
 func (x *SeatPageInfo) Reset() {
 	*x = SeatPageInfo{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[42]
+		mi := &file_train_proto_msgTypes[43]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3107,7 +3153,7 @@ func (x *SeatPageInfo) String() string {
 func (*SeatPageInfo) ProtoMessage() {}
 
 func (x *SeatPageInfo) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[42]
+	mi := &file_train_proto_msgTypes[43]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3120,7 +3166,7 @@ func (x *SeatPageInfo) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatPageInfo.ProtoReflect.Descriptor instead.
 func (*SeatPageInfo) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{42}
+	return file_train_proto_rawDescGZIP(), []int{43}
 }
 
 func (x *SeatPageInfo) GetPn() uint32 {
@@ -3163,7 +3209,7 @@ type SeatListResponse struct {
 func (x *SeatListResponse) Reset() {
 	*x = SeatListResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[43]
+		mi := &file_train_proto_msgTypes[44]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3176,7 +3222,7 @@ func (x *SeatListResponse) String() string {
 func (*SeatListResponse) ProtoMessage() {}
 
 func (x *SeatListResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[43]
+	mi := &file_train_proto_msgTypes[44]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3189,7 +3235,7 @@ func (x *SeatListResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatListResponse.ProtoReflect.Descriptor instead.
 func (*SeatListResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{43}
+	return file_train_proto_rawDescGZIP(), []int{44}
 }
 
 func (x *SeatListResponse) GetTotal() uint32 {
@@ -3223,7 +3269,7 @@ type SeatRequest struct {
 func (x *SeatRequest) Reset() {
 	*x = SeatRequest{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[44]
+		mi := &file_train_proto_msgTypes[45]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3236,7 +3282,7 @@ func (x *SeatRequest) String() string {
 func (*SeatRequest) ProtoMessage() {}
 
 func (x *SeatRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[44]
+	mi := &file_train_proto_msgTypes[45]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3249,7 +3295,7 @@ func (x *SeatRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatRequest.ProtoReflect.Descriptor instead.
 func (*SeatRequest) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{44}
+	return file_train_proto_rawDescGZIP(), []int{45}
 }
 
 func (x *SeatRequest) GetId() int64 {
@@ -3312,7 +3358,7 @@ type SeatResponse struct {
 func (x *SeatResponse) Reset() {
 	*x = SeatResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_train_proto_msgTypes[45]
+		mi := &file_train_proto_msgTypes[46]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -3325,7 +3371,7 @@ func (x *SeatResponse) String() string {
 func (*SeatResponse) ProtoMessage() {}
 
 func (x *SeatResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_train_proto_msgTypes[45]
+	mi := &file_train_proto_msgTypes[46]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -3338,7 +3384,7 @@ func (x *SeatResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SeatResponse.ProtoReflect.Descriptor instead.
 func (*SeatResponse) Descriptor() ([]byte, []int) {
-	return file_train_proto_rawDescGZIP(), []int{45}
+	return file_train_proto_rawDescGZIP(), []int{46}
 }
 
 func (x *SeatResponse) GetData() *SeatInfo {
@@ -3352,27 +3398,31 @@ var File_train_proto protoreflect.FileDescriptor
 
 var file_train_proto_rawDesc = []byte{
 	0x0a, 0x0b, 0x74, 0x72, 0x61, 0x69, 0x6e, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x05, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x22, 0xbf, 0x02, 0x0a, 0x09, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x49, 0x6e,
-	0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02,
-	0x69, 0x64, 0x12, 0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x03,
-	0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x73, 0x74,
-	0x61, 0x72, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09,
-	0x52, 0x0c, 0x73, 0x74, 0x61, 0x72, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1e,
-	0x0a, 0x0a, 0x65, 0x6e, 0x64, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x0a, 0x65, 0x6e, 0x64, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c,
-	0x0a, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28,
-	0x03, 0x52, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07,
-	0x65, 0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x65,
-	0x6e, 0x64, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65,
-	0x54, 0x69, 0x6d, 0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65,
-	0x54, 0x69, 0x6d, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61,
-	0x74, 0x65, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x50,
-	0x69, 0x6e, 0x79, 0x69, 0x6e, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x73, 0x74, 0x61,
-	0x72, 0x74, 0x50, 0x69, 0x6e, 0x79, 0x69, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x50,
-	0x69, 0x6e, 0x79, 0x69, 0x6e, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x65, 0x6e, 0x64,
-	0x50, 0x69, 0x6e, 0x79, 0x69, 0x6e, 0x22, 0x2f, 0x0a, 0x0d, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x50,
+	0x72, 0x6f, 0x74, 0x6f, 0x1a, 0x1b, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2f, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x62, 0x75, 0x66, 0x2f, 0x65, 0x6d, 0x70, 0x74, 0x79, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x22, 0xbf, 0x02, 0x0a, 0x09, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x49, 0x6e, 0x66, 0x6f, 0x12,
+	0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x02, 0x69, 0x64, 0x12,
+	0x12, 0x0a, 0x04, 0x63, 0x6f, 0x64, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x04, 0x63,
+	0x6f, 0x64, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x74, 0x79, 0x70, 0x65, 0x18, 0x03, 0x20, 0x01, 0x28,
+	0x09, 0x52, 0x04, 0x74, 0x79, 0x70, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0c, 0x73,
+	0x74, 0x61, 0x72, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1e, 0x0a, 0x0a, 0x65,
+	0x6e, 0x64, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x0a, 0x65, 0x6e, 0x64, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x73,
+	0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03, 0x52, 0x09,
+	0x73, 0x74, 0x61, 0x72, 0x74, 0x54, 0x69, 0x6d, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x65, 0x6e, 0x64,
+	0x54, 0x69, 0x6d, 0x65, 0x18, 0x07, 0x20, 0x01, 0x28, 0x03, 0x52, 0x07, 0x65, 0x6e, 0x64, 0x54,
+	0x69, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d,
+	0x65, 0x18, 0x08, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x63, 0x72, 0x65, 0x61, 0x74, 0x65, 0x54,
+	0x69, 0x6d, 0x65, 0x12, 0x1e, 0x0a, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54, 0x69, 0x6d,
+	0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74, 0x65, 0x54,
+	0x69, 0x6d, 0x65, 0x12, 0x20, 0x0a, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x50, 0x69, 0x6e, 0x79,
+	0x69, 0x6e, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x73, 0x74, 0x61, 0x72, 0x74, 0x50,
+	0x69, 0x6e, 0x79, 0x69, 0x6e, 0x12, 0x1c, 0x0a, 0x09, 0x65, 0x6e, 0x64, 0x50, 0x69, 0x6e, 0x79,
+	0x69, 0x6e, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x09, 0x52, 0x09, 0x65, 0x6e, 0x64, 0x50, 0x69, 0x6e,
+	0x79, 0x69, 0x6e, 0x22, 0x21, 0x0a, 0x0b, 0x44, 0x61, 0x74, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x12, 0x12, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x04, 0x64, 0x61, 0x74, 0x65, 0x22, 0x2f, 0x0a, 0x0d, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x50,
 	0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x12, 0x0e, 0x0a, 0x02, 0x70, 0x6e, 0x18, 0x01, 0x20,
 	0x01, 0x28, 0x0d, 0x52, 0x02, 0x70, 0x6e, 0x12, 0x0e, 0x0a, 0x02, 0x70, 0x73, 0x18, 0x02, 0x20,
 	0x01, 0x28, 0x0d, 0x52, 0x02, 0x70, 0x73, 0x22, 0x53, 0x0a, 0x11, 0x54, 0x72, 0x61, 0x69, 0x6e,
@@ -3742,7 +3792,7 @@ var file_train_proto_rawDesc = []byte{
 	0x33, 0x0a, 0x0c, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
 	0x23, 0x0a, 0x04, 0x64, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x49, 0x6e, 0x66, 0x6f, 0x52, 0x04,
-	0x64, 0x61, 0x74, 0x61, 0x32, 0x9e, 0x05, 0x0a, 0x05, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x12, 0x4d,
+	0x64, 0x61, 0x74, 0x61, 0x32, 0xd6, 0x05, 0x0a, 0x05, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x12, 0x4d,
 	0x0a, 0x11, 0x47, 0x65, 0x74, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c,
 	0x69, 0x73, 0x74, 0x12, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x72, 0x61, 0x69,
 	0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1d,
@@ -3784,150 +3834,154 @@ var file_train_proto_rawDesc = []byte{
 	0x79, 0x12, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x44,
 	0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e, 0x70, 0x72,
 	0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xdc, 0x05, 0x0a, 0x07, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x12, 0x53, 0x0a, 0x13, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44,
-	0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67,
-	0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x12, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74,
-	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x44, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e,
-	0x4c, 0x69, 0x73, 0x74, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61,
-	0x74, 0x69, 0x6f, 0x6e, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1a, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x0d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
-	0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x59, 0x0a, 0x19, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74,
-	0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x42, 0x79, 0x44, 0x61,
-	0x74, 0x65, 0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a,
-	0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44,
-	0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
-	0x12, 0x42, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f,
-	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4e, 0x0a, 0x14, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
-	0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x12, 0x1a, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c,
-	0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x32, 0x8a, 0x03, 0x0a, 0x06, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12,
-	0x3b, 0x0a, 0x0c, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12,
-	0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69,
-	0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x0c,
-	0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x15, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x50, 0x61, 0x67, 0x65, 0x49,
-	0x6e, 0x66, 0x6f, 0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b,
-	0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41,
-	0x0a, 0x0e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74,
-	0x12, 0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52,
-	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54,
-	0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x40, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c, 0x69,
-	0x73, 0x74, 0x12, 0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65,
-	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x52, 0x65, 0x64, 0x75, 0x63, 0x74, 0x54, 0x69, 0x63,
-	0x6b, 0x65, 0x74, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x75, 0x73, 0x69,
-	0x6e, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e,
-	0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x52, 0x65, 0x62, 0x61, 0x63, 0x6b, 0x54, 0x69, 0x63, 0x6b,
-	0x65, 0x74, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e,
-	0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x32, 0xfb, 0x05, 0x0a, 0x08, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x56,
-	0x0a, 0x14, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69,
-	0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43,
-	0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65,
-	0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72,
-	0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4d, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72,
-	0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79,
-	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
-	0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x47, 0x0a, 0x0f, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72, 0x72,
-	0x69, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66,
-	0x6f, 0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61,
-	0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e,
-	0x0a, 0x0b, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16, 0x2e,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x36, 0x0a, 0x08, 0x47, 0x65, 0x6e, 0x44, 0x61, 0x69, 0x6c,
+	0x79, 0x12, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x44, 0x61, 0x74, 0x65, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x32, 0xdc, 0x05,
+	0x0a, 0x07, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x53, 0x0a, 0x13, 0x47, 0x65, 0x74,
+	0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74,
+	0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x44, 0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1f, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69,
+	0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4a,
+	0x0a, 0x0f, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c,
+	0x79, 0x12, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69,
+	0x6c, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x44, 0x0a, 0x0e, 0x47, 0x65,
+	0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x16, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x50, 0x61, 0x67, 0x65,
+	0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65,
+	0x12, 0x3b, 0x0a, 0x0a, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a,
+	0x0d, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a,
+	0x0d, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a,
+	0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65,
+	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x59, 0x0a,
+	0x19, 0x47, 0x65, 0x74, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79,
+	0x4c, 0x69, 0x73, 0x74, 0x42, 0x79, 0x44, 0x61, 0x74, 0x65, 0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x50,
+	0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x42, 0x0a, 0x0d, 0x47, 0x65, 0x74, 0x41,
+	0x6c, 0x6c, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4e, 0x0a, 0x14,
+	0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x44,
+	0x61, 0x69, 0x6c, 0x79, 0x12, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x1a, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x74, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x8a, 0x03, 0x0a,
+	0x06, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x3b, 0x0a, 0x0c, 0x44, 0x65, 0x6c, 0x65, 0x74,
+	0x65, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x0c, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x54, 0x69,
+	0x63, 0x6b, 0x65, 0x74, 0x12, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63,
+	0x6b, 0x65, 0x74, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x19, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41, 0x0a, 0x0e, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61,
+	0x74, 0x65, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x14, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x19,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c, 0x69, 0x73,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x40, 0x0a, 0x0d, 0x47, 0x65, 0x74,
+	0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x14, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x19, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x52,
+	0x65, 0x64, 0x75, 0x63, 0x74, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x16, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b,
+	0x65, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3d, 0x0a, 0x0c, 0x52, 0x65,
+	0x62, 0x61, 0x63, 0x6b, 0x54, 0x69, 0x63, 0x6b, 0x65, 0x74, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x42, 0x75, 0x73, 0x69, 0x6e, 0x65, 0x73, 0x73, 0x52, 0x65, 0x71, 0x75, 0x65,
+	0x73, 0x74, 0x1a, 0x15, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x54, 0x69, 0x63, 0x6b, 0x65,
+	0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xfb, 0x05, 0x0a, 0x08, 0x43, 0x61,
+	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x56, 0x0a, 0x14, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72,
+	0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x1c,
+	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44,
+	0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x20, 0x2e, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69,
+	0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x4d,
+	0x0a, 0x10, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69,
+	0x6c, 0x79, 0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69,
+	0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
+	0x1c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65,
+	0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x47, 0x0a,
+	0x0f, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74,
+	0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67,
+	0x65, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3e, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72,
+	0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61,
+	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e,
 	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65,
-	0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61,
-	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41,
-	0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65,
-	0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67,
-	0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
-	0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
-	0x65, 0x12, 0x41, 0x0a, 0x0e, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x72, 0x69,
-	0x61, 0x67, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72,
-	0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72,
-	0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70,
-	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41, 0x0a, 0x0e, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61,
-	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43,
-	0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41, 0x0a, 0x0e, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65,
+	0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
+	0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67,
+	0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41, 0x0a, 0x0e, 0x55, 0x70, 0x64,
+	0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75,
+	0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72,
+	0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x41, 0x0a, 0x0e,
+	0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16,
 	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x5c, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x43, 0x61,
-	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x42,
-	0x79, 0x44, 0x61, 0x74, 0x65, 0x12, 0x1c, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61,
-	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65, 0x49,
-	0x6e, 0x66, 0x6f, 0x1a, 0x20, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72,
-	0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a, 0x0e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43,
-	0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12, 0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
-	0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a,
-	0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65,
-	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x15,
-	0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65,
-	0x44, 0x61, 0x69, 0x6c, 0x79, 0x12, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61,
-	0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69,
-	0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32,
-	0xfa, 0x02, 0x0a, 0x04, 0x53, 0x65, 0x61, 0x74, 0x12, 0x4c, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x53,
-	0x65, 0x61, 0x74, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x42, 0x79, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x43,
-	0x6f, 0x64, 0x65, 0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74,
-	0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65,
-	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b, 0x0a, 0x0b, 0x47, 0x65, 0x74, 0x53, 0x65, 0x61,
-	0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65,
-	0x61, 0x74, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x53, 0x65, 0x61, 0x74, 0x12, 0x12,
-	0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65,
-	0x73, 0x74, 0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x53, 0x65, 0x61, 0x74, 0x12, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65,
-	0x61, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74,
-	0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35,
-	0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x53, 0x65, 0x61, 0x74, 0x12, 0x12, 0x2e, 0x70,
-	0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74,
-	0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x73,
-	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a, 0x11, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74,
-	0x65, 0x53, 0x65, 0x61, 0x74, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75,
-	0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74,
-	0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x42, 0x09, 0x5a, 0x07,
-	0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43,
+	0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x5c, 0x0a, 0x1a, 0x47, 0x65, 0x74, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61,
+	0x69, 0x6c, 0x79, 0x4c, 0x69, 0x73, 0x74, 0x42, 0x79, 0x44, 0x61, 0x74, 0x65, 0x12, 0x1c, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61,
+	0x69, 0x6c, 0x79, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e, 0x66, 0x6f, 0x1a, 0x20, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c,
+	0x79, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a,
+	0x0e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x12,
+	0x16, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65,
+	0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e,
+	0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x12, 0x51, 0x0a, 0x15, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65,
+	0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x12, 0x1b, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x44, 0x61,
+	0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x1b, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x43, 0x61, 0x72, 0x72, 0x69, 0x61, 0x67, 0x65, 0x4c, 0x69, 0x73, 0x74, 0x52,
+	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xfa, 0x02, 0x0a, 0x04, 0x53, 0x65, 0x61, 0x74,
+	0x12, 0x4c, 0x0a, 0x17, 0x47, 0x65, 0x74, 0x53, 0x65, 0x61, 0x74, 0x44, 0x61, 0x69, 0x6c, 0x79,
+	0x42, 0x79, 0x54, 0x72, 0x61, 0x69, 0x6e, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x17, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71,
+	0x75, 0x65, 0x73, 0x74, 0x1a, 0x18, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61,
+	0x74, 0x44, 0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x3b,
+	0x0a, 0x0b, 0x47, 0x65, 0x74, 0x53, 0x65, 0x61, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x12, 0x13, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x50, 0x61, 0x67, 0x65, 0x49, 0x6e,
+	0x66, 0x6f, 0x1a, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x4c,
+	0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x32, 0x0a, 0x07, 0x47,
+	0x65, 0x74, 0x53, 0x65, 0x61, 0x74, 0x12, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53,
+	0x65, 0x61, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12,
+	0x35, 0x0a, 0x0a, 0x55, 0x70, 0x64, 0x61, 0x74, 0x65, 0x53, 0x65, 0x61, 0x74, 0x12, 0x12, 0x2e,
+	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
+	0x74, 0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x35, 0x0a, 0x0a, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65,
+	0x53, 0x65, 0x61, 0x74, 0x12, 0x12, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x13, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f,
+	0x2e, 0x53, 0x65, 0x61, 0x74, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x45, 0x0a,
+	0x11, 0x47, 0x65, 0x6e, 0x65, 0x72, 0x61, 0x74, 0x65, 0x53, 0x65, 0x61, 0x74, 0x44, 0x61, 0x69,
+	0x6c, 0x79, 0x12, 0x17, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x44,
+	0x61, 0x69, 0x6c, 0x79, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x2e, 0x53, 0x65, 0x61, 0x74, 0x4c, 0x69, 0x73, 0x74, 0x52, 0x65, 0x73, 0x70,
+	0x6f, 0x6e, 0x73, 0x65, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x3b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62,
+	0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -3942,166 +3996,170 @@ func file_train_proto_rawDescGZIP() []byte {
 	return file_train_proto_rawDescData
 }
 
-var file_train_proto_msgTypes = make([]protoimpl.MessageInfo, 46)
+var file_train_proto_msgTypes = make([]protoimpl.MessageInfo, 47)
 var file_train_proto_goTypes = []interface{}{
 	(*TrainInfo)(nil),                 // 0: proto.TrainInfo
-	(*TrainPageInfo)(nil),             // 1: proto.TrainPageInfo
-	(*TrainListResponse)(nil),         // 2: proto.TrainListResponse
-	(*TrainRequest)(nil),              // 3: proto.TrainRequest
-	(*TrainResponse)(nil),             // 4: proto.TrainResponse
-	(*TrainDailyInfo)(nil),            // 5: proto.TrainDailyInfo
-	(*TrainDailyListResponse)(nil),    // 6: proto.TrainDailyListResponse
-	(*TrainDailyPageInfo)(nil),        // 7: proto.TrainDailyPageInfo
-	(*TrainDailyRequest)(nil),         // 8: proto.TrainDailyRequest
-	(*TrainDailyResponse)(nil),        // 9: proto.TrainDailyResponse
-	(*StationInfo)(nil),               // 10: proto.StationInfo
-	(*StationDailyInfo)(nil),          // 11: proto.StationDailyInfo
-	(*StationDailyListResponse)(nil),  // 12: proto.StationDailyListResponse
-	(*StationDailyPageInfo)(nil),      // 13: proto.StationDailyPageInfo
-	(*StationDailyRequest)(nil),       // 14: proto.StationDailyRequest
-	(*StationDailyResponse)(nil),      // 15: proto.StationDailyResponse
-	(*StationListResponse)(nil),       // 16: proto.StationListResponse
-	(*StationPageInfo)(nil),           // 17: proto.StationPageInfo
-	(*StationResponse)(nil),           // 18: proto.StationResponse
-	(*StationRequest)(nil),            // 19: proto.StationRequest
-	(*TicketInfo)(nil),                // 20: proto.TicketInfo
-	(*TicketPageInfo)(nil),            // 21: proto.TicketPageInfo
-	(*TicketListResponse)(nil),        // 22: proto.TicketListResponse
-	(*BusinessRequest)(nil),           // 23: proto.BusinessRequest
-	(*TicketRequest)(nil),             // 24: proto.TicketRequest
-	(*TicketResponse)(nil),            // 25: proto.TicketResponse
-	(*CarriageInfo)(nil),              // 26: proto.CarriageInfo
-	(*CarriageDailyInfo)(nil),         // 27: proto.CarriageDailyInfo
-	(*CarriageDailyListResponse)(nil), // 28: proto.CarriageDailyListResponse
-	(*CarriageDailyPageInfo)(nil),     // 29: proto.CarriageDailyPageInfo
-	(*CarriageDailyRequest)(nil),      // 30: proto.CarriageDailyRequest
-	(*CarriageDailyResponse)(nil),     // 31: proto.CarriageDailyResponse
-	(*CarriagePageInfo)(nil),          // 32: proto.CarriagePageInfo
-	(*CarriageListResponse)(nil),      // 33: proto.CarriageListResponse
-	(*CarriageRequest)(nil),           // 34: proto.CarriageRequest
-	(*CarriageResponse)(nil),          // 35: proto.CarriageResponse
-	(*SeatInfo)(nil),                  // 36: proto.SeatInfo
-	(*SeatDailyInfo)(nil),             // 37: proto.SeatDailyInfo
-	(*SeatDailyListResponse)(nil),     // 38: proto.SeatDailyListResponse
-	(*SeatDailyPageInfo)(nil),         // 39: proto.SeatDailyPageInfo
-	(*SeatDailyRequest)(nil),          // 40: proto.SeatDailyRequest
-	(*SeatDailyResponse)(nil),         // 41: proto.SeatDailyResponse
-	(*SeatPageInfo)(nil),              // 42: proto.SeatPageInfo
-	(*SeatListResponse)(nil),          // 43: proto.SeatListResponse
-	(*SeatRequest)(nil),               // 44: proto.SeatRequest
-	(*SeatResponse)(nil),              // 45: proto.SeatResponse
+	(*DateRequest)(nil),               // 1: proto.DateRequest
+	(*TrainPageInfo)(nil),             // 2: proto.TrainPageInfo
+	(*TrainListResponse)(nil),         // 3: proto.TrainListResponse
+	(*TrainRequest)(nil),              // 4: proto.TrainRequest
+	(*TrainResponse)(nil),             // 5: proto.TrainResponse
+	(*TrainDailyInfo)(nil),            // 6: proto.TrainDailyInfo
+	(*TrainDailyListResponse)(nil),    // 7: proto.TrainDailyListResponse
+	(*TrainDailyPageInfo)(nil),        // 8: proto.TrainDailyPageInfo
+	(*TrainDailyRequest)(nil),         // 9: proto.TrainDailyRequest
+	(*TrainDailyResponse)(nil),        // 10: proto.TrainDailyResponse
+	(*StationInfo)(nil),               // 11: proto.StationInfo
+	(*StationDailyInfo)(nil),          // 12: proto.StationDailyInfo
+	(*StationDailyListResponse)(nil),  // 13: proto.StationDailyListResponse
+	(*StationDailyPageInfo)(nil),      // 14: proto.StationDailyPageInfo
+	(*StationDailyRequest)(nil),       // 15: proto.StationDailyRequest
+	(*StationDailyResponse)(nil),      // 16: proto.StationDailyResponse
+	(*StationListResponse)(nil),       // 17: proto.StationListResponse
+	(*StationPageInfo)(nil),           // 18: proto.StationPageInfo
+	(*StationResponse)(nil),           // 19: proto.StationResponse
+	(*StationRequest)(nil),            // 20: proto.StationRequest
+	(*TicketInfo)(nil),                // 21: proto.TicketInfo
+	(*TicketPageInfo)(nil),            // 22: proto.TicketPageInfo
+	(*TicketListResponse)(nil),        // 23: proto.TicketListResponse
+	(*BusinessRequest)(nil),           // 24: proto.BusinessRequest
+	(*TicketRequest)(nil),             // 25: proto.TicketRequest
+	(*TicketResponse)(nil),            // 26: proto.TicketResponse
+	(*CarriageInfo)(nil),              // 27: proto.CarriageInfo
+	(*CarriageDailyInfo)(nil),         // 28: proto.CarriageDailyInfo
+	(*CarriageDailyListResponse)(nil), // 29: proto.CarriageDailyListResponse
+	(*CarriageDailyPageInfo)(nil),     // 30: proto.CarriageDailyPageInfo
+	(*CarriageDailyRequest)(nil),      // 31: proto.CarriageDailyRequest
+	(*CarriageDailyResponse)(nil),     // 32: proto.CarriageDailyResponse
+	(*CarriagePageInfo)(nil),          // 33: proto.CarriagePageInfo
+	(*CarriageListResponse)(nil),      // 34: proto.CarriageListResponse
+	(*CarriageRequest)(nil),           // 35: proto.CarriageRequest
+	(*CarriageResponse)(nil),          // 36: proto.CarriageResponse
+	(*SeatInfo)(nil),                  // 37: proto.SeatInfo
+	(*SeatDailyInfo)(nil),             // 38: proto.SeatDailyInfo
+	(*SeatDailyListResponse)(nil),     // 39: proto.SeatDailyListResponse
+	(*SeatDailyPageInfo)(nil),         // 40: proto.SeatDailyPageInfo
+	(*SeatDailyRequest)(nil),          // 41: proto.SeatDailyRequest
+	(*SeatDailyResponse)(nil),         // 42: proto.SeatDailyResponse
+	(*SeatPageInfo)(nil),              // 43: proto.SeatPageInfo
+	(*SeatListResponse)(nil),          // 44: proto.SeatListResponse
+	(*SeatRequest)(nil),               // 45: proto.SeatRequest
+	(*SeatResponse)(nil),              // 46: proto.SeatResponse
+	(*emptypb.Empty)(nil),             // 47: google.protobuf.Empty
 }
 var file_train_proto_depIdxs = []int32{
-	4,  // 0: proto.TrainListResponse.data:type_name -> proto.TrainResponse
+	5,  // 0: proto.TrainListResponse.data:type_name -> proto.TrainResponse
 	0,  // 1: proto.TrainResponse.data:type_name -> proto.TrainInfo
 	0,  // 2: proto.TrainDailyInfo.train:type_name -> proto.TrainInfo
-	9,  // 3: proto.TrainDailyListResponse.data:type_name -> proto.TrainDailyResponse
-	5,  // 4: proto.TrainDailyResponse.data:type_name -> proto.TrainDailyInfo
-	10, // 5: proto.StationDailyInfo.station:type_name -> proto.StationInfo
-	15, // 6: proto.StationDailyListResponse.data:type_name -> proto.StationDailyResponse
-	11, // 7: proto.StationDailyResponse.data:type_name -> proto.StationDailyInfo
-	18, // 8: proto.StationListResponse.data:type_name -> proto.StationResponse
-	10, // 9: proto.StationResponse.data:type_name -> proto.StationInfo
-	25, // 10: proto.TicketListResponse.data:type_name -> proto.TicketResponse
-	36, // 11: proto.BusinessRequest.seats:type_name -> proto.SeatInfo
-	20, // 12: proto.TicketResponse.data:type_name -> proto.TicketInfo
-	26, // 13: proto.CarriageDailyInfo.carriage:type_name -> proto.CarriageInfo
-	31, // 14: proto.CarriageDailyListResponse.data:type_name -> proto.CarriageDailyResponse
-	27, // 15: proto.CarriageDailyResponse.data:type_name -> proto.CarriageDailyInfo
-	35, // 16: proto.CarriageListResponse.data:type_name -> proto.CarriageResponse
-	26, // 17: proto.CarriageResponse.data:type_name -> proto.CarriageInfo
-	36, // 18: proto.SeatDailyInfo.seat:type_name -> proto.SeatInfo
-	41, // 19: proto.SeatDailyListResponse.data:type_name -> proto.SeatDailyResponse
-	37, // 20: proto.SeatDailyResponse.data:type_name -> proto.SeatDailyInfo
-	36, // 21: proto.SeatPageInfo.seat:type_name -> proto.SeatInfo
-	45, // 22: proto.SeatListResponse.data:type_name -> proto.SeatResponse
-	36, // 23: proto.SeatResponse.data:type_name -> proto.SeatInfo
-	7,  // 24: proto.Train.GetTrainDailyList:input_type -> proto.TrainDailyPageInfo
-	8,  // 25: proto.Train.GetTrainDaily:input_type -> proto.TrainDailyRequest
-	1,  // 26: proto.Train.GetTrainList:input_type -> proto.TrainPageInfo
-	3,  // 27: proto.Train.GetTrain:input_type -> proto.TrainRequest
-	3,  // 28: proto.Train.CreateTrain:input_type -> proto.TrainRequest
-	3,  // 29: proto.Train.UpdateTrain:input_type -> proto.TrainRequest
-	3,  // 30: proto.Train.DeleteTrain:input_type -> proto.TrainRequest
-	7,  // 31: proto.Train.GetTrainDailyListByDate:input_type -> proto.TrainDailyPageInfo
-	3,  // 32: proto.Train.GetAllTrain:input_type -> proto.TrainRequest
-	8,  // 33: proto.Train.GenerateTrainDaily:input_type -> proto.TrainDailyRequest
-	13, // 34: proto.Station.GetStationDailyList:input_type -> proto.StationDailyPageInfo
-	14, // 35: proto.Station.GetStationDaily:input_type -> proto.StationDailyRequest
-	17, // 36: proto.Station.GetStationList:input_type -> proto.StationPageInfo
-	19, // 37: proto.Station.GetStation:input_type -> proto.StationRequest
-	19, // 38: proto.Station.CreateStation:input_type -> proto.StationRequest
-	19, // 39: proto.Station.UpdateStation:input_type -> proto.StationRequest
-	19, // 40: proto.Station.DeleteStation:input_type -> proto.StationRequest
-	13, // 41: proto.Station.GetStationDailyListByDate:input_type -> proto.StationDailyPageInfo
-	19, // 42: proto.Station.GetAllStation:input_type -> proto.StationRequest
-	14, // 43: proto.Station.GenerateStationDaily:input_type -> proto.StationDailyRequest
-	24, // 44: proto.Ticket.DeleteTicket:input_type -> proto.TicketRequest
-	21, // 45: proto.Ticket.GetAllTicket:input_type -> proto.TicketPageInfo
-	24, // 46: proto.Ticket.GenerateTicket:input_type -> proto.TicketRequest
-	24, // 47: proto.Ticket.GetTicketList:input_type -> proto.TicketRequest
-	23, // 48: proto.Ticket.ReductTicket:input_type -> proto.BusinessRequest
-	23, // 49: proto.Ticket.RebackTicket:input_type -> proto.BusinessRequest
-	29, // 50: proto.Carriage.GetCarriageDailyList:input_type -> proto.CarriageDailyPageInfo
-	30, // 51: proto.Carriage.GetCarriageDaily:input_type -> proto.CarriageDailyRequest
-	32, // 52: proto.Carriage.GetCarriageList:input_type -> proto.CarriagePageInfo
-	34, // 53: proto.Carriage.GetCarriage:input_type -> proto.CarriageRequest
-	34, // 54: proto.Carriage.CreateCarriage:input_type -> proto.CarriageRequest
-	34, // 55: proto.Carriage.UpdateCarriage:input_type -> proto.CarriageRequest
-	34, // 56: proto.Carriage.DeleteCarriage:input_type -> proto.CarriageRequest
-	29, // 57: proto.Carriage.GetCarriageDailyListByDate:input_type -> proto.CarriageDailyPageInfo
-	34, // 58: proto.Carriage.GetAllCarriage:input_type -> proto.CarriageRequest
-	30, // 59: proto.Carriage.GenerateCarriageDaily:input_type -> proto.CarriageDailyRequest
-	40, // 60: proto.Seat.GetSeatDailyByTrainCode:input_type -> proto.SeatDailyRequest
-	42, // 61: proto.Seat.GetSeatList:input_type -> proto.SeatPageInfo
-	44, // 62: proto.Seat.GetSeat:input_type -> proto.SeatRequest
-	44, // 63: proto.Seat.UpdateSeat:input_type -> proto.SeatRequest
-	44, // 64: proto.Seat.DeleteSeat:input_type -> proto.SeatRequest
-	40, // 65: proto.Seat.GenerateSeatDaily:input_type -> proto.SeatDailyRequest
-	6,  // 66: proto.Train.GetTrainDailyList:output_type -> proto.TrainDailyListResponse
-	9,  // 67: proto.Train.GetTrainDaily:output_type -> proto.TrainDailyResponse
-	2,  // 68: proto.Train.GetTrainList:output_type -> proto.TrainListResponse
-	4,  // 69: proto.Train.GetTrain:output_type -> proto.TrainResponse
-	4,  // 70: proto.Train.CreateTrain:output_type -> proto.TrainResponse
-	4,  // 71: proto.Train.UpdateTrain:output_type -> proto.TrainResponse
-	4,  // 72: proto.Train.DeleteTrain:output_type -> proto.TrainResponse
-	6,  // 73: proto.Train.GetTrainDailyListByDate:output_type -> proto.TrainDailyListResponse
-	2,  // 74: proto.Train.GetAllTrain:output_type -> proto.TrainListResponse
-	2,  // 75: proto.Train.GenerateTrainDaily:output_type -> proto.TrainListResponse
-	12, // 76: proto.Station.GetStationDailyList:output_type -> proto.StationDailyListResponse
-	15, // 77: proto.Station.GetStationDaily:output_type -> proto.StationDailyResponse
-	16, // 78: proto.Station.GetStationList:output_type -> proto.StationListResponse
-	18, // 79: proto.Station.GetStation:output_type -> proto.StationResponse
-	18, // 80: proto.Station.CreateStation:output_type -> proto.StationResponse
-	18, // 81: proto.Station.UpdateStation:output_type -> proto.StationResponse
-	18, // 82: proto.Station.DeleteStation:output_type -> proto.StationResponse
-	12, // 83: proto.Station.GetStationDailyListByDate:output_type -> proto.StationDailyListResponse
-	16, // 84: proto.Station.GetAllStation:output_type -> proto.StationListResponse
-	16, // 85: proto.Station.GenerateStationDaily:output_type -> proto.StationListResponse
-	25, // 86: proto.Ticket.DeleteTicket:output_type -> proto.TicketResponse
-	22, // 87: proto.Ticket.GetAllTicket:output_type -> proto.TicketListResponse
-	22, // 88: proto.Ticket.GenerateTicket:output_type -> proto.TicketListResponse
-	22, // 89: proto.Ticket.GetTicketList:output_type -> proto.TicketListResponse
-	25, // 90: proto.Ticket.ReductTicket:output_type -> proto.TicketResponse
-	25, // 91: proto.Ticket.RebackTicket:output_type -> proto.TicketResponse
-	28, // 92: proto.Carriage.GetCarriageDailyList:output_type -> proto.CarriageDailyListResponse
-	31, // 93: proto.Carriage.GetCarriageDaily:output_type -> proto.CarriageDailyResponse
-	33, // 94: proto.Carriage.GetCarriageList:output_type -> proto.CarriageListResponse
-	35, // 95: proto.Carriage.GetCarriage:output_type -> proto.CarriageResponse
-	35, // 96: proto.Carriage.CreateCarriage:output_type -> proto.CarriageResponse
-	35, // 97: proto.Carriage.UpdateCarriage:output_type -> proto.CarriageResponse
-	35, // 98: proto.Carriage.DeleteCarriage:output_type -> proto.CarriageResponse
-	28, // 99: proto.Carriage.GetCarriageDailyListByDate:output_type -> proto.CarriageDailyListResponse
-	33, // 100: proto.Carriage.GetAllCarriage:output_type -> proto.CarriageListResponse
-	33, // 101: proto.Carriage.GenerateCarriageDaily:output_type -> proto.CarriageListResponse
-	41, // 102: proto.Seat.GetSeatDailyByTrainCode:output_type -> proto.SeatDailyResponse
-	43, // 103: proto.Seat.GetSeatList:output_type -> proto.SeatListResponse
-	45, // 104: proto.Seat.GetSeat:output_type -> proto.SeatResponse
-	45, // 105: proto.Seat.UpdateSeat:output_type -> proto.SeatResponse
-	45, // 106: proto.Seat.DeleteSeat:output_type -> proto.SeatResponse
-	43, // 107: proto.Seat.GenerateSeatDaily:output_type -> proto.SeatListResponse
-	66, // [66:108] is the sub-list for method output_type
-	24, // [24:66] is the sub-list for method input_type
+	10, // 3: proto.TrainDailyListResponse.data:type_name -> proto.TrainDailyResponse
+	6,  // 4: proto.TrainDailyResponse.data:type_name -> proto.TrainDailyInfo
+	11, // 5: proto.StationDailyInfo.station:type_name -> proto.StationInfo
+	16, // 6: proto.StationDailyListResponse.data:type_name -> proto.StationDailyResponse
+	12, // 7: proto.StationDailyResponse.data:type_name -> proto.StationDailyInfo
+	19, // 8: proto.StationListResponse.data:type_name -> proto.StationResponse
+	11, // 9: proto.StationResponse.data:type_name -> proto.StationInfo
+	26, // 10: proto.TicketListResponse.data:type_name -> proto.TicketResponse
+	37, // 11: proto.BusinessRequest.seats:type_name -> proto.SeatInfo
+	21, // 12: proto.TicketResponse.data:type_name -> proto.TicketInfo
+	27, // 13: proto.CarriageDailyInfo.carriage:type_name -> proto.CarriageInfo
+	32, // 14: proto.CarriageDailyListResponse.data:type_name -> proto.CarriageDailyResponse
+	28, // 15: proto.CarriageDailyResponse.data:type_name -> proto.CarriageDailyInfo
+	36, // 16: proto.CarriageListResponse.data:type_name -> proto.CarriageResponse
+	27, // 17: proto.CarriageResponse.data:type_name -> proto.CarriageInfo
+	37, // 18: proto.SeatDailyInfo.seat:type_name -> proto.SeatInfo
+	42, // 19: proto.SeatDailyListResponse.data:type_name -> proto.SeatDailyResponse
+	38, // 20: proto.SeatDailyResponse.data:type_name -> proto.SeatDailyInfo
+	37, // 21: proto.SeatPageInfo.seat:type_name -> proto.SeatInfo
+	46, // 22: proto.SeatListResponse.data:type_name -> proto.SeatResponse
+	37, // 23: proto.SeatResponse.data:type_name -> proto.SeatInfo
+	8,  // 24: proto.Train.GetTrainDailyList:input_type -> proto.TrainDailyPageInfo
+	9,  // 25: proto.Train.GetTrainDaily:input_type -> proto.TrainDailyRequest
+	2,  // 26: proto.Train.GetTrainList:input_type -> proto.TrainPageInfo
+	4,  // 27: proto.Train.GetTrain:input_type -> proto.TrainRequest
+	4,  // 28: proto.Train.CreateTrain:input_type -> proto.TrainRequest
+	4,  // 29: proto.Train.UpdateTrain:input_type -> proto.TrainRequest
+	4,  // 30: proto.Train.DeleteTrain:input_type -> proto.TrainRequest
+	8,  // 31: proto.Train.GetTrainDailyListByDate:input_type -> proto.TrainDailyPageInfo
+	4,  // 32: proto.Train.GetAllTrain:input_type -> proto.TrainRequest
+	9,  // 33: proto.Train.GenerateTrainDaily:input_type -> proto.TrainDailyRequest
+	1,  // 34: proto.Train.GenDaily:input_type -> proto.DateRequest
+	14, // 35: proto.Station.GetStationDailyList:input_type -> proto.StationDailyPageInfo
+	15, // 36: proto.Station.GetStationDaily:input_type -> proto.StationDailyRequest
+	18, // 37: proto.Station.GetStationList:input_type -> proto.StationPageInfo
+	20, // 38: proto.Station.GetStation:input_type -> proto.StationRequest
+	20, // 39: proto.Station.CreateStation:input_type -> proto.StationRequest
+	20, // 40: proto.Station.UpdateStation:input_type -> proto.StationRequest
+	20, // 41: proto.Station.DeleteStation:input_type -> proto.StationRequest
+	14, // 42: proto.Station.GetStationDailyListByDate:input_type -> proto.StationDailyPageInfo
+	20, // 43: proto.Station.GetAllStation:input_type -> proto.StationRequest
+	15, // 44: proto.Station.GenerateStationDaily:input_type -> proto.StationDailyRequest
+	25, // 45: proto.Ticket.DeleteTicket:input_type -> proto.TicketRequest
+	22, // 46: proto.Ticket.GetAllTicket:input_type -> proto.TicketPageInfo
+	25, // 47: proto.Ticket.GenerateTicket:input_type -> proto.TicketRequest
+	25, // 48: proto.Ticket.GetTicketList:input_type -> proto.TicketRequest
+	24, // 49: proto.Ticket.ReductTicket:input_type -> proto.BusinessRequest
+	24, // 50: proto.Ticket.RebackTicket:input_type -> proto.BusinessRequest
+	30, // 51: proto.Carriage.GetCarriageDailyList:input_type -> proto.CarriageDailyPageInfo
+	31, // 52: proto.Carriage.GetCarriageDaily:input_type -> proto.CarriageDailyRequest
+	33, // 53: proto.Carriage.GetCarriageList:input_type -> proto.CarriagePageInfo
+	35, // 54: proto.Carriage.GetCarriage:input_type -> proto.CarriageRequest
+	35, // 55: proto.Carriage.CreateCarriage:input_type -> proto.CarriageRequest
+	35, // 56: proto.Carriage.UpdateCarriage:input_type -> proto.CarriageRequest
+	35, // 57: proto.Carriage.DeleteCarriage:input_type -> proto.CarriageRequest
+	30, // 58: proto.Carriage.GetCarriageDailyListByDate:input_type -> proto.CarriageDailyPageInfo
+	35, // 59: proto.Carriage.GetAllCarriage:input_type -> proto.CarriageRequest
+	31, // 60: proto.Carriage.GenerateCarriageDaily:input_type -> proto.CarriageDailyRequest
+	41, // 61: proto.Seat.GetSeatDailyByTrainCode:input_type -> proto.SeatDailyRequest
+	43, // 62: proto.Seat.GetSeatList:input_type -> proto.SeatPageInfo
+	45, // 63: proto.Seat.GetSeat:input_type -> proto.SeatRequest
+	45, // 64: proto.Seat.UpdateSeat:input_type -> proto.SeatRequest
+	45, // 65: proto.Seat.DeleteSeat:input_type -> proto.SeatRequest
+	41, // 66: proto.Seat.GenerateSeatDaily:input_type -> proto.SeatDailyRequest
+	7,  // 67: proto.Train.GetTrainDailyList:output_type -> proto.TrainDailyListResponse
+	10, // 68: proto.Train.GetTrainDaily:output_type -> proto.TrainDailyResponse
+	3,  // 69: proto.Train.GetTrainList:output_type -> proto.TrainListResponse
+	5,  // 70: proto.Train.GetTrain:output_type -> proto.TrainResponse
+	5,  // 71: proto.Train.CreateTrain:output_type -> proto.TrainResponse
+	5,  // 72: proto.Train.UpdateTrain:output_type -> proto.TrainResponse
+	5,  // 73: proto.Train.DeleteTrain:output_type -> proto.TrainResponse
+	7,  // 74: proto.Train.GetTrainDailyListByDate:output_type -> proto.TrainDailyListResponse
+	3,  // 75: proto.Train.GetAllTrain:output_type -> proto.TrainListResponse
+	3,  // 76: proto.Train.GenerateTrainDaily:output_type -> proto.TrainListResponse
+	47, // 77: proto.Train.GenDaily:output_type -> google.protobuf.Empty
+	13, // 78: proto.Station.GetStationDailyList:output_type -> proto.StationDailyListResponse
+	16, // 79: proto.Station.GetStationDaily:output_type -> proto.StationDailyResponse
+	17, // 80: proto.Station.GetStationList:output_type -> proto.StationListResponse
+	19, // 81: proto.Station.GetStation:output_type -> proto.StationResponse
+	19, // 82: proto.Station.CreateStation:output_type -> proto.StationResponse
+	19, // 83: proto.Station.UpdateStation:output_type -> proto.StationResponse
+	19, // 84: proto.Station.DeleteStation:output_type -> proto.StationResponse
+	13, // 85: proto.Station.GetStationDailyListByDate:output_type -> proto.StationDailyListResponse
+	17, // 86: proto.Station.GetAllStation:output_type -> proto.StationListResponse
+	17, // 87: proto.Station.GenerateStationDaily:output_type -> proto.StationListResponse
+	26, // 88: proto.Ticket.DeleteTicket:output_type -> proto.TicketResponse
+	23, // 89: proto.Ticket.GetAllTicket:output_type -> proto.TicketListResponse
+	23, // 90: proto.Ticket.GenerateTicket:output_type -> proto.TicketListResponse
+	23, // 91: proto.Ticket.GetTicketList:output_type -> proto.TicketListResponse
+	26, // 92: proto.Ticket.ReductTicket:output_type -> proto.TicketResponse
+	26, // 93: proto.Ticket.RebackTicket:output_type -> proto.TicketResponse
+	29, // 94: proto.Carriage.GetCarriageDailyList:output_type -> proto.CarriageDailyListResponse
+	32, // 95: proto.Carriage.GetCarriageDaily:output_type -> proto.CarriageDailyResponse
+	34, // 96: proto.Carriage.GetCarriageList:output_type -> proto.CarriageListResponse
+	36, // 97: proto.Carriage.GetCarriage:output_type -> proto.CarriageResponse
+	36, // 98: proto.Carriage.CreateCarriage:output_type -> proto.CarriageResponse
+	36, // 99: proto.Carriage.UpdateCarriage:output_type -> proto.CarriageResponse
+	36, // 100: proto.Carriage.DeleteCarriage:output_type -> proto.CarriageResponse
+	29, // 101: proto.Carriage.GetCarriageDailyListByDate:output_type -> proto.CarriageDailyListResponse
+	34, // 102: proto.Carriage.GetAllCarriage:output_type -> proto.CarriageListResponse
+	34, // 103: proto.Carriage.GenerateCarriageDaily:output_type -> proto.CarriageListResponse
+	42, // 104: proto.Seat.GetSeatDailyByTrainCode:output_type -> proto.SeatDailyResponse
+	44, // 105: proto.Seat.GetSeatList:output_type -> proto.SeatListResponse
+	46, // 106: proto.Seat.GetSeat:output_type -> proto.SeatResponse
+	46, // 107: proto.Seat.UpdateSeat:output_type -> proto.SeatResponse
+	46, // 108: proto.Seat.DeleteSeat:output_type -> proto.SeatResponse
+	44, // 109: proto.Seat.GenerateSeatDaily:output_type -> proto.SeatListResponse
+	67, // [67:110] is the sub-list for method output_type
+	24, // [24:67] is the sub-list for method input_type
 	24, // [24:24] is the sub-list for extension type_name
 	24, // [24:24] is the sub-list for extension extendee
 	0,  // [0:24] is the sub-list for field type_name
@@ -4126,7 +4184,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainPageInfo); i {
+			switch v := v.(*DateRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4138,7 +4196,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainListResponse); i {
+			switch v := v.(*TrainPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4150,7 +4208,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainRequest); i {
+			switch v := v.(*TrainListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4162,7 +4220,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainResponse); i {
+			switch v := v.(*TrainRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4174,7 +4232,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainDailyInfo); i {
+			switch v := v.(*TrainResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4186,7 +4244,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainDailyListResponse); i {
+			switch v := v.(*TrainDailyInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4198,7 +4256,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainDailyPageInfo); i {
+			switch v := v.(*TrainDailyListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4210,7 +4268,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainDailyRequest); i {
+			switch v := v.(*TrainDailyPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4222,7 +4280,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TrainDailyResponse); i {
+			switch v := v.(*TrainDailyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4234,7 +4292,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationInfo); i {
+			switch v := v.(*TrainDailyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4246,7 +4304,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationDailyInfo); i {
+			switch v := v.(*StationInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4258,7 +4316,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationDailyListResponse); i {
+			switch v := v.(*StationDailyInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4270,7 +4328,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationDailyPageInfo); i {
+			switch v := v.(*StationDailyListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4282,7 +4340,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationDailyRequest); i {
+			switch v := v.(*StationDailyPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4294,7 +4352,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationDailyResponse); i {
+			switch v := v.(*StationDailyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4306,7 +4364,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationListResponse); i {
+			switch v := v.(*StationDailyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4318,7 +4376,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationPageInfo); i {
+			switch v := v.(*StationListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4330,7 +4388,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationResponse); i {
+			switch v := v.(*StationPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4342,7 +4400,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*StationRequest); i {
+			switch v := v.(*StationResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4354,7 +4412,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TicketInfo); i {
+			switch v := v.(*StationRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4366,7 +4424,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TicketPageInfo); i {
+			switch v := v.(*TicketInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4378,7 +4436,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[22].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TicketListResponse); i {
+			switch v := v.(*TicketPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4390,7 +4448,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[23].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*BusinessRequest); i {
+			switch v := v.(*TicketListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4402,7 +4460,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[24].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TicketRequest); i {
+			switch v := v.(*BusinessRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4414,7 +4472,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[25].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*TicketResponse); i {
+			switch v := v.(*TicketRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4426,7 +4484,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[26].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageInfo); i {
+			switch v := v.(*TicketResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4438,7 +4496,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[27].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageDailyInfo); i {
+			switch v := v.(*CarriageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4450,7 +4508,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[28].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageDailyListResponse); i {
+			switch v := v.(*CarriageDailyInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4462,7 +4520,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[29].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageDailyPageInfo); i {
+			switch v := v.(*CarriageDailyListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4474,7 +4532,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[30].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageDailyRequest); i {
+			switch v := v.(*CarriageDailyPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4486,7 +4544,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[31].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageDailyResponse); i {
+			switch v := v.(*CarriageDailyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4498,7 +4556,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[32].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriagePageInfo); i {
+			switch v := v.(*CarriageDailyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4510,7 +4568,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[33].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageListResponse); i {
+			switch v := v.(*CarriagePageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4522,7 +4580,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[34].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageRequest); i {
+			switch v := v.(*CarriageListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4534,7 +4592,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[35].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CarriageResponse); i {
+			switch v := v.(*CarriageRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4546,7 +4604,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[36].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatInfo); i {
+			switch v := v.(*CarriageResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4558,7 +4616,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[37].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatDailyInfo); i {
+			switch v := v.(*SeatInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4570,7 +4628,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[38].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatDailyListResponse); i {
+			switch v := v.(*SeatDailyInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4582,7 +4640,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[39].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatDailyPageInfo); i {
+			switch v := v.(*SeatDailyListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4594,7 +4652,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[40].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatDailyRequest); i {
+			switch v := v.(*SeatDailyPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4606,7 +4664,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[41].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatDailyResponse); i {
+			switch v := v.(*SeatDailyRequest); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4618,7 +4676,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[42].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatPageInfo); i {
+			switch v := v.(*SeatDailyResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4630,7 +4688,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[43].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatListResponse); i {
+			switch v := v.(*SeatPageInfo); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4642,7 +4700,7 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[44].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SeatRequest); i {
+			switch v := v.(*SeatListResponse); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -4654,6 +4712,18 @@ func file_train_proto_init() {
 			}
 		}
 		file_train_proto_msgTypes[45].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*SeatRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_train_proto_msgTypes[46].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SeatResponse); i {
 			case 0:
 				return &v.state
@@ -4672,7 +4742,7 @@ func file_train_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_train_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   46,
+			NumMessages:   47,
 			NumExtensions: 0,
 			NumServices:   5,
 		},

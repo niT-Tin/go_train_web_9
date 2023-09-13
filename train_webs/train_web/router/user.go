@@ -7,11 +7,10 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitUserRouter(g *gin.RouterGroup) {
-	UserRouter := g.Group("user")
+func InitTicketsRouter(g *gin.RouterGroup) {
+	trainRouter := g.Group("train")
 	{
-		UserRouter.GET("list", middlewares.JWTAuth(), middlewares.IsAdminAuth(), api.GetUserList)
-		UserRouter.POST("pwd_login", api.PasswordLogin)
-		UserRouter.POST("register", api.Register)
+		trainRouter.GET("tickets", middlewares.JWTAuth(), api.GetTickets)
+		trainRouter.GET("seat", middlewares.JWTAuth(), api.GetSeatsByTrain)
 	}
 }

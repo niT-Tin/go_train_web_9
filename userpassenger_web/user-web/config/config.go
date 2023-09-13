@@ -8,7 +8,8 @@ type UserSrvConfig struct {
 
 type ServerConfig struct {
 	Name          string        `mapstructure:"name" yaml:"name"`
-	Port          string        `mapstructure:"port" yaml:"port"`
+	Port          int32         `mapstructure:"port" yaml:"port"`
+	Host          string        `mapstructure:"host" yaml:"host"`
 	UserSrvConfig UserSrvConfig `mapstructure:"user_srv" yaml:"user_srv"`
 	JWTInfo       JWTConfig     `mapstructure:"jwt" yaml:"jwt"`
 	AliSmsConfig  AliSmsConfig  `mapstructure:"ali_sms" yaml:"ali_sms"`

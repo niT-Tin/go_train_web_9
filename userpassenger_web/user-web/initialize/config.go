@@ -3,7 +3,6 @@ package initialize
 import (
 	"gotrains/userpassenger_web/user-web/global"
 	"gotrains/userpassenger_web/user-web/utils"
-	"strconv"
 
 	"github.com/fsnotify/fsnotify"
 	"github.com/nacos-group/nacos-sdk-go/v2/clients"
@@ -38,7 +37,7 @@ func InitConfig() {
 		if err != nil {
 			panic(err)
 		}
-		global.ServerConfig.Port = strconv.Itoa(port)
+		global.ServerConfig.Port = int32(port)
 	}
 	zap.S().Infof("config info: %#v \n", global.ServerConfig)
 	v.WatchConfig()

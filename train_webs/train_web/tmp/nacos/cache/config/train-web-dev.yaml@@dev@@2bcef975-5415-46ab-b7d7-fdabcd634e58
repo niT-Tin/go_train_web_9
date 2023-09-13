@@ -1,0 +1,37 @@
+name: 'train-web'
+port: 8093
+host: '10.102.109.196'
+user_srv:
+  host: '127.0.0.1'
+  port: 50051
+  name: 'user_srv'
+
+train_srv:
+  host: '127.0.0.1'
+  port: 50052
+  name: 'train_srv'
+
+ticket_srv:
+  host: '127.0.0.1'
+  port: 50052
+  name: 'train_srv'
+
+seat_srv:
+  host: '127.0.0.1'
+  port: 50052
+  name: 'train_srv'
+
+order_srv:
+  host: '127.0.0.1'
+  port: 50053
+  name: 'ticketorder_srv'
+
+redis:
+  host: '127.0.0.1'
+  port: 6379
+
+consul:
+  host: '10.102.109.196'
+  port: 8500
+jwt:
+  key: 'Pn5wO!E&l5%fnLnuVk^v0ZkXRgqT8qom'

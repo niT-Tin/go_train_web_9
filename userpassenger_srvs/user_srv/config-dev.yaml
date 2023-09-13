@@ -2,7 +2,7 @@ nacos:
   host: '10.102.109.196'
   # host: '10.102.213.148'
   port: 8848
-  namespace: '018782e9-4d17-42a6-a34e-82663dccc547'
+  namespace: '2bcef975-5415-46ab-b7d7-fdabcd634e58'
   user: 'nacos'
   password: 'nacos'
   dataid: 'user-srv-dev.yaml'

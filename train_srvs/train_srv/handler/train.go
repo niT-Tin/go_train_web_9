@@ -12,6 +12,7 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 // Train Server Implement
@@ -178,4 +179,13 @@ func (t *TrainServer) GenerateTrainDaily(ctx context.Context, trainreq *proto.Tr
 		return nil, err
 	}
 	return &proto.TrainListResponse{}, nil
+}
+
+func (t *TrainServer) GenDaily(ctx context.Context, trainreq *proto.DateRequest) (*emptypb.Empty, error) {
+	ts := &services.TrainService{}
+	err := ts.GenDaily(trainreq.Date)
+	if err != nil {
+		return nil, err
+	}
+	return &emptypb.Empty{}, nil
 }

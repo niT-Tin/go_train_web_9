@@ -1,5 +1,5 @@
 syntax = "proto3";
-// import "google/protobuf/empty.proto";
+import "google/protobuf/empty.proto";
 package proto;
 option go_package = ".;proto";
 
@@ -14,6 +14,7 @@ service Train {
   rpc GetTrainDailyListByDate(TrainDailyPageInfo) returns (TrainDailyListResponse);
   rpc GetAllTrain(TrainRequest) returns (TrainListResponse);
   rpc GenerateTrainDaily(TrainDailyRequest) returns (TrainListResponse);
+  rpc GenDaily(DateRequest) returns (google.protobuf.Empty);
 }
 
 service Station {
@@ -79,6 +80,10 @@ message TrainInfo {
   int64 updateTime = 9;
   string startPinyin = 10;
   string endPinyin = 11;
+}
+
+message DateRequest {
+  string date = 1;
 }
 
 message TrainPageInfo {

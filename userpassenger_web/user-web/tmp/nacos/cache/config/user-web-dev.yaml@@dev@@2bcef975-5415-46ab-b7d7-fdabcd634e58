@@ -1,8 +1,9 @@
 name: 'user-web'
-port: ':8080'
+port: 8090
+host: '10.102.109.196'
 user_srv:
   host: '127.0.0.1'
-  port: 40679
+  port: 50051
   name: 'user_srv'
 
 jwt:

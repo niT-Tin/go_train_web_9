@@ -6,10 +6,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InitBaseRouter(r *gin.RouterGroup) {
-	br := r.Group("base")
+func InitTrainRouter(r *gin.RouterGroup) {
+	adt := r.Group("ad")
 	{
-		br.GET("captcha", api.CaptchaGet)
-		br.POST("send_msg", api.SendSms)
+		adt.GET("trains", api.GetTrains)
+		adt.POST("adt", api.AddTrains)
+		// adt.POST("adc", api.AddCarriages)
 	}
 }

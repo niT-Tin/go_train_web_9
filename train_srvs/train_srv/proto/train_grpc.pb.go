@@ -4,8 +4,6 @@
 // - protoc             v4.23.3
 // source: train.proto
 
-// import "google/protobuf/empty.proto";
-
 package proto
 
 import (
@@ -13,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -31,6 +30,7 @@ const (
 	Train_GetTrainDailyListByDate_FullMethodName = "/proto.Train/GetTrainDailyListByDate"
 	Train_GetAllTrain_FullMethodName             = "/proto.Train/GetAllTrain"
 	Train_GenerateTrainDaily_FullMethodName      = "/proto.Train/GenerateTrainDaily"
+	Train_GenDaily_FullMethodName                = "/proto.Train/GenDaily"
 )
 
 // TrainClient is the client API for Train service.
@@ -47,6 +47,7 @@ type TrainClient interface {
 	GetTrainDailyListByDate(ctx context.Context, in *TrainDailyPageInfo, opts ...grpc.CallOption) (*TrainDailyListResponse, error)
 	GetAllTrain(ctx context.Context, in *TrainRequest, opts ...grpc.CallOption) (*TrainListResponse, error)
 	GenerateTrainDaily(ctx context.Context, in *TrainDailyRequest, opts ...grpc.CallOption) (*TrainListResponse, error)
+	GenDaily(ctx context.Context, in *DateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type trainClient struct {
@@ -147,6 +148,15 @@ func (c *trainClient) GenerateTrainDaily(ctx context.Context, in *TrainDailyRequ
 	return out, nil
 }
 
+func (c *trainClient) GenDaily(ctx context.Context, in *DateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, Train_GenDaily_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // TrainServer is the server API for Train service.
 // All implementations must embed UnimplementedTrainServer
 // for forward compatibility
@@ -161,6 +171,7 @@ type TrainServer interface {
 	GetTrainDailyListByDate(context.Context, *TrainDailyPageInfo) (*TrainDailyListResponse, error)
 	GetAllTrain(context.Context, *TrainRequest) (*TrainListResponse, error)
 	GenerateTrainDaily(context.Context, *TrainDailyRequest) (*TrainListResponse, error)
+	GenDaily(context.Context, *DateRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedTrainServer()
 }
 
@@ -197,6 +208,9 @@ func (UnimplementedTrainServer) GetAllTrain(context.Context, *TrainRequest) (*Tr
 }
 func (UnimplementedTrainServer) GenerateTrainDaily(context.Context, *TrainDailyRequest) (*TrainListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GenerateTrainDaily not implemented")
+}
+func (UnimplementedTrainServer) GenDaily(context.Context, *DateRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GenDaily not implemented")
 }
 func (UnimplementedTrainServer) mustEmbedUnimplementedTrainServer() {}
 
@@ -391,6 +405,24 @@ func _Train_GenerateTrainDaily_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Train_GenDaily_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DateRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TrainServer).GenDaily(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Train_GenDaily_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TrainServer).GenDaily(ctx, req.(*DateRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Train_ServiceDesc is the grpc.ServiceDesc for Train service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -437,6 +469,10 @@ var Train_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GenerateTrainDaily",
 			Handler:    _Train_GenerateTrainDaily_Handler,
+		},
+		{
+			MethodName: "GenDaily",
+			Handler:    _Train_GenDaily_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

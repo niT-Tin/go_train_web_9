@@ -2,23 +2,18 @@ package api
 
 import (
 	"context"
-	"gotrains/ticketorder_srvs/ticket_srv/model"
 	"gotrains/ticketorder_web/ticketorder-web/forms"
 	"gotrains/ticketorder_web/ticketorder-web/global"
-	"gotrains/ticketorder_web/ticketorder-web/global/response"
-	"gotrains/ticketorder_web/ticketorder-web/middlewares"
 	"gotrains/ticketorder_web/ticketorder-web/models"
 	"gotrains/ticketorder_web/ticketorder-web/proto"
-	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	uuid "github.com/satori/go.uuid"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
-	"github.com/redis/go-redis/v9"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -86,7 +81,7 @@ func GetPassengerList(c *gin.Context) {
 	zap.S().Debug("获取对应订单用户乘客列表")
 	cUser := getClaimes(c)
 	zap.S().Infof("访问用户: %d", cUser.ID)
-	pn := c.DefaultQuery("page", "0")
+	pn := c.DefaultQuery("page", "1")
 	pnInt, _ := strconv.Atoi(pn)
 	ps := c.DefaultQuery("size", "10")
 	psInt, _ := strconv.Atoi(ps)
@@ -103,6 +98,9 @@ func GetPassengerList(c *gin.Context) {
 	var passengers []models.Passenger
 	for _, value := range res.Data {
 		zap.S().Infof("乘客: %v", value)
+		if value.IdCard == "" {
+			continue
+		}
 		ps := models.Passenger{
 			Name:     value.Name,
 			IdCard:   value.IdCard,
@@ -113,7 +111,11 @@ func GetPassengerList(c *gin.Context) {
 		}
 		passengers = append(passengers, ps)
 	}
-	c.JSON(http.StatusOK, passengers)
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "获取成功",
+		"content": passengers,
+	})
 }
 
 func AddPassenger(c *gin.Context) {
@@ -126,13 +128,21 @@ func AddPassenger(c *gin.Context) {
 			"message": "参数错误",
 		})
 	}
-	_, err := global.UserClient.AddPassenger(context.Background(), &proto.PassengerInfo{
+	// parse string to integer
+	i, err := strconv.Atoi(passengerForm.Type)
+	if err != nil {
+		zap.S().Errorw("AddPassenger 参数错误", "msg", err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "参数错误",
+		})
+	}
+	_, err = global.UserClient.AddPassenger(context.Background(), &proto.PassengerInfo{
 		Name:     passengerForm.Name,
 		IdCard:   passengerForm.IdCard,
-		Type:     passengerForm.Type,
 		UserId:   int32(cUser.ID),
-		Seat:     passengerForm.Seat,
-		SeatType: passengerForm.SeatType,
+		Type:     int64(i),
+		Seat:     "C1",
+		SeatType: "一",
 	})
 	if err != nil {
 		HandleGrpcErrorToHttp(err, c)
@@ -166,7 +176,7 @@ func CreateOrder(c *gin.Context) {
 			UserId:   int32(passenger.UserID),
 			Seat:     passenger.Seat,
 			SeatType: passenger.SeatType,
-		}		
+		}
 		orderPassengers = append(orderPassengers, &opass)
 	}
 	orderInfo.Passengers = orderPassengers
@@ -180,7 +190,7 @@ func CreateOrder(c *gin.Context) {
 	orderInfo.SeatNumber = order.SeatNumber
 	orderInfo.Price = order.Pirce
 	oir, err := global.OrderClient.CreateOrder(context.Background(), &proto.CreateOrderInfo{
-		Id: uuid.NewV4().String(),
+		Id:        uuid.NewV4().String(),
 		OrderInfo: &orderInfo,
 	})
 	if err != nil {
@@ -188,8 +198,7 @@ func CreateOrder(c *gin.Context) {
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "下单成功",
+		"message":  "下单成功",
 		"order_id": oir.OrderSn,
 	})
 }
-

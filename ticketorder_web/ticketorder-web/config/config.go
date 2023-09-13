@@ -26,12 +26,13 @@ type OrderSrvConfig struct {
 
 type ServerConfig struct {
 	Name            string          `mapstructure:"name" yaml:"name"`
-	Port            string          `mapstructure:"port" yaml:"port"`
+	Port            int             `mapstructure:"port" yaml:"port"`
+	Host            string          `mapstructure:"host" yaml:"host"`
 	UserSrvConfig   UserSrvConfig   `mapstructure:"user_srv" yaml:"user_srv"`
 	TrainSrvConfig  TrainSrvConfig  `mapstructure:"train_srv" yaml:"train_srv"`
 	TicketSrvConfig TicketSrvConfig `mapstructure:"ticket_srv" yaml:"ticket_srv"`
 	OrderSrvConfig  OrderSrvConfig  `mapstructure:"order_srv" yaml:"order_srv"`
-	// JWTInfo       JWTConfig     `mapstructure:"jwt" yaml:"jwt"`
+	JWTInfo         JWTConfig       `mapstructure:"jwt" yaml:"jwt"`
 	// AliSmsConfig  AliSmsConfig  `mapstructure:"ali_sms" yaml:"ali_sms"`
 	RedisConfig RedisConfig  `mapstructure:"redis" yaml:"redis"`
 	ConsulInfo  ConsulConfig `mapstructure:"consul" yaml:"consul"`

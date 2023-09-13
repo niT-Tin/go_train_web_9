@@ -1,0 +1,10 @@
+name: 'order-srv'
+mysql:
+    host: '10.102.109.196'
+    port: 3306
+    user: 'root'
+    pass: 'lzh'
+    name: 'train_srvs'
+consul:
+    host: '10.102.109.196'
+    port: 8500

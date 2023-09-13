@@ -1,5 +1,6 @@
 name: 'user-web'
 port: ':8080'
+host: '10.102.109.196'
 user_srv:
   host: '127.0.0.1'
   port: 50051
