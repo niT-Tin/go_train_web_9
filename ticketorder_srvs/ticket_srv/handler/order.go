@@ -10,6 +10,8 @@ import (
 	"gotrains/userpassenger_srvs/user_srv/utils"
 	"time"
 
+	"math/rand"
+
 	"github.com/apache/rocketmq-client-go/v2"
 	"github.com/apache/rocketmq-client-go/v2/primitive"
 	"github.com/apache/rocketmq-client-go/v2/producer"
@@ -26,6 +28,10 @@ type OrderListener struct {
 	Ctx context.Context
 }
 
+var (
+	seatCols = "ABCDEF"
+)
+
 func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitive.LocalTransactionState {
 	var orderInfo model.Order
 	_ = json.Unmarshal(msg.Body, &orderInfo)
@@ -37,6 +43,7 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 		UserId: orderInfo.UserID,
 	})
 	passengerSpan.Finish()
+	rand.NewSource(time.Now().UnixNano())
 
 	if err != nil {
 		global.DB.Rollback()
@@ -44,17 +51,18 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 		return primitive.RollbackMessageState
 	}
 	seats := []*proto.SeatInfo{}
-	for _, ps := range resp.Data {
+	for i := 0; i < len(resp.Data); i++ {
+		row := rand.Intn(2) + 1
 		seat := proto.SeatInfo{
 			TrainCode: orderInfo.TrainCode,
 			// 默认后端计算第几节车厢
-			CarriageIndex: 0,
-			SeatType:      ps.SeatType,
+			CarriageIndex: int32(rand.Intn(20)),
+			SeatType:      fmt.Sprintf("%d", rand.Intn(3)+1),
 			// 时间紧，先默认第一个座位
-			SeatIndex: 0,
+			SeatIndex: int32(rand.Intn(100)),
 			// 后端计算
-			Row:        orderInfo.Row,
-			Column:     orderInfo.Colum,
+			Row:        fmt.Sprintf("0%d", row),
+			Column:     fmt.Sprintf("%c%d", seatCols[rand.Intn(6)], row),
 			CreateTime: time.Now().Unix(),
 			UpdateTime: time.Now().Unix(),
 		}

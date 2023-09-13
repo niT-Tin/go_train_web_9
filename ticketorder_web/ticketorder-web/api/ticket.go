@@ -248,10 +248,10 @@ func CreateOrder(c *gin.Context) {
 	order := models.Order{}
 	for _, passenger := range orderForm.Tickets {
 		opass := proto.OPassengerInfo{
-			Name:   passenger.PassengerName,
-			IdCard: passenger.PassengerIdCard,
-			Type:   int64(passenger.PassengerType),
-			// UserId:   int32(passenger.UserID),
+			Name:     passenger.PassengerName,
+			IdCard:   passenger.PassengerIdCard,
+			Type:     int64(passenger.PassengerType),
+			UserId:   int32(passenger.UserID),
 			Seat:     passenger.Seat,
 			SeatType: passenger.SeatTypeCode,
 		}
@@ -259,14 +259,15 @@ func CreateOrder(c *gin.Context) {
 	}
 	orderInfo.Passengers = orderPassengers
 	orderInfo.UserId = int32(cUser.ID)
-	orderInfo.TrainId = order.TrainID
-	orderInfo.StartStation = order.StartStation
-	orderInfo.EndStation = order.EndStation
-	orderInfo.StartTime = order.StartTime.Format("2006-01-02 15:04:05")
-	orderInfo.EndTime = order.EndTime.Format("2006-01-02 15:04:05")
+	orderInfo.TrainCode = orderForm.TrainCode
+	orderInfo.StartStation = orderForm.Start
+	orderInfo.EndStation = orderForm.End
+	orderInfo.StartTime = orderForm.StartTime
+	orderInfo.EndTime = orderForm.EndTime
 	orderInfo.SeatType = order.SeatType
 	orderInfo.SeatNumber = order.SeatNumber
 	orderInfo.Price = order.Pirce
+	orderInfo.OrderSn = uuid.NewV4().String()
 	oir, err := global.OrderClient.CreateOrder(context.WithValue(context.Background(), "ginContext", c), &proto.CreateOrderInfo{
 		Id:        uuid.NewV4().String(),
 		OrderInfo: &orderInfo,

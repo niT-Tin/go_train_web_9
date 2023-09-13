@@ -12,5 +12,6 @@ func InitOrderRouter(g *gin.RouterGroup) {
 	{
 		orderRouter.POST("create", middlewares.JWTAuth(), middlewares.Trace(), api.CreateOrder)
 		orderRouter.GET("list", middlewares.JWTAuth(), middlewares.Trace(), api.GetOrder)
+		orderRouter.GET("captcha", api.CaptchaGet)
 	}
 }
