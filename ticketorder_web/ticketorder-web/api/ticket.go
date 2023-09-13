@@ -36,18 +36,22 @@ func HandleGrpcErrorToHttp(err error, c *gin.Context) {
 		case codes.InvalidArgument:
 			c.JSON(http.StatusBadRequest, gin.H{
 				"message": "参数错误",
+				"success": false,
 			})
 		case codes.NotFound:
-			c.JSON(http.StatusNotFound, gin.H{
+			c.JSON(http.StatusBadRequest, gin.H{
 				"message": e.Message(),
+				"success": false,
 			})
 		case codes.Internal:
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"message": "内部错误",
+				"success": false,
 			})
 		default:
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"message": "其他错误",
+				"success": false,
 			})
 		}
 		return
@@ -55,6 +59,7 @@ func HandleGrpcErrorToHttp(err error, c *gin.Context) {
 	zap.S().Errorw("grpc 请求失败", "msg", err.Error())
 	c.JSON(500, gin.H{
 		"message": err.Error(),
+		"success": false,
 	})
 }
 
@@ -127,21 +132,43 @@ func AddPassenger(c *gin.Context) {
 		zap.S().Errorw("AddPassenger 参数错误", "msg", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "参数错误",
+			"success": false,
 		})
 	}
-	// parse string to integer
-	i, err := strconv.Atoi(passengerForm.Type)
-	if err != nil {
-		zap.S().Errorw("AddPassenger 参数错误", "msg", err.Error())
-		c.JSON(http.StatusBadRequest, gin.H{
-			"message": "参数错误",
+	passenger, err := global.UserClient.GetPassengerByIdCard(context.Background(), &proto.PassengerIdCardRequest{
+		IdCard: passengerForm.IdCard,
+	})
+	// 这里不对，但是没时间了，直接在Add里面判断了
+	if passenger.IdCard != "" {
+		_, err = global.UserClient.UpdatePassenger(context.Background(), &proto.PassengerInfo{
+			Id:       passenger.Id,
+			Name:     passengerForm.Name,
+			IdCard:   passengerForm.IdCard,
+			UserId:   int32(cUser.ID),
+			Type:     passengerForm.Type,
+			Seat:     passenger.Seat,
+			SeatType: passenger.SeatType,
 		})
+		if err != nil {
+			HandleGrpcErrorToHttp(err, c)
+			return
+		}
+		c.JSON(http.StatusOK, gin.H{
+			"message": "更新成功",
+			"success": true,
+		})
+		return
+	}
+
+	if err != nil {
+		HandleGrpcErrorToHttp(err, c)
+		return
 	}
 	_, err = global.UserClient.AddPassenger(context.Background(), &proto.PassengerInfo{
 		Name:     passengerForm.Name,
 		IdCard:   passengerForm.IdCard,
 		UserId:   int32(cUser.ID),
-		Type:     int64(i),
+		Type:     passengerForm.Type,
 		Seat:     "C1",
 		SeatType: "一",
 	})
@@ -151,6 +178,7 @@ func AddPassenger(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "添加成功",
+		"success": true,
 	})
 }
 

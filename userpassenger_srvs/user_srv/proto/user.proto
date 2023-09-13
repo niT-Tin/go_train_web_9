@@ -15,12 +15,17 @@ service User {
   rpc UpdatePassenger(PassengerInfo) returns (google.protobuf.Empty); // 更新乘客
   rpc DeletePassenger(IdRequest) returns (google.protobuf.Empty); // 删除乘客
   rpc GetPassengerList(PassengerPageInfo) returns (PassengerListResponse); // 获取乘客列表
+  rpc GetPassengerByIdCard(PassengerIdCardRequest) returns (PassengerInfo); // 通过身份证号查询乘客
 }
 
 
 message PassengerListResponse {
   uint32 total = 1;
   repeated PassengerInfo data = 2;
+}
+
+message PassengerIdCardRequest {
+  string idCard = 1;
 }
 
 message PassengerInfo {

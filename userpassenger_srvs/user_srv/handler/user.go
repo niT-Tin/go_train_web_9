@@ -6,7 +6,6 @@ import (
 	"gotrains/userpassenger_srvs/user_srv/model"
 	"gotrains/userpassenger_srvs/user_srv/proto"
 	"gotrains/userpassenger_srvs/user_srv/utils"
-	"time"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
@@ -27,9 +26,9 @@ func Model2Response(user model.User) *proto.UserInfoResponse {
 		Mobile:   user.Mobile,
 		Role:     uint32(user.Role),
 	}
-	if user.Birthday != nil {
-		userInfoRsp.BirthDay = uint64(user.Birthday.Unix())
-	}
+	// if user.Birthday != nil {
+	// 	userInfoRsp.BirthDay = uint64(user.Birthday.Unix())
+	// }
 	return &userInfoRsp
 }
 
@@ -103,12 +102,11 @@ func (u *UserServer) UpdateUser(ctx context.Context, updateUserInfo *proto.Updat
 	if result.RowsAffected == 0 {
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
-	bt := time.Unix(int64(updateUserInfo.BirthDay), 0)
+	// bt := time.Unix(int64(updateUserInfo.BirthDay), 0)
 	user = model.User{
 		// BaseModel: model.BaseModel{ID: updateUserInfo.Id},
 		Nickname: updateUserInfo.NickName,
 		Gender:   updateUserInfo.Gender,
-		Birthday: &bt,
 	}
 	result = global.DB.Save(user)
 	if result.Error != nil {
@@ -153,18 +151,16 @@ func (u *UserServer) UpdatePassenger(ctx context.Context, passengerInfo *proto.P
 	if result.RowsAffected == 0 {
 		return nil, status.Errorf(codes.NotFound, "乘客不存在")
 	}
-	result = global.DB.First(&model.User{}, passengerInfo.UserId)
+	var user model.User
+	result = global.DB.First(&user, passengerInfo.UserId)
 	if result.RowsAffected == 0 {
 		passenger.IsDelete = true
 		global.DB.Save(passenger)
 		return nil, status.Errorf(codes.NotFound, "用户不存在")
 	}
-	passenger = model.Passenger{
-		Name:   passengerInfo.Name,
-		UserID: passengerInfo.UserId,
-		IdCard: passengerInfo.IdCard,
-		Type:   model.PassengerType(passengerInfo.Type),
-	}
+	passenger.Name = passengerInfo.Name
+	passenger.IdCard = passengerInfo.IdCard
+	passenger.Type = model.PassengerType(passengerInfo.Type)
 	result = global.DB.Save(passenger)
 	if result.Error != nil {
 		return nil, status.Errorf(codes.Internal, result.Error.Error())
@@ -212,4 +208,21 @@ func (u *UserServer) GetPassengerList(ctx context.Context, passengerPageInfo *pr
 		})
 	}
 	return rsp, nil
+}
+
+func (u *UserServer) GetPassengerByIdCard(ctx context.Context, in *proto.PassengerIdCardRequest) (*proto.PassengerInfo, error) {
+	var passenger model.Passenger
+	result := global.DB.Where(&model.Passenger{IdCard: in.IdCard}).First(&passenger)
+	if result.RowsAffected == 0 {
+		return nil, status.Errorf(codes.NotFound, "乘客不存在")
+	}
+	return &proto.PassengerInfo{
+		Id:       passenger.ID,
+		Name:     passenger.Name,
+		UserId:   passenger.UserID,
+		IdCard:   passenger.IdCard,
+		Type:     int64(passenger.Type),
+		SeatType: passenger.SeatType,
+		Seat:     passenger.Seat,
+	}, nil
 }

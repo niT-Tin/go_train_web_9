@@ -20,16 +20,17 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	User_GetUserList_FullMethodName      = "/proto.User/GetUserList"
-	User_GetUserByMobile_FullMethodName  = "/proto.User/GetUserByMobile"
-	User_GetUserById_FullMethodName      = "/proto.User/GetUserById"
-	User_CreateUser_FullMethodName       = "/proto.User/CreateUser"
-	User_UpdateUser_FullMethodName       = "/proto.User/UpdateUser"
-	User_CheckPassWord_FullMethodName    = "/proto.User/CheckPassWord"
-	User_AddPassenger_FullMethodName     = "/proto.User/AddPassenger"
-	User_UpdatePassenger_FullMethodName  = "/proto.User/UpdatePassenger"
-	User_DeletePassenger_FullMethodName  = "/proto.User/DeletePassenger"
-	User_GetPassengerList_FullMethodName = "/proto.User/GetPassengerList"
+	User_GetUserList_FullMethodName          = "/proto.User/GetUserList"
+	User_GetUserByMobile_FullMethodName      = "/proto.User/GetUserByMobile"
+	User_GetUserById_FullMethodName          = "/proto.User/GetUserById"
+	User_CreateUser_FullMethodName           = "/proto.User/CreateUser"
+	User_UpdateUser_FullMethodName           = "/proto.User/UpdateUser"
+	User_CheckPassWord_FullMethodName        = "/proto.User/CheckPassWord"
+	User_AddPassenger_FullMethodName         = "/proto.User/AddPassenger"
+	User_UpdatePassenger_FullMethodName      = "/proto.User/UpdatePassenger"
+	User_DeletePassenger_FullMethodName      = "/proto.User/DeletePassenger"
+	User_GetPassengerList_FullMethodName     = "/proto.User/GetPassengerList"
+	User_GetPassengerByIdCard_FullMethodName = "/proto.User/GetPassengerByIdCard"
 )
 
 // UserClient is the client API for User service.
@@ -46,6 +47,7 @@ type UserClient interface {
 	UpdatePassenger(ctx context.Context, in *PassengerInfo, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	DeletePassenger(ctx context.Context, in *IdRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	GetPassengerList(ctx context.Context, in *PassengerPageInfo, opts ...grpc.CallOption) (*PassengerListResponse, error)
+	GetPassengerByIdCard(ctx context.Context, in *PassengerIdCardRequest, opts ...grpc.CallOption) (*PassengerInfo, error)
 }
 
 type userClient struct {
@@ -146,6 +148,15 @@ func (c *userClient) GetPassengerList(ctx context.Context, in *PassengerPageInfo
 	return out, nil
 }
 
+func (c *userClient) GetPassengerByIdCard(ctx context.Context, in *PassengerIdCardRequest, opts ...grpc.CallOption) (*PassengerInfo, error) {
+	out := new(PassengerInfo)
+	err := c.cc.Invoke(ctx, User_GetPassengerByIdCard_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServer is the server API for User service.
 // All implementations must embed UnimplementedUserServer
 // for forward compatibility
@@ -160,6 +171,7 @@ type UserServer interface {
 	UpdatePassenger(context.Context, *PassengerInfo) (*emptypb.Empty, error)
 	DeletePassenger(context.Context, *IdRequest) (*emptypb.Empty, error)
 	GetPassengerList(context.Context, *PassengerPageInfo) (*PassengerListResponse, error)
+	GetPassengerByIdCard(context.Context, *PassengerIdCardRequest) (*PassengerInfo, error)
 	mustEmbedUnimplementedUserServer()
 }
 
@@ -196,6 +208,9 @@ func (UnimplementedUserServer) DeletePassenger(context.Context, *IdRequest) (*em
 }
 func (UnimplementedUserServer) GetPassengerList(context.Context, *PassengerPageInfo) (*PassengerListResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetPassengerList not implemented")
+}
+func (UnimplementedUserServer) GetPassengerByIdCard(context.Context, *PassengerIdCardRequest) (*PassengerInfo, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPassengerByIdCard not implemented")
 }
 func (UnimplementedUserServer) mustEmbedUnimplementedUserServer() {}
 
@@ -390,6 +405,24 @@ func _User_GetPassengerList_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _User_GetPassengerByIdCard_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PassengerIdCardRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServer).GetPassengerByIdCard(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: User_GetPassengerByIdCard_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServer).GetPassengerByIdCard(ctx, req.(*PassengerIdCardRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // User_ServiceDesc is the grpc.ServiceDesc for User service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -436,6 +469,10 @@ var User_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetPassengerList",
 			Handler:    _User_GetPassengerList_Handler,
+		},
+		{
+			MethodName: "GetPassengerByIdCard",
+			Handler:    _User_GetPassengerByIdCard_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

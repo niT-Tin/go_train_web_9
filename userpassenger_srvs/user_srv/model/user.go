@@ -25,12 +25,12 @@ type BaseModel struct {
 
 type User struct {
 	BaseModel
-	Mobile   string     `gorm:"index:idx_mobile;unique;type:varchar(11);not null"`
-	Password string     `gorm:"type:varchar(100);not null"`
-	Nickname string     `gorm:"type:varchar(20);"`
-	Birthday *time.Time `gorm:"type:datetime;"`
-	Gender   string     `gorm:"type:varchar(6) comment 'female表示女性，male表示男性';column:gender;default:male;"`
-	Role     int32      `gorm:"type:int comment '1 表示普通用户 2 表示管理员';column:role;default:1;"`
+	Mobile   string    `gorm:"index:idx_mobile;unique;type:varchar(11);not null"`
+	Password string    `gorm:"type:varchar(100);not null"`
+	Nickname string    `gorm:"type:varchar(20);"`
+	Birthday time.Time `gorm:"type:datetime;"`
+	Gender   string    `gorm:"type:varchar(6) comment 'female表示女性，male表示男性';column:gender;default:male;"`
+	Role     int32     `gorm:"type:int comment '1 表示普通用户 2 表示管理员';column:role;default:1;"`
 }
 
 type Passenger struct {
