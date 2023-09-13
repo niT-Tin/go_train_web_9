@@ -30,15 +30,22 @@ type SeatSrvConfig struct {
 	Name string `mapstructure:"name" yaml:"name"`
 }
 
+type StationSrvConfig struct {
+	Host string `mapstructure:"host" yaml:"host"`
+	Port int    `mapstructure:"port" yaml:"port"`
+	Name string `mapstructure:"name" yaml:"name"`
+}
+
 type ServerConfig struct {
-	Name            string          `mapstructure:"name" yaml:"name"`
-	Port            int             `mapstructure:"port" yaml:"port"`
-	Host            string          `mapstructure:"host" yaml:"host"`
-	UserSrvConfig   UserSrvConfig   `mapstructure:"user_srv" yaml:"user_srv"`
-	TrainSrvConfig  TrainSrvConfig  `mapstructure:"train_srv" yaml:"train_srv"`
-	TicketSrvConfig TicketSrvConfig `mapstructure:"ticket_srv" yaml:"ticket_srv"`
-	SeatSrvConfig   SeatSrvConfig   `mapstructure:"seat_srv" yaml:"seat_srv"`
-	JWTInfo         JWTConfig       `mapstructure:"jwt" yaml:"jwt"`
+	Name             string           `mapstructure:"name" yaml:"name"`
+	Port             int              `mapstructure:"port" yaml:"port"`
+	Host             string           `mapstructure:"host" yaml:"host"`
+	UserSrvConfig    UserSrvConfig    `mapstructure:"user_srv" yaml:"user_srv"`
+	TrainSrvConfig   TrainSrvConfig   `mapstructure:"train_srv" yaml:"train_srv"`
+	TicketSrvConfig  TicketSrvConfig  `mapstructure:"ticket_srv" yaml:"ticket_srv"`
+	SeatSrvConfig    SeatSrvConfig    `mapstructure:"seat_srv" yaml:"seat_srv"`
+	StationSrvConfig StationSrvConfig `mapstructure:"station_srv" yaml:"station_srv"`
+	JWTInfo          JWTConfig        `mapstructure:"jwt" yaml:"jwt"`
 	// AliSmsConfig  AliSmsConfig  `mapstructure:"ali_sms" yaml:"ali_sms"`
 	RedisConfig RedisConfig  `mapstructure:"redis" yaml:"redis"`
 	ConsulInfo  ConsulConfig `mapstructure:"consul" yaml:"consul"`

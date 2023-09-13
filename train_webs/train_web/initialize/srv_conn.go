@@ -113,8 +113,20 @@ func InitSrvConnWithLB() {
 	if err != nil {
 		return
 	}
+
+	stationconn, err := initSrvGeneriticConn(
+		global.ServerConfig.ConsulInfo.Host,
+		global.ServerConfig.ConsulInfo.Port,
+		global.ServerConfig.StationSrvConfig.Name,
+		global.ServerConfig.StationSrvConfig.Name,
+		"座位服务",
+	)
+	if err != nil {
+		return
+	}
 	global.UserClient = proto.NewUserClient(userconn)
 	global.TrainClient = proto.NewTrainClient(trainconn)
 	global.SeatClient = proto.NewSeatClient(seatconn)
 	global.TicketClient = proto.NewTicketClient(ticketconn)
+	global.StationClient = proto.NewStationClient(stationconn)
 }

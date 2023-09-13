@@ -1,4 +1,4 @@
-name: 'order-srv'
+name: 'ticketorder_srv'
 mysql:
     host: '10.102.109.196'
     port: 3306

@@ -17,5 +17,6 @@ var (
 	TicketClient    proto.TicketClient
 	OrderClient     proto.OrderClient
 	SeatClient      proto.SeatClient
+	StationClient   proto.StationClient
 	NewServerConfig *config.NewServerConfig = &config.NewServerConfig{}
 )

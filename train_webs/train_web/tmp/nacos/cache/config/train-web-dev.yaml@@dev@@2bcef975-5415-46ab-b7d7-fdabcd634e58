@@ -11,6 +11,11 @@ train_srv:
   port: 50052
   name: 'train_srv'
 
+station_srv:
+  host: '127.0.0.1'
+  port: 50052
+  name: 'train_srv'
+
 ticket_srv:
   host: '127.0.0.1'
   port: 50052

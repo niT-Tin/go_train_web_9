@@ -12,5 +12,6 @@ func InitTicketsRouter(g *gin.RouterGroup) {
 	{
 		trainRouter.GET("tickets", middlewares.JWTAuth(), api.GetTickets)
 		trainRouter.GET("seat", middlewares.JWTAuth(), api.GetSeatsByTrain)
+		trainRouter.GET("station", middlewares.JWTAuth(), api.GetStations)
 	}
 }

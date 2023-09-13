@@ -2,9 +2,9 @@ package middlewares
 
 import (
 	"errors"
-	"net/http"
 	"gotrains/ticketorder_web/ticketorder-web/global"
 	"gotrains/ticketorder_web/ticketorder-web/models"
+	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
@@ -69,6 +69,7 @@ func JWTAuth() gin.HandlerFunc {
 		if token == "" {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"message": "请求未携带token，无权限访问",
+				"success": false,
 			})
 			c.Abort()
 			return
@@ -78,12 +79,14 @@ func JWTAuth() gin.HandlerFunc {
 			if err == TokenExpired {
 				c.JSON(http.StatusUnauthorized, gin.H{
 					"message": "授权已过期",
+					"success": false,
 				})
 				c.Abort()
 				return
 			}
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"message": err.Error(),
+				"success": false,
 			})
 			c.Abort()
 			return

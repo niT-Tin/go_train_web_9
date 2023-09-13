@@ -7,7 +7,6 @@ import (
 	"gotrains/train_srvs/train_srv/proto"
 	"gotrains/train_srvs/train_srv/services"
 	"gotrains/train_srvs/train_srv/utils"
-	"time"
 
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
@@ -46,8 +45,10 @@ func (t *TicketServer) GetAllTicket(ctx context.Context, ticketreq *proto.Ticket
 func (t *TicketServer) GetTicketList(ctx context.Context, ticketreq *proto.TicketRequest) (*proto.TicketListResponse, error) {
 	var tickets []model.DailyTrainTicket
 	ticketresp := &proto.TicketListResponse{}
-	dt, _ := time.Parse("2006-01-02", ticketreq.Date)
-	result := global.DB.Where(&model.DailyTrainTicket{TrainCode: ticketreq.TrainCode, Date: dt}).Find(&tickets)
+	zap.S().Infof("date: %v", ticketreq.Date)
+	querysql := "select * from daily_train_ticket where DATE(start_time) like ? and start = ? and end = ?"
+	result := global.DB.Raw(querysql, ticketreq.Date+"%", ticketreq.StartStation, ticketreq.EndStation).Scan(&tickets)
+	// result := global.DB.Where(&model.DailyTrainTicket{Date: dt}).Find(&tickets)
 	if result.Error != nil {
 		return nil, result.Error
 	}

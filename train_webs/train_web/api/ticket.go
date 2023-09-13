@@ -2,6 +2,7 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"gotrains/train_webs/train_web/global"
 	"gotrains/train_webs/train_web/models"
 	"gotrains/train_webs/train_web/proto"
@@ -158,22 +159,41 @@ func AddCarriages(c *gin.Context) {
 	// TODO: 下次在写吧
 }
 
+func Decimal(value float32, prec int) float64 {
+	format := "%." + strconv.Itoa(prec) + "f"
+	res, _ := strconv.ParseFloat(fmt.Sprintf(format, value), 64)
+	return res
+}
+
 // 获取余票信息
 func GetTickets(c *gin.Context) {
 	cc := getClaimes(c)
 	zap.S().Infof("访问用户: %d", cc.ID)
-	trainCode := c.Query("train_code")
+	// 只通过日期查询
+	// trainCode := c.Query("train_code")
 	// 暂且不管
-	startStation := c.Query("start_station")
-	endStation := c.Query("end_station")
-	startTime := c.Query("start_time")
-	if trainCode == "" || startStation == "" || endStation == "" || startTime == "" {
+	startStation := c.Query("start")
+	endStation := c.Query("end")
+	startTime := c.Query("date")
+	t, err := time.Parse("2006-01-02", startTime)
+	if err != nil {
+		zap.S().Errorw("GetTickets 参数错误", "msg", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "参数错误",
+			"success": false,
 		})
 		return
 	}
-	resp, err := global.TicketClient.GetTicketList(context.Background(), &proto.TicketRequest{TrainCode: trainCode, Date: startTime, StartStation: startStation, EndStation: endStation})
+	startTime = t.Format("2006-01-02")
+	zap.S().Infof("start: %s, end: %s, date: %s", startStation, endStation, startTime)
+	if startStation == "" || endStation == "" || startTime == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "参数错误",
+			"success": false,
+		})
+		return
+	}
+	resp, err := global.TicketClient.GetTicketList(context.Background(), &proto.TicketRequest{TrainCode: "", Date: startTime, StartStation: startStation, EndStation: endStation})
 	if err != nil {
 		zap.S().Errorw("GetTickets 参数错误", "msg", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -184,31 +204,45 @@ func GetTickets(c *gin.Context) {
 	var tickets []models.TicketInfo
 	for _, value := range resp.Data {
 		dt, _ := time.Parse("2006-01-02 15:04:05", value.Data.Date)
+		st := time.Unix(value.Data.StartTime, 0)
+		et := time.Unix(value.Data.EndTime, 0)
 		ticket := models.TicketInfo{
+			ID:               int64(value.Data.Id),
 			TrainCode:        value.Data.TrainCode,
-			Date:             dt,
+			Date:             dt.Format("2006-01-02"),
 			Start:            value.Data.StartStation,
 			StartPinyin:      value.Data.StartPinyin,
-			StartTime:        time.Unix(value.Data.StartTime, 0),
+			StartTime:        st.Format("2006-01-02 15:04:05"),
 			StartIndex:       int32(value.Data.StartIndex),
 			End:              value.Data.EndStation,
 			EndPinyin:        value.Data.EndPinyin,
-			EndTime:          time.Unix(value.Data.EndTime, 0),
+			EndTime:          et.Format("2006-01-02 15:04:05"),
 			EndIndex:         int32(value.Data.EndIndex),
 			FirstClassLast:   int32(value.Data.FirstClassLast),
 			SecondClassLast:  int32(value.Data.SecondClassLast),
-			FirstClassPrice:  float64(value.Data.FirstClassPrice),
-			SecondClassPrice: float64(value.Data.SecondClassPrice),
+			FirstClassPrice:  Decimal(value.Data.FirstClassPrice, 1),
+			SecondClassPrice: Decimal(value.Data.SecondClassPrice, 1),
 			SoftBerthLast:    int32(value.Data.SoftberthLast),
-			SoftBerthPrice:   float64(value.Data.SoftberthPrice),
+			SoftBerthPrice:   Decimal(value.Data.SoftberthPrice, 1),
 			HardBerthLast:    int32(value.Data.HardberthLast),
-			HardBerthPrice:   float64(value.Data.HardberthPrice),
+			HardBerthPrice:   Decimal(value.Data.HardberthPrice, 1),
+			Duration:         et.Sub(st).Hours(),
 		}
 		tickets = append(tickets, ticket)
 	}
+	msg := ""
+	if len(tickets) == 0 {
+		msg = "没有查询到余票信息"
+	} else {
+		msg = "查询成功"
+	}
 	c.JSON(http.StatusOK, gin.H{
-		"message": "获取成功",
-		"data":    tickets,
+		"message": msg,
+		"content": gin.H{
+			"total": len(tickets),
+			"list":  tickets,
+		},
+		"success": true,
 	})
 }
 
@@ -250,5 +284,32 @@ func GetSeatsByTrain(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "获取成功",
 		"data":    seats,
+	})
+}
+
+// 获取车站信息
+
+func GetStations(c *gin.Context) {
+	cc := getClaimes(c)
+	zap.S().Infof("访问用户: %d", cc.ID)
+	resp, err := global.StationClient.GetStationList(context.Background(), &proto.StationPageInfo{Pn: 1, Ps: 100})
+	if err != nil {
+		HandleGrpcErrorToHttp(err, c)
+		return
+	}
+	var resplist []models.StationInfo
+	for _, value := range resp.Data {
+		stationinfo := models.StationInfo{
+			Id:     int32(value.Data.Id),
+			Name:   value.Data.Name,
+			Pinyin: value.Data.Pinyin,
+			Py:     value.Data.FirstLetter,
+		}
+		resplist = append(resplist, stationinfo)
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "station",
+		"success": true,
+		"content": resplist,
 	})
 }

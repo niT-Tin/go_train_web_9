@@ -36,7 +36,7 @@ func (s *StationServer) GetStationDaily(ctx context.Context, dailyreq *proto.Sta
 func (s *StationServer) GetStationList(ctx context.Context, stationpage *proto.StationPageInfo) (*proto.StationListResponse, error) {
 	zap.S().Infof("获取车站列表")
 	var stations []model.Station
-	result := global.DB.Find(&stations)
+	result := global.DB.Order("name_pinyin ASC").Find(&stations)
 	if result.Error != nil {
 		return nil, result.Error
 	}

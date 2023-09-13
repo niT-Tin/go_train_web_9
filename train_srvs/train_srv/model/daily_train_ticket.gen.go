@@ -23,14 +23,14 @@ type DailyTrainTicket struct {
 	EndPinyin        string    `gorm:"column:end_pinyin;not null;comment:到达站拼音" json:"end_pinyin"`                 // 到达站拼音
 	EndTime          time.Time `gorm:"column:end_time;not null;comment:到站时间" json:"end_time"`                      // 到站时间
 	EndIndex         int32     `gorm:"column:end_index;not null;comment:到站站序|本站是整个车次的第几站" json:"end_index"`        // 到站站序|本站是整个车次的第几站
-	FirstClassLast   int32     `gorm:"column:first_class_last;not null;comment:一等座余票" json:"first_class_last"`     // 一等座余票
-	FirstClassPrice  float64   `gorm:"column:first_class_price;not null;comment:一等座票价" json:"first_class_price"`   // 一等座票价
-	SecondClassLast  int32     `gorm:"column:second_class_last;not null;comment:二等座余票" json:"second_class_last"`   // 二等座余票
-	SecondClassPrice float64   `gorm:"column:second_class_price;not null;comment:二等座票价" json:"second_class_price"` // 二等座票价
-	SoftBerthLast    int32     `gorm:"column:soft_berth_last;not null;comment:软卧余票" json:"soft_berth_last"`        // 软卧余票
-	SoftBerthPrice   float64   `gorm:"column:soft_berth_price;not null;comment:软卧票价" json:"soft_berth_price"`      // 软卧票价
-	HardBerthLast    int32     `gorm:"column:hard_berth_last;not null;comment:硬卧余票" json:"hard_berth_last"`        // 硬卧余票
-	HardBerthPrice   float64   `gorm:"column:hard_berth_price;not null;comment:硬卧票价" json:"hard_berth_price"`      // 硬卧票价
+	FirstClassLast   int32     `gorm:"column:ydz;not null;comment:一等座余票" json:"first_class_last"`     // 一等座余票
+	FirstClassPrice  float64   `gorm:"column:ydz_price;not null;comment:一等座票价" json:"first_class_price"`   // 一等座票价
+	SecondClassLast  int32     `gorm:"column:edz;not null;comment:二等座余票" json:"second_class_last"`   // 二等座余票
+	SecondClassPrice float64   `gorm:"column:edz_price;not null;comment:二等座票价" json:"second_class_price"` // 二等座票价
+	SoftBerthLast    int32     `gorm:"column:rw;not null;comment:软卧余票" json:"soft_berth_last"`        // 软卧余票
+	SoftBerthPrice   float64   `gorm:"column:rw_price;not null;comment:软卧票价" json:"soft_berth_price"`      // 软卧票价
+	HardBerthLast    int32     `gorm:"column:yw;not null;comment:硬卧余票" json:"hard_berth_last"`        // 硬卧余票
+	HardBerthPrice   float64   `gorm:"column:yw_price;not null;comment:硬卧票价" json:"hard_berth_price"`      // 硬卧票价
 	CreateTime       time.Time `gorm:"column:create_time;comment:新增时间" json:"create_time"`                         // 新增时间
 	UpdateTime       time.Time `gorm:"column:update_time;comment:修改时间" json:"update_time"`                         // 修改时间
 }

@@ -142,3 +142,21 @@
 2023-09-13T10:14:06.586+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-a8d04cbd-094d-474e-b833-7c73caf6a008 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
 2023-09-13T10:14:06.586+0800	INFO	util/common.go:96	Local IP:192.168.210.1
 2023-09-13T10:14:06.688+0800	INFO	rpc/rpc_client.go:234	config-0-a8d04cbd-094d-474e-b833-7c73caf6a008 success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694571246587_10.102.109.196_53368
+2023-09-13T10:54:15.978+0800	ERROR	rpc/rpc_client.go:421	client sendHealthCheck failed,err=rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-13T10:54:15.978+0800	INFO	rpc/rpc_client.go:407	config-0-a8d04cbd-094d-474e-b833-7c73caf6a008 server healthy check fail, currentConnection=1694571246587_10.102.109.196_53368
+2023-09-13T10:54:15.979+0800	INFO	rpc/rpc_client.go:322	config-0-a8d04cbd-094d-474e-b833-7c73caf6a008 try to re connect to a new server, server is not appointed, will choose a random server.
+2023-09-13T10:54:16.084+0800	INFO	rpc/rpc_client.go:335	config-0-a8d04cbd-094d-474e-b833-7c73caf6a008 success to connect a server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, connectionId=1694573655983_10.102.109.196_59122
+2023-09-13T10:54:16.084+0800	INFO	rpc/rpc_client.go:339	config-0-a8d04cbd-094d-474e-b833-7c73caf6a008 abandon prev connection, server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, connectionId is 1694571246587_10.102.109.196_53368
+2023-09-13T10:54:16.084+0800	INFO	rpc/grpc_client.go:200	connectionId 1694571246587_10.102.109.196_53368 received error event, isRunning:true, isAbandon=true, error=rpc error: code = Canceled desc = grpc: the client connection is closing
+2023-09-13T12:46:34.835+0800	DEBUG	rpc/rpc_client.go:290	config-0-105238d3-00aa-46f0-be3f-bf53cb258f72 register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-09-13T12:46:34.835+0800	DEBUG	rpc/rpc_client.go:290	config-0-105238d3-00aa-46f0-be3f-bf53cb258f72 register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-09-13T12:46:34.835+0800	DEBUG	rpc/rpc_client.go:290	config-0-105238d3-00aa-46f0-be3f-bf53cb258f72 register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-09-13T12:46:34.835+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-105238d3-00aa-46f0-be3f-bf53cb258f72 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-13T12:46:34.836+0800	INFO	util/common.go:96	Local IP:192.168.210.1
+2023-09-13T12:46:34.939+0800	INFO	rpc/rpc_client.go:234	config-0-105238d3-00aa-46f0-be3f-bf53cb258f72 success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694580394838_10.102.109.196_48722
+2023-09-13T12:57:30.985+0800	DEBUG	rpc/rpc_client.go:290	config-0-5451b966-7274-4693-8ea6-aee78722f606 register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-09-13T12:57:30.985+0800	DEBUG	rpc/rpc_client.go:290	config-0-5451b966-7274-4693-8ea6-aee78722f606 register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-09-13T12:57:30.985+0800	DEBUG	rpc/rpc_client.go:290	config-0-5451b966-7274-4693-8ea6-aee78722f606 register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-09-13T12:57:30.985+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-5451b966-7274-4693-8ea6-aee78722f606 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-13T12:57:30.986+0800	INFO	util/common.go:96	Local IP:192.168.210.1
+2023-09-13T12:57:31.088+0800	INFO	rpc/rpc_client.go:234	config-0-5451b966-7274-4693-8ea6-aee78722f606 success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694581050987_10.102.109.196_48048
