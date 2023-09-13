@@ -13,6 +13,7 @@ import (
 	"github.com/apache/rocketmq-client-go/v2"
 	"github.com/apache/rocketmq-client-go/v2/primitive"
 	"github.com/apache/rocketmq-client-go/v2/producer"
+	"github.com/opentracing/opentracing-go"
 
 	uuid "github.com/satori/go.uuid"
 	"go.uber.org/zap"
@@ -21,17 +22,21 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
-type OrderListener struct{}
+type OrderListener struct {
+	Ctx context.Context
+}
 
 func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitive.LocalTransactionState {
 	var orderInfo model.Order
 	_ = json.Unmarshal(msg.Body, &orderInfo)
+	parentSpan := opentracing.SpanFromContext(o.Ctx)
 	global.DB.Begin()
 
-	// TODO: 链路追踪
+	passengerSpan := opentracing.GlobalTracer().StartSpan("get_passenger_list", opentracing.ChildOf(parentSpan.Context()))
 	resp, err := global.UserClient.GetPassengerList(context.Background(), &proto.PassengerPageInfo{
 		UserId: orderInfo.UserID,
 	})
+	passengerSpan.Finish()
 
 	if err != nil {
 		global.DB.Rollback()
@@ -56,7 +61,7 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 		seats = append(seats, &seat)
 	}
 
-	// TODO: 链路追踪
+	reductTicketSpan := opentracing.GlobalTracer().StartSpan("reduct_ticket_span", opentracing.ChildOf(parentSpan.Context()))
 	if _, err := global.TicketInventoryClient.ReductTicket(context.Background(), &proto.BusinessRequest{
 		Seats:        seats,
 		OrderId:      orderInfo.OrderSn,
@@ -67,6 +72,7 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 		global.DB.Rollback()
 		return primitive.RollbackMessageState
 	}
+	reductTicketSpan.Finish()
 
 	result := global.DB.Create(&orderInfo)
 	if result.Error != nil {

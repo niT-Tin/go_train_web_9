@@ -4,9 +4,11 @@ import (
 	"fmt"
 	"gotrains/train_webs/train_web/global"
 	"gotrains/train_webs/train_web/proto"
+	"gotrains/train_webs/train_web/utils/otgrpc"
 
 	"github.com/hashicorp/consul/api"
 	_ "github.com/mbobakov/grpc-consul-resolver"
+	"github.com/opentracing/opentracing-go"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
@@ -60,6 +62,7 @@ func initSrvGeneriticConn(host string, port int, name string, tag string, msg st
 		grpc.WithInsecure(),
 		// insecure.NewCredentials()
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(opentracing.GlobalTracer())),
 	)
 	if err != nil {
 		zap.S().Fatalf("%s 连接%s服务失败", msg, name)
@@ -119,7 +122,7 @@ func InitSrvConnWithLB() {
 		global.ServerConfig.ConsulInfo.Port,
 		global.ServerConfig.StationSrvConfig.Name,
 		global.ServerConfig.StationSrvConfig.Name,
-		"座位服务",
+		"车站服务",
 	)
 	if err != nil {
 		return

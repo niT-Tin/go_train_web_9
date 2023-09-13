@@ -60,6 +60,7 @@ func (s *StationService) GenerateStationDaily(stationreq *model.DailyTrainStatio
 	// 获取某日某车次的车站信息
 	// dt, _ := time.Parse("2006-01-02", stationreq.Date)
 	var stations []model.TrainStation
+	zap.S().Infof("trainCode: %s", stationreq.TrainCode)
 	res := global.DB.Where(&model.TrainStation{TrainCode: stationreq.TrainCode}).Find(&stations)
 	if res.Error != nil {
 		return nil, res.Error

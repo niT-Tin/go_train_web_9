@@ -11,5 +11,6 @@ func InitBaseRouter(r *gin.RouterGroup) {
 	{
 		br.GET("captcha", api.CaptchaGet)
 		br.POST("send_msg", api.SendSms)
+		br.POST("verify", api.CaptchaVerify)
 	}
 }

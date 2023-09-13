@@ -7,9 +7,13 @@ import (
 	"gotrains/train_webs/train_web/models"
 	"gotrains/train_webs/train_web/proto"
 	"net/http"
+	"regexp"
 	"strconv"
 	"strings"
 	"time"
+
+	sentinel "github.com/alibaba/sentinel-golang/api"
+	"github.com/alibaba/sentinel-golang/core/base"
 
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
@@ -85,7 +89,7 @@ func GetTrains(c *gin.Context) {
 	ps := c.DefaultQuery("size", "10")
 	psInt, _ := strconv.Atoi(ps)
 	// 获取所有列车信息,此处并不需要参数太多
-	resp, err := global.TrainClient.GetTrainList(context.Background(), &proto.TrainPageInfo{
+	resp, err := global.TrainClient.GetTrainList(context.WithValue(context.Background(), "ginContext", c), &proto.TrainPageInfo{
 		Pn: uint32(pnInt),
 		Ps: uint32(psInt),
 	})
@@ -129,7 +133,7 @@ func AddTrains(c *gin.Context) {
 	// 没时间了，暂时不检查了
 	startTime, _ := time.Parse("2006-01-02 15:04:05", taininfo.StartTime)
 	endTime, _ := time.Parse("2006-01-02 15:04:05", taininfo.EndTime)
-	resp, err := global.TrainClient.CreateTrain(context.Background(), &proto.TrainRequest{
+	resp, err := global.TrainClient.CreateTrain(context.WithValue(context.Background(), "ginContext", c), &proto.TrainRequest{
 		Code:         taininfo.Code,
 		Type:         taininfo.Type,
 		StartStation: taininfo.StartStation,
@@ -193,7 +197,16 @@ func GetTickets(c *gin.Context) {
 		})
 		return
 	}
-	resp, err := global.TicketClient.GetTicketList(context.Background(), &proto.TicketRequest{TrainCode: "", Date: startTime, StartStation: startStation, EndStation: endStation})
+	e, b := sentinel.Entry(global.TicketResource, sentinel.WithTrafficType(base.Inbound))
+	if b != nil {
+		c.JSON(http.StatusTooManyRequests, gin.H{
+			"message": "请求过于频繁",
+			"success": false,
+		})
+		return
+	}
+	resp, err := global.TicketClient.GetTicketList(context.WithValue(context.Background(), "ginContext", c), &proto.TicketRequest{TrainCode: "", Date: startTime, StartStation: startStation, EndStation: endStation})
+	e.Exit()
 	if err != nil {
 		zap.S().Errorw("GetTickets 参数错误", "msg", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -246,18 +259,71 @@ func GetTickets(c *gin.Context) {
 	})
 }
 
+// 暂时这么写
+func Travels(c *gin.Context) {
+	cc := getClaimes(c)
+	zap.S().Infof("访问用户: %d", cc.ID)
+	start := c.Query("start")
+	end := c.Query("end")
+	if start == "" || end == "" {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "参数错误",
+			"success": false,
+		})
+		return
+	}
+	r, _ := regexp.Compile(`[0-9]+`)
+	startM, _ := strconv.Atoi(r.FindString(start))
+	endM, _ := strconv.Atoi(r.FindString(end))
+	travelss := 0
+	if startM > endM {
+		travelss = startM - endM
+	} else {
+		travelss = endM - startM
+	}
+	var travels = []struct {
+		Index    int    `json:"index"`
+		Name     string `json:"name"`
+		InTime   string `json:"in_time"`
+		EndTime  string `json:"end_time"`
+		Duration string `json:"duration"`
+	}{}
+	for i := 0; i < travelss; i++ {
+		startTime := time.Now().Add(time.Hour * time.Duration(i))
+		endTime := time.Now().Add(time.Hour * time.Duration(i+1))
+		travel := struct {
+			Index    int    `json:"index"`
+			Name     string `json:"name"`
+			InTime   string `json:"in_time"`
+			EndTime  string `json:"end_time"`
+			Duration string `json:"duration"`
+		}{}
+		travel.Index = i + 1
+		travel.Name = fmt.Sprintf("%s%d", "火车站", i+1+startM)
+		travel.InTime = startTime.Format("2006-01-02 15:04:05")
+		travel.EndTime = endTime.Format("2006-01-02 15:04:05")
+		travel.Duration = "1小时"
+		travels = append(travels, travel)
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "查询成功",
+		"content": travels,
+		"success": true,
+	})
+}
+
 // 获取为某一列车的座位信息
 func GetSeatsByTrain(c *gin.Context) {
 	cc := getClaimes(c)
 	zap.S().Infof("访问用户: %d", cc.ID)
-	trainCode := c.Query("train_code")
+	trainCode := c.Query("trainCode")
 	if trainCode == "" {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "参数错误",
 		})
 		return
 	}
-	resp, err := global.SeatClient.GetSeatList(context.Background(), &proto.SeatPageInfo{
+	resp, err := global.SeatClient.GetSeatList(context.WithValue(context.Background(), "ginContext", c), &proto.SeatPageInfo{
 		Seat: &proto.SeatInfo{
 			TrainCode: trainCode,
 		},
@@ -292,7 +358,7 @@ func GetSeatsByTrain(c *gin.Context) {
 func GetStations(c *gin.Context) {
 	cc := getClaimes(c)
 	zap.S().Infof("访问用户: %d", cc.ID)
-	resp, err := global.StationClient.GetStationList(context.Background(), &proto.StationPageInfo{Pn: 1, Ps: 100})
+	resp, err := global.StationClient.GetStationList(context.WithValue(context.Background(), "ginContext", c), &proto.StationPageInfo{Pn: 1, Ps: 100})
 	if err != nil {
 		HandleGrpcErrorToHttp(err, c)
 		return

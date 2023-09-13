@@ -10,8 +10,8 @@ import (
 func InitTrainRouter(r *gin.RouterGroup) {
 	adt := r.Group("ad")
 	{
-		adt.GET("trains", middlewares.Cors(), api.GetTrains)
-		adt.POST("adt", middlewares.Cors(), api.AddTrains)
+		adt.GET("trains", middlewares.Cors(), middlewares.Trace(), api.GetTrains)
+		adt.POST("adt", middlewares.Cors(), middlewares.Trace(), api.AddTrains)
 		// adt.POST("adc", api.AddCarriages)
 	}
 }

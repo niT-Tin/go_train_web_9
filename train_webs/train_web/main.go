@@ -48,6 +48,7 @@ func Register(address string, port int, name string, tags []string, id string) {
 
 func main() {
 	initialize.InitLogger()
+	initialize.InitSentinel()
 	initialize.InitConfigWithNacos()
 	initialize.InitRedisDb()
 	initialize.InitTrans("zh")

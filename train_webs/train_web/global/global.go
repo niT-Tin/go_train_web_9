@@ -19,4 +19,5 @@ var (
 	SeatClient      proto.SeatClient
 	StationClient   proto.StationClient
 	NewServerConfig *config.NewServerConfig = &config.NewServerConfig{}
+	TicketResource                          = "ticket-list"
 )

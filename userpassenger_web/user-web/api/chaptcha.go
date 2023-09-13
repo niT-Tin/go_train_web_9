@@ -27,3 +27,29 @@ func CaptchaGet(c *gin.Context) {
 		"picPath":   b64s,
 	})
 }
+
+func CaptchaVerify(c *gin.Context) {
+	var captcha struct {
+		CaptchaId string `json:"captchaId" binding:"required"`
+		Value     string `json:"value" binding:"required"`
+	}
+	if err := c.ShouldBindJSON(&captcha); err != nil {
+		zap.S().Errorw("参数错误", "msg", err.Error())
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "参数错误",
+			"success": false,
+		})
+		return
+	}
+	if !store.Verify(captcha.CaptchaId, captcha.Value, true) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "验证码错误",
+			"success": false,
+		})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"message": "验证码正确",
+		"success": true,
+	})
+}

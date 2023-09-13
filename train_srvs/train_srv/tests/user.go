@@ -24,7 +24,7 @@ func Init() {
 }
 
 func TestGenTrainDaily() {
-	dt, _ := time.Parse("2006-01-02", "2018-04-01")
+	dt, _ := time.Parse("2006-01-02", "2023-09-20")
 	rsp, err := trainClient.GenDaily(context.Background(), &proto.DateRequest{
 		Date: dt.Format("2006-01-02"),
 	})

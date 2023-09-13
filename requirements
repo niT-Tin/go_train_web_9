@@ -11,11 +11,16 @@ fi
 ip=$(ifconfig "$interface" | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
 declare -A docker_cmd=(
+  # 服务注册与发现
   ['hashicorp/consul']='docker run -d -p 8500:8500 -p 8300:8300 -p 8301:8301 -p 8302:8302 -p 8600:8600/udp  hashicorp/consul consul agent  -dev -client=0.0.0.0'
+  # 缓存
   [redis]='docker run --name redis -p 6379:6379 -d redis:7.0'
+  # 数据持久
   [mysql]='docker run --name gorm -p 3306:3306 -v /home/liuzehao/docker/mysql/gorm/log:/var/log/mysql -v /home/liuzehao/docker/mysql/gorm/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=lzh --ulimit nofile=262144:262144 -d mysql:5.7'
+  # 配置中心
   ['nacos/nacos-server']='docker run --name nacos-standalone -e MODE=standalone -e JVM_XMS=512m -e JVM_XMX=512m -e JVM_XMN=256m -p 9848:9848 -p 8848:8848 -d nacos/nacos-server:latest'
-  ['jaegertracing/all-in-one:1.6']='docker run -d --name jaeger -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 9411:9411 jaegertracing/all-in-one:1.6'
+  # 链路追踪
+  ['jaegertracing/all-in-one:1.6']='docker run -d --name jaeger -e COLLECTOR_ZIPKIN_HTTP_PORT=9411 -p 5775:5775/udp -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 14268:14268 -p 9411:9411 --ulimit nofile=262144:262144 jaegertracing/all-in-one:1.6'
   # 需要在/usr/share/elasticsearch/config/elasticsearch.yml中添加如下配置
   # http.host: 0.0.0.0
   # xpack.security.enabled: false

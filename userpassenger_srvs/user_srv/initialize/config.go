@@ -60,6 +60,17 @@ func InitConfig() {
 	if err != nil {
 		panic(err)
 	}
+	// cfg.ListenConfig(vo.ConfigParam{
+	// 	onChange: func(namespace, group, dataId, data string) {
+	// 		zap.S().Infof("config changed group:%s, dataId:%s, data:%s \n", group, dataId, data)
+	// 		err := yaml.Unmarshal([]byte(data), global.ServerConfig)
+	// 		if err != nil {
+	// 			zap.S().Errorf("Fatal error Unmarshal config file: %s \n", err)
+	// 			panic(err)
+	// 		}
+	// 		zap.S().Infof("Nacos config info: %#v \n", global.ServerConfig)
+	// 	},
+	// })
 
 	// global.ServerConfig = &config.ServerConfig{}
 	yaml.Unmarshal([]byte(content), global.Config)

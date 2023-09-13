@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"gotrains/ticketorder_web/ticketorder-web/global"
 	"gotrains/ticketorder_web/ticketorder-web/proto"
+	"gotrains/ticketorder_web/ticketorder-web/utils/otgrpc"
+
+	"github.com/opentracing/opentracing-go"
 
 	"github.com/hashicorp/consul/api"
 	_ "github.com/mbobakov/grpc-consul-resolver"
@@ -60,6 +63,8 @@ func initSrvGeneriticConn(host string, port int, name string, tag string, msg st
 		grpc.WithInsecure(),
 		// insecure.NewCredentials()
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
+		// 使用opentracing
+		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(opentracing.GlobalTracer())),
 	)
 	if err != nil {
 		zap.S().Fatalf("%s 连接%s服务失败", msg, name)

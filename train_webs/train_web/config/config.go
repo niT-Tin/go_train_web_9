@@ -36,6 +36,12 @@ type StationSrvConfig struct {
 	Name string `mapstructure:"name" yaml:"name"`
 }
 
+type JaegerConfig struct {
+	Host string `mapstructure:"host" yaml:"host"`
+	Port int    `mapstructure:"port" yaml:"port"`
+	Name string `mapstructure:"name" yaml:"name"`
+}
+
 type ServerConfig struct {
 	Name             string           `mapstructure:"name" yaml:"name"`
 	Port             int              `mapstructure:"port" yaml:"port"`
@@ -45,6 +51,7 @@ type ServerConfig struct {
 	TicketSrvConfig  TicketSrvConfig  `mapstructure:"ticket_srv" yaml:"ticket_srv"`
 	SeatSrvConfig    SeatSrvConfig    `mapstructure:"seat_srv" yaml:"seat_srv"`
 	StationSrvConfig StationSrvConfig `mapstructure:"station_srv" yaml:"station_srv"`
+	JaegerInfo       JaegerConfig     `mapstructure:"jaeger" yaml:"jaeger"`
 	JWTInfo          JWTConfig        `mapstructure:"jwt" yaml:"jwt"`
 	// AliSmsConfig  AliSmsConfig  `mapstructure:"ali_sms" yaml:"ali_sms"`
 	RedisConfig RedisConfig  `mapstructure:"redis" yaml:"redis"`

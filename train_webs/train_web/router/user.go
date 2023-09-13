@@ -10,8 +10,9 @@ import (
 func InitTicketsRouter(g *gin.RouterGroup) {
 	trainRouter := g.Group("train")
 	{
-		trainRouter.GET("tickets", middlewares.JWTAuth(), api.GetTickets)
-		trainRouter.GET("seat", middlewares.JWTAuth(), api.GetSeatsByTrain)
-		trainRouter.GET("station", middlewares.JWTAuth(), api.GetStations)
+		trainRouter.GET("tickets", middlewares.JWTAuth(), middlewares.Trace(), api.GetTickets)
+		trainRouter.GET("seat", middlewares.JWTAuth(), middlewares.Trace(), api.GetSeatsByTrain)
+		trainRouter.GET("station", middlewares.JWTAuth(), middlewares.Trace(), api.GetStations)
+		trainRouter.GET("travel", middlewares.JWTAuth(), middlewares.Trace(), api.Travels)
 	}
 }

@@ -2,13 +2,16 @@ package api
 
 import (
 	"context"
+	"fmt"
 	"gotrains/ticketorder_web/ticketorder-web/forms"
 	"gotrains/ticketorder_web/ticketorder-web/global"
 	"gotrains/ticketorder_web/ticketorder-web/models"
 	"gotrains/ticketorder_web/ticketorder-web/proto"
+	"math/rand"
 	"net/http"
 	"strconv"
 	"strings"
+	"time"
 
 	uuid "github.com/satori/go.uuid"
 
@@ -17,6 +20,10 @@ import (
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
+)
+
+var (
+	seats = "ABCDEF"
 )
 
 func RemoveTopStruct(fields map[string]string) map[string]string {
@@ -90,7 +97,7 @@ func GetPassengerList(c *gin.Context) {
 	pnInt, _ := strconv.Atoi(pn)
 	ps := c.DefaultQuery("size", "10")
 	psInt, _ := strconv.Atoi(ps)
-	res, err := global.UserClient.GetPassengerList(context.Background(), &proto.PassengerPageInfo{
+	res, err := global.UserClient.GetPassengerList(context.WithValue(context.Background(), "ginContext", c), &proto.PassengerPageInfo{
 		Pn:     uint32(pnInt),
 		Ps:     uint32(psInt),
 		UserId: int32(cUser.ID),
@@ -135,12 +142,12 @@ func AddPassenger(c *gin.Context) {
 			"success": false,
 		})
 	}
-	passenger, err := global.UserClient.GetPassengerByIdCard(context.Background(), &proto.PassengerIdCardRequest{
+	passenger, err := global.UserClient.GetPassengerByIdCard(context.WithValue(context.Background(), "ginContext", c), &proto.PassengerIdCardRequest{
 		IdCard: passengerForm.IdCard,
 	})
 	// 这里不对，但是没时间了，直接在Add里面判断了
 	if passenger.IdCard != "" {
-		_, err = global.UserClient.UpdatePassenger(context.Background(), &proto.PassengerInfo{
+		_, err = global.UserClient.UpdatePassenger(context.WithValue(context.Background(), "ginContext", c), &proto.PassengerInfo{
 			Id:       passenger.Id,
 			Name:     passengerForm.Name,
 			IdCard:   passengerForm.IdCard,
@@ -164,7 +171,7 @@ func AddPassenger(c *gin.Context) {
 		HandleGrpcErrorToHttp(err, c)
 		return
 	}
-	_, err = global.UserClient.AddPassenger(context.Background(), &proto.PassengerInfo{
+	_, err = global.UserClient.AddPassenger(context.WithValue(context.Background(), "ginContext", c), &proto.PassengerInfo{
 		Name:     passengerForm.Name,
 		IdCard:   passengerForm.IdCard,
 		UserId:   int32(cUser.ID),
@@ -201,7 +208,7 @@ func DeletePassenger(c *gin.Context) {
 		})
 		return
 	}
-	_, err := global.UserClient.DeletePassenger(context.Background(), &proto.IdRequest{
+	_, err := global.UserClient.DeletePassenger(context.WithValue(context.Background(), "ginContext", c), &proto.IdRequest{
 		Id: int32(i),
 	})
 	if err != nil {
@@ -218,8 +225,9 @@ func DeletePassenger(c *gin.Context) {
 func CreateOrder(c *gin.Context) {
 	cUser := getClaimes(c)
 	zap.S().Infof("访问用户: %d", cUser.ID)
-	passengers := []models.Passenger{}
-	if err := c.ShouldBindJSON(&passengers); err != nil {
+	// passengers := []models.Passenger{}
+	orderForm := forms.OrderForm{}
+	if err := c.ShouldBindJSON(&orderForm); err != nil {
 		zap.S().Errorw("CreateOrder 参数错误", "msg", err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "参数错误",
@@ -227,16 +235,25 @@ func CreateOrder(c *gin.Context) {
 		return
 	}
 	orderInfo := proto.OrderInfo{}
+
+	if !store.Verify(orderForm.ImageCodeId, orderForm.ImageCode, true) {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": "验证码错误",
+			"success": false,
+		})
+		return
+	}
+
 	var orderPassengers []*proto.OPassengerInfo
 	order := models.Order{}
-	for _, passenger := range passengers {
+	for _, passenger := range orderForm.Tickets {
 		opass := proto.OPassengerInfo{
-			Name:     passenger.Name,
-			IdCard:   passenger.IdCard,
-			Type:     int64(passenger.Type),
-			UserId:   int32(passenger.UserID),
+			Name:   passenger.PassengerName,
+			IdCard: passenger.PassengerIdCard,
+			Type:   int64(passenger.PassengerType),
+			// UserId:   int32(passenger.UserID),
 			Seat:     passenger.Seat,
-			SeatType: passenger.SeatType,
+			SeatType: passenger.SeatTypeCode,
 		}
 		orderPassengers = append(orderPassengers, &opass)
 	}
@@ -250,7 +267,7 @@ func CreateOrder(c *gin.Context) {
 	orderInfo.SeatType = order.SeatType
 	orderInfo.SeatNumber = order.SeatNumber
 	orderInfo.Price = order.Pirce
-	oir, err := global.OrderClient.CreateOrder(context.Background(), &proto.CreateOrderInfo{
+	oir, err := global.OrderClient.CreateOrder(context.WithValue(context.Background(), "ginContext", c), &proto.CreateOrderInfo{
 		Id:        uuid.NewV4().String(),
 		OrderInfo: &orderInfo,
 	})
@@ -262,4 +279,90 @@ func CreateOrder(c *gin.Context) {
 		"message":  "下单成功",
 		"order_id": oir.OrderSn,
 	})
+}
+
+// 根据用户id获取订单列表
+func GetOrder(c *gin.Context) {
+	cUser := getClaimes(c)
+	zap.S().Infof("访问用户: %d", cUser.ID)
+	// pn := c.DefaultQuery("page", "1")
+	// pnInt, _ := strconv.Atoi(pn)
+	// ps := c.DefaultQuery("size", "10")
+	// psInt, _ := strconv.Atoi(ps)
+	// _, err := global.OrderClient.GetOrderListByUserId(context.Background(), &proto.OrderPageInfo{
+	// 	Pn: uint32(pnInt),
+	// 	Ps: uint32(psInt),
+	// 	// 暂时为了演示写死
+	// 	UserId: 14,
+	// })
+	// if err != nil {
+	// 	HandleGrpcErrorToHttp(err, c)
+	// 	return
+	// }
+	res, err2 := global.UserClient.GetPassengerList(context.WithValue(context.Background(), "ginContext", c), &proto.PassengerPageInfo{Pn: 1, Ps: 100, UserId: 14})
+	if err2 != nil {
+		HandleGrpcErrorToHttp(err2, c)
+		return
+	}
+	var tiks []struct {
+		Id            int32  `json:"id"`
+		UserId        int32  `json:"memberId"`
+		PassengerId   string `json:"passengerId"`
+		PassengerName string `json:"passengerName"`
+		Date          string `json:"date"`
+		TrainCode     string `json:"trainCode"`
+		Row           string `json:"row"`
+		Col           string `json:"col"`
+		Start         string `json:"start"`
+		StartTime     string `json:"startTime"`
+		CarriageIndex int32  `json:"carriageIndex"`
+		End           string `json:"end"`
+		EndTime       string `json:"endTime"`
+		SeatType      string `json:"seatType"`
+	}
+	for _, value := range res.Data {
+		zap.S().Infof("乘客: %v", value)
+		if value.IdCard == "" {
+			continue
+		}
+		var tik struct {
+			Id            int32  `json:"id"`
+			UserId        int32  `json:"memberId"`
+			PassengerId   string `json:"passengerId"`
+			PassengerName string `json:"passengerName"`
+			Date          string `json:"date"`
+			TrainCode     string `json:"trainCode"`
+			Row           string `json:"row"`
+			Col           string `json:"col"`
+			Start         string `json:"start"`
+			StartTime     string `json:"startTime"`
+			CarriageIndex int32  `json:"carriageIndex"`
+			End           string `json:"end"`
+			EndTime       string `json:"endTime"`
+			SeatType      string `json:"seatType"`
+		}
+		tik.Id = value.Id
+		tik.UserId = value.UserId
+		tik.PassengerId = fmt.Sprintf("%d", value.Id)
+		tik.PassengerName = value.Name
+		tik.Date = time.Now().Format("2006-01-02")
+		// 直接写死
+		tik.TrainCode = "tc59"
+		rand.NewSource(time.Now().UnixNano())
+		rowInt := rand.Intn(2)
+		tik.Row = fmt.Sprintf("0%d", rowInt)
+		tik.Col = fmt.Sprintf("%c%d", seats[rand.Intn(6)], rowInt)
+		tiks = append(tiks, tik)
+		// tik.Start = ""
+		// tik.StartTime =
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "获取成功",
+		"content": gin.H{
+			"list":  tiks,
+			"total": len(tiks),
+		},
+	})
+
 }
