@@ -8,3 +8,14 @@ mysql:
 consul:
     host: '10.102.109.196'
     port: 8500
+
+rocketmq:
+    host: '10.102.109.196'
+    port: 9876
+    
+user_srv: 'user_srv'
+train_srv: 'train_srv'   
+jaeger:
+  host: '127.0.0.1'
+  port: 6831
+  name: 'train_jaeger'

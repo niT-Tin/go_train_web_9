@@ -13,14 +13,27 @@ type ConsulConfig struct {
 	Port int    `mapstructure:"port" json:"port" yaml:"port"`
 }
 
+type RocketMQConfig struct {
+	Host string `mapstructure:"host" json:"host" yaml:"host"`
+	Port int    `mapstructure:"port" json:"port" yaml:"port"`
+}
+
+type JaegerConfig struct {
+	Host string `mapstructure:"host" yaml:"host"`
+	Port int    `mapstructure:"port" yaml:"port"`
+	Name string `mapstructure:"name" yaml:"name"`
+}
+
 type ServerConfig struct {
 	Name string `mapstructure:"name" json:"name" yaml:"name"`
 	// Host       string       `mapstructure:"host" json:"host" yaml:"host"`
 	// Port       int          `mapstructure:"port" json:"port" yaml:"port"`
-	MySqlInfo    MysqlConfig  `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
-	ConsulInfo   ConsulConfig `mapstructure:"consul" json:"consul" yaml:"consul"`
-	TrainSrvName string       `mapstructure:"train_srv" json:"train_srv" yaml:"train_srv"`
-	UserSrvName  string       `mapstructure:"user_srv" json:"user_srv" yaml:"user_srv"`
+	MySqlInfo      MysqlConfig    `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	ConsulInfo     ConsulConfig   `mapstructure:"consul" json:"consul" yaml:"consul"`
+	TrainSrvName   string         `mapstructure:"train_srv" json:"train_srv" yaml:"train_srv"`
+	UserSrvName    string         `mapstructure:"user_srv" json:"user_srv" yaml:"user_srv"`
+	JaegerInfo     JaegerConfig   `mapstructure:"jaeger" json:"jaeger" yaml:"jaeger"`
+	RocketMQConfig RocketMQConfig `mapstructure:"rocketmq" json:"rocketmq" yaml:"rocketmq"`
 }
 
 type NewServerConfig struct {

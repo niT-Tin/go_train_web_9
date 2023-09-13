@@ -8,10 +8,15 @@ import (
 	"gotrains/ticketorder_srvs/ticket_srv/initialize"
 	"gotrains/ticketorder_srvs/ticket_srv/proto"
 	"gotrains/ticketorder_srvs/ticket_srv/utils"
+	"gotrains/ticketorder_srvs/ticket_srv/utils/otgrpc"
 	"net"
 	"os"
 	"os/signal"
 	"syscall"
+
+	"github.com/opentracing/opentracing-go"
+	"github.com/uber/jaeger-client-go"
+	jaegercfg "github.com/uber/jaeger-client-go/config"
 
 	"github.com/hashicorp/consul/api"
 	uuid "github.com/satori/go.uuid"
@@ -80,9 +85,10 @@ func main() {
 	// Port := flag.Int("port", 0, "端口号")
 	initialize.InitLogger()
 	initialize.InitConfig()
+	initialize.InitSrvConn()
 	initialize.InitDB()
 	flag.Parse()
-	g := grpc.NewServer()
+	// g := grpc.NewServer()
 	if *Port == 0 {
 		var err error
 		*Port, err = utils.GetFreePort()
@@ -90,18 +96,38 @@ func main() {
 			panic(err)
 		}
 	}
-	// 使用默认的健康检查
-	grpc_health_v1.RegisterHealthServer(g, health.NewServer())
 	serviceId := fmt.Sprintf("%s", uuid.NewV4())
 	client := Register(global.Config.ConsulInfo.Host, *Port, "ticketorder_srv", []string{"ticketorder_srv"}, serviceId)
-	proto.RegisterOrderServer(g, &handler.OrderServer{})
+	//初始化jaeger
+	cfg := jaegercfg.Configuration{
+		Sampler: &jaegercfg.SamplerConfig{
+			Type:  jaeger.SamplerTypeConst,
+			Param: 1,
+		},
+		Reporter: &jaegercfg.ReporterConfig{
+			LogSpans:           true,
+			LocalAgentHostPort: fmt.Sprintf("%s:%d", global.Config.JaegerInfo.Host, global.Config.JaegerInfo.Port),
+		},
+		ServiceName: "mxshop",
+	}
+
+	tracer, closer, err := cfg.NewTracer(jaegercfg.Logger(jaeger.StdLogger))
+	if err != nil {
+		panic(err)
+	}
+	opentracing.SetGlobalTracer(tracer)
+	// server := grpc.NewServer()
+	server := grpc.NewServer(grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)))
+	// 使用默认的健康检查
+	grpc_health_v1.RegisterHealthServer(server, health.NewServer())
+	proto.RegisterOrderServer(server, &handler.OrderServer{})
 
 	lis, err := net.Listen("tcp", *IP+":"+fmt.Sprint(*Port))
 	if err != nil {
 		panic(err)
 	}
 	go func() {
-		err = g.Serve(lis)
+		err = server.Serve(lis)
 		if err != nil {
 			panic(err)
 		}
@@ -109,6 +135,7 @@ func main() {
 	quit := make(chan os.Signal)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
+	closer.Close()
 	if err = client.Agent().ServiceDeregister(serviceId); err != nil {
 		zap.S().Errorf("ticketorder注销失败:%s", err.Error())
 	}

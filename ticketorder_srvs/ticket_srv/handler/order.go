@@ -34,11 +34,17 @@ var (
 
 func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitive.LocalTransactionState {
 	var orderInfo model.Order
-	_ = json.Unmarshal(msg.Body, &orderInfo)
+	err := json.Unmarshal(msg.Body, &orderInfo)
+	if err != nil {
+		zap.S().Errorf("反序列化失败: %s", err.Error())
+		return primitive.RollbackMessageState
+	}
 	parentSpan := opentracing.SpanFromContext(o.Ctx)
+	// zap.S().Infof("接收到订单信息: %#v", orderInfo)
 	global.DB.Begin()
 
 	passengerSpan := opentracing.GlobalTracer().StartSpan("get_passenger_list", opentracing.ChildOf(parentSpan.Context()))
+	zap.S().Infof("UserClient: %#v", global.UserClient)
 	resp, err := global.UserClient.GetPassengerList(context.Background(), &proto.PassengerPageInfo{
 		UserId: orderInfo.UserID,
 	})
@@ -119,7 +125,7 @@ func OrderModel2Info(order model.Order) *proto.OrderInfo {
 		EndTime:      order.EndTime.Format("2006-01-02 15:04:05"),
 		OrderSn:      order.OrderSn,
 		SeatType:     order.SeatType,
-		Price:        order.Pirce,
+		Price:        order.Price,
 		SeatNumber:   order.SeatNumber,
 	}
 }
@@ -133,10 +139,11 @@ func OrderModel2Response(order model.Order) *proto.OrderInfoResponse {
 
 func (o *OrderServer) CreateOrder(ctx context.Context, createinfo *proto.CreateOrderInfo) (*proto.OrderInfoResponse, error) {
 	var order model.Order
-	orderListener := &OrderListener{}
+	orderListener := OrderListener{Ctx: ctx}
 	p, err := rocketmq.NewTransactionProducer(
-		orderListener,
-		producer.WithNameServer([]string{"localhost:9876"}),
+		&orderListener,
+		producer.WithNameServer([]string{fmt.Sprintf("%s:%d", global.Config.RocketMQConfig.Host, global.Config.RocketMQConfig.Port)}),
+		producer.WithGroupName("order_group"),
 	)
 	if err != nil {
 		zap.S().Errorf("生成producer失败: %s", err.Error())
@@ -146,7 +153,7 @@ func (o *OrderServer) CreateOrder(ctx context.Context, createinfo *proto.CreateO
 		zap.S().Errorf("启动producer失败: %s", err.Error())
 		return nil, err
 	}
-	result := global.DB.First(&order, createinfo.OrderInfo.OrderSn)
+	result := global.DB.First(&order, "'"+createinfo.OrderInfo.OrderSn+"'")
 	if result.RowsAffected == 1 {
 		return nil, status.Errorf(codes.AlreadyExists, "订单已存在")
 	}
@@ -165,11 +172,15 @@ func (o *OrderServer) CreateOrder(ctx context.Context, createinfo *proto.CreateO
 		EndTime:      et,
 		SeatType:     createinfo.OrderInfo.SeatType,
 		SeatNumber:   createinfo.OrderInfo.SeatNumber,
-		Pirce:        createinfo.OrderInfo.Price,
+		Price:        createinfo.OrderInfo.Price,
 		OrderSn:      uuid.NewV4().String(),
 		PassengerIds: passengerIds,
 	}
-	jsonString, _ := json.Marshal(order)
+	jsonString, err := json.Marshal(order)
+	if err != nil {
+		zap.S().Errorf("序列化失败: %s", err.Error())
+		return nil, status.Error(codes.Internal, "序列化失败")
+	}
 
 	_, err = p.SendMessageInTransaction(context.Background(),
 		primitive.NewMessage("order_reback", jsonString))

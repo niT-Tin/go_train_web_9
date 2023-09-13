@@ -14,9 +14,9 @@ import (
 //
 // For example:
 //
-//     s := grpc.NewServer(
-//         ...,  // (existing ServerOptions)
-//         grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)))
+//	s := grpc.NewServer(
+//	    ...,  // (existing ServerOptions)
+//	    grpc.UnaryInterceptor(otgrpc.OpenTracingServerInterceptor(tracer)))
 //
 // All gRPC server spans will look for an OpenTracing SpanContext in the gRPC
 // metadata; if found, the server span will act as the ChildOf that RPC
@@ -68,7 +68,7 @@ func OpenTracingServerInterceptor(tracer opentracing.Tracer, optFuncs ...Option)
 				otgrpcOpts.decorator(serverSpan, info.FullMethod, req, resp, err)
 			}
 			return resp, err
-		}else{
+		} else {
 			resp, err = handler(ctx, req)
 			return resp, err
 		}
@@ -82,9 +82,9 @@ func OpenTracingServerInterceptor(tracer opentracing.Tracer, optFuncs ...Option)
 //
 // For example:
 //
-//     s := grpc.NewServer(
-//         ...,  // (existing ServerOptions)
-//         grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)))
+//	s := grpc.NewServer(
+//	    ...,  // (existing ServerOptions)
+//	    grpc.StreamInterceptor(otgrpc.OpenTracingStreamServerInterceptor(tracer)))
 //
 // All gRPC server spans will look for an OpenTracing SpanContext in the gRPC
 // metadata; if found, the server span will act as the ChildOf that RPC
