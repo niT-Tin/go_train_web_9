@@ -80,25 +80,27 @@ func (t *TicketService) GenerateDailyTicket(trainCode, date string) ([]model.Dai
 
 // TODO: 记得添加redis分布式锁
 func (t *TicketService) DeducInventory(date, start_s, end_s string, start_time string, train_seat []*model.TrainSeat) error {
-	dt, _ := time.Parse("2006-01-02", date)
+	// dt, _ := time.Parse("2006-01-02", date)
 	st, _ := time.Parse("2006-01-02 15:04:05", start_time)
 	// 根据日期、车次、起始站、终点站、发车时间查询车票信息(两车站之间的站数，用于计算票价, 填充sell字段)
 	var dailyTrainTicket model.DailyTrainTicket
 	var dailyTrainSeat model.DailyTrainSeat
 	tx := global.DB.Begin()
 	for _, seat := range train_seat {
-		res := global.DB.Where(&model.DailyTrainTicket{Date: dt, TrainCode: seat.TrainCode, Start: start_s, End: end_s, StartTime: st}).First(&dailyTrainTicket)
+		res := global.DB.Where(&model.DailyTrainTicket{TrainCode: seat.TrainCode, Start: start_s, End: end_s, StartTime: st}).First(&dailyTrainTicket)
 		if res.Error != nil {
 			tx.Rollback()
 			zap.S().Errorf("查询车票信息失败")
 			return res.Error
 		}
+		zap.S().Infof("查询到：每日车票: %v", dailyTrainTicket)
 		// 查询对应的位置情况
-		d := global.DB.Where(&model.DailyTrainSeat{Date: dt, TrainCode: seat.TrainCode, SeatType: seat.SeatType, CarriageIndex: seat.CarriageIndex, Col: seat.Col, Row_: seat.Row_}).First(&dailyTrainSeat)
+		d := global.DB.Where(&model.DailyTrainSeat{TrainCode: seat.TrainCode, SeatType: seat.SeatType, CarriageIndex: seat.CarriageIndex, Col: seat.Col, Row_: seat.Row_}).First(&dailyTrainSeat)
 		if d.Error != nil {
 			tx.Rollback()
 			return d.Error
 		}
+		zap.S().Infof("查询到：每日车票位置: %v", dailyTrainSeat)
 		// 最低位表示火车开始站，最高位表示火车终点站(这一站到下一站之间)
 		// 从0开始
 		start := dailyTrainSeat.Sell >> dailyTrainTicket.StartIndex

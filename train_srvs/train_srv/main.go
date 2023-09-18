@@ -13,6 +13,8 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/apache/rocketmq-client-go/v2"
+	"github.com/apache/rocketmq-client-go/v2/consumer"
 	"github.com/hashicorp/consul/api"
 	uuid "github.com/satori/go.uuid"
 	"go.uber.org/zap"
@@ -104,6 +106,16 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+
+	c, _ := rocketmq.NewPushConsumer(
+		consumer.WithNameServer([]string{fmt.Sprintf("%s:%d", global.Config.RocketMQConfig.Host, global.Config.RocketMQConfig.Port)}),
+		consumer.WithGroupName("order_group"),
+	)
+
+	if err := c.Subscribe("order_reback", consumer.MessageSelector{}, handler.ReBack); err != nil {
+		fmt.Println("读取消息失败")
+	}
+	_ = c.Start()
 	go func() {
 		err = g.Serve(lis)
 		if err != nil {

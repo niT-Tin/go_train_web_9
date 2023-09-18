@@ -8,6 +8,8 @@ import (
 	"gotrains/train_srvs/train_srv/services"
 	"gotrains/train_srvs/train_srv/utils"
 
+	"github.com/apache/rocketmq-client-go/v2/consumer"
+	"github.com/apache/rocketmq-client-go/v2/primitive"
 	"go.uber.org/zap"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
@@ -118,4 +120,9 @@ func (t *TicketServer) RebackTicket(ctx context.Context, ticketreq *proto.Busine
 		return nil, err
 	}
 	return &proto.TicketResponse{}, nil
+}
+
+func ReBack(ctx context.Context, msgs ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+	// 找个时间写一下
+	return consumer.ConsumeSuccess, nil
 }

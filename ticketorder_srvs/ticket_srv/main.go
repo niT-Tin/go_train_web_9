@@ -108,7 +108,7 @@ func main() {
 			LogSpans:           true,
 			LocalAgentHostPort: fmt.Sprintf("%s:%d", global.Config.JaegerInfo.Host, global.Config.JaegerInfo.Port),
 		},
-		ServiceName: "mxshop",
+		ServiceName: "ticket_order",
 	}
 
 	tracer, closer, err := cfg.NewTracer(jaegercfg.Logger(jaeger.StdLogger))

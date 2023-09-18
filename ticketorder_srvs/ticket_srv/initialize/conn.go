@@ -4,9 +4,11 @@ import (
 	"fmt"
 
 	"gotrains/ticketorder_srvs/ticket_srv/global"
+	"gotrains/ticketorder_srvs/ticket_srv/utils/otgrpc"
 
 	"gotrains/ticketorder_srvs/ticket_srv/proto"
 
+	"github.com/opentracing/opentracing-go"
 	"go.uber.org/zap"
 	"google.golang.org/grpc"
 )
@@ -18,7 +20,7 @@ func InitSrvConn() {
 		fmt.Sprintf("consul://%s:%d/%s?wait=14s&tag=%s", consulInfo.Host, consulInfo.Port, global.Config.TrainSrvName, global.Config.TrainSrvName),
 		grpc.WithInsecure(),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
-		//grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(opentracing.GlobalTracer())),
+		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(opentracing.GlobalTracer())),
 	)
 	if err != nil {
 		zap.S().Fatal("[TicketInventoryClient] 连接 【票务服务连接失败】")
@@ -31,7 +33,8 @@ func InitSrvConn() {
 		fmt.Sprintf("consul://%s:%d/%s?wait=14s&tag=%s", consulInfo.Host, consulInfo.Port, global.Config.UserSrvName, global.Config.UserSrvName),
 		grpc.WithInsecure(),
 		grpc.WithDefaultServiceConfig(`{"loadBalancingPolicy": "round_robin"}`),
-		//grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(opentracing.GlobalTracer())),
+
+		grpc.WithUnaryInterceptor(otgrpc.OpenTracingClientInterceptor(opentracing.GlobalTracer())),
 	)
 	if err != nil {
 		zap.S().Fatal("[UserClient] 连接 【用户服务连接失败】")

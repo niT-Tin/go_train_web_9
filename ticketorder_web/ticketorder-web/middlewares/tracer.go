@@ -28,9 +28,10 @@ func Trace() gin.HandlerFunc {
 			panic(fmt.Sprintf("ERROR: cannot init Jaeger: %v\n", err))
 		}
 		opentracing.SetGlobalTracer(tracer)
+		defer closer.Close()
+
 		startSpan := tracer.StartSpan(c.Request.URL.Path)
 		defer startSpan.Finish()
-		defer closer.Close()
 		c.Set("tracer", tracer)
 		c.Set("parentSpan", startSpan)
 		c.Next()

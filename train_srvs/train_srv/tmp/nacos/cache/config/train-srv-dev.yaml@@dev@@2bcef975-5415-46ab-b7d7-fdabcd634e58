@@ -8,3 +8,6 @@ mysql:
 consul:
     host: '10.102.109.196'
     port: 8500
+rocketmq:
+    host: '10.102.109.196'
+    port: 9876

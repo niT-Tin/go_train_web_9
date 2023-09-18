@@ -222,3 +222,87 @@
 2023-09-14T01:48:18.391+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-12192278-5385-4a5a-90ae-df18e84e705b try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
 2023-09-14T01:48:18.392+0800	INFO	util/common.go:96	Local IP:192.168.210.1
 2023-09-14T01:48:18.495+0800	INFO	rpc/rpc_client.go:234	config-0-12192278-5385-4a5a-90ae-df18e84e705b success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694627298393_10.102.109.196_33110
+2023-09-14T05:29:44.764+0800	DEBUG	rpc/rpc_client.go:290	config-0-022fb799-b4a9-4618-a40f-3d8d02693a7f register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-09-14T05:29:44.764+0800	DEBUG	rpc/rpc_client.go:290	config-0-022fb799-b4a9-4618-a40f-3d8d02693a7f register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-09-14T05:29:44.764+0800	DEBUG	rpc/rpc_client.go:290	config-0-022fb799-b4a9-4618-a40f-3d8d02693a7f register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-09-14T05:29:44.764+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-022fb799-b4a9-4618-a40f-3d8d02693a7f try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-14T05:29:44.764+0800	INFO	util/common.go:96	Local IP:192.168.210.1
+2023-09-14T05:29:44.867+0800	INFO	rpc/rpc_client.go:234	config-0-022fb799-b4a9-4618-a40f-3d8d02693a7f success to connect to server {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848} on start up, connectionId=1694640584765_10.102.109.196_52348
+2023-09-15T10:06:55.351+0800	DEBUG	rpc/rpc_client.go:290	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 register server push request:ConfigChangeNotifyRequest handler:ConfigChangeNotifyRequestHandler
+2023-09-15T10:06:55.351+0800	DEBUG	rpc/rpc_client.go:290	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 register server push request:ConnectResetRequest handler:ConnectResetRequestHandler
+2023-09-15T10:06:55.351+0800	DEBUG	rpc/rpc_client.go:290	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 register server push request:ClientDetectionRequest handler:ClientDetectionRequestHandler
+2023-09-15T10:06:55.351+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-93c750e1-cc9c-435a-9558-cf6d02207294 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-15T10:06:55.352+0800	INFO	util/common.go:96	Local IP:172.18.0.1
+2023-09-15T10:06:58.353+0800	WARN	rpc/rpc_client.go:226	[RpcClient.Start] config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect to server on start up, error message=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded, start up retry times left=2
+2023-09-15T10:06:58.353+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-93c750e1-cc9c-435a-9558-cf6d02207294 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-15T10:07:01.354+0800	WARN	rpc/rpc_client.go:226	[RpcClient.Start] config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect to server on start up, error message=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded, start up retry times left=1
+2023-09-15T10:07:01.354+0800	INFO	rpc/rpc_client.go:224	[RpcClient.Start] config-0-93c750e1-cc9c-435a-9558-cf6d02207294 try to connect to server on start up, server: {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}
+2023-09-15T10:07:04.355+0800	WARN	rpc/rpc_client.go:226	[RpcClient.Start] config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect to server on start up, error message=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded, start up retry times left=0
+2023-09-15T10:07:04.355+0800	INFO	rpc/rpc_client.go:322	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 try to re connect to a new server, server is not appointed, will choose a random server.
+2023-09-15T10:07:04.355+0800	ERROR	rpc/rpc_client.go:522	Send request fail, request=ConfigQueryRequest, body={"requestId":"","group":"dev","dataId":"train-web-dev.yaml","tenant":"2bcef975-5415-46ab-b7d7-fdabcd634e58","module":"config","tag":""}, retryTimes=0, error=client not connected, current status:STARTING
+github.com/nacos-group/nacos-sdk-go/v2/common/remote/rpc.(*RpcClient).Request
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/common/remote/rpc/rpc_client.go:487
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigProxy).requestProxy
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_proxy.go:64
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigProxy).queryConfig
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_proxy.go:116
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigClient).getConfigInner
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_client.go:204
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigClient).GetConfig
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_client.go:148
+gotrains/train_webs/train_web/initialize.InitConfigWithNacos
+	/home/liuzehao/playground/golang/gotrains/train_webs/train_web/initialize/config.go:96
+main.main
+	/home/liuzehao/playground/golang/gotrains/train_webs/train_web/main.go:52
+runtime.main
+	/home/liuzehao/applications/go/src/runtime/proc.go:250
+runtime.goexit
+	/home/liuzehao/applications/go/src/runtime/asm_amd64.s:1598
+2023-09-15T10:07:04.456+0800	ERROR	rpc/rpc_client.go:522	Send request fail, request=ConfigQueryRequest, body={"requestId":"","group":"dev","dataId":"train-web-dev.yaml","tenant":"2bcef975-5415-46ab-b7d7-fdabcd634e58","module":"config","tag":""}, retryTimes=1, error=client not connected, current status:STARTING
+github.com/nacos-group/nacos-sdk-go/v2/common/remote/rpc.(*RpcClient).Request
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/common/remote/rpc/rpc_client.go:487
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigProxy).requestProxy
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_proxy.go:64
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigProxy).queryConfig
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_proxy.go:116
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigClient).getConfigInner
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_client.go:204
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigClient).GetConfig
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_client.go:148
+gotrains/train_webs/train_web/initialize.InitConfigWithNacos
+	/home/liuzehao/playground/golang/gotrains/train_webs/train_web/initialize/config.go:96
+main.main
+	/home/liuzehao/playground/golang/gotrains/train_webs/train_web/main.go:52
+runtime.main
+	/home/liuzehao/applications/go/src/runtime/proc.go:250
+runtime.goexit
+	/home/liuzehao/applications/go/src/runtime/asm_amd64.s:1598
+2023-09-15T10:07:04.557+0800	ERROR	rpc/rpc_client.go:522	Send request fail, request=ConfigQueryRequest, body={"requestId":"","group":"dev","dataId":"train-web-dev.yaml","tenant":"2bcef975-5415-46ab-b7d7-fdabcd634e58","module":"config","tag":""}, retryTimes=2, error=client not connected, current status:STARTING
+github.com/nacos-group/nacos-sdk-go/v2/common/remote/rpc.(*RpcClient).Request
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/common/remote/rpc/rpc_client.go:487
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigProxy).requestProxy
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_proxy.go:64
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigProxy).queryConfig
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_proxy.go:116
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigClient).getConfigInner
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_client.go:204
+github.com/nacos-group/nacos-sdk-go/v2/clients/config_client.(*ConfigClient).GetConfig
+	/home/liuzehao/go/pkg/mod/github.com/nacos-group/nacos-sdk-go/v2@v2.2.3/clients/config_client/config_client.go:148
+gotrains/train_webs/train_web/initialize.InitConfigWithNacos
+	/home/liuzehao/playground/golang/gotrains/train_webs/train_web/initialize/config.go:96
+main.main
+	/home/liuzehao/playground/golang/gotrains/train_webs/train_web/main.go:52
+runtime.main
+	/home/liuzehao/applications/go/src/runtime/proc.go:250
+runtime.goexit
+	/home/liuzehao/applications/go/src/runtime/asm_amd64.s:1598
+2023-09-15T10:07:04.657+0800	ERROR	config_client/config_client.go:207	get config from server error:client not connected, current status:STARTING, dataId=train-web-dev.yaml, group=dev, namespaceId=2bcef975-5415-46ab-b7d7-fdabcd634e58
+2023-09-15T10:07:04.657+0800	WARN	config_client/config_client.go:220	read config from cache success, dataId=train-web-dev.yaml, group=dev, namespaceId=2bcef975-5415-46ab-b7d7-fdabcd634e58
+2023-09-15T10:07:10.357+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 1 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:13.458+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 2 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:16.660+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 3 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:19.962+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 4 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:23.363+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 5 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:26.865+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 6 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:30.466+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 7 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded
+2023-09-15T10:07:34.168+0800	WARN	rpc/rpc_client.go:353	config-0-93c750e1-cc9c-435a-9558-cf6d02207294 fail to connect server, after trying 8 times, last try server is {serverIp:10.102.109.196 serverPort:8848 serverGrpcPort:9848}, error=server check request failed , err:rpc error: code = DeadlineExceeded desc = context deadline exceeded

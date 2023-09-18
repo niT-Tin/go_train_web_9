@@ -60,3 +60,21 @@
 2023-09-14T04:52:51.191+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
 2023-09-14T04:56:59.559+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
 2023-09-14T05:00:33.572+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T05:18:18.194+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T05:20:48.269+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T05:29:39.986+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T05:42:00.540+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T05:45:08.492+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T05:52:52.144+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T11:32:31.629+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T11:40:32.807+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T11:50:25.177+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T11:56:55.416+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T12:10:21.017+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T12:14:39.129+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-14T15:23:27.569+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-15T10:07:02.749+0800	[34mINFO[0m	clients/client_factory.go:47	logDir:<tmp/nacos/log>   cacheDir:<tmp/nacos/cache>
+2023-09-15T10:07:07.754+0800	[31mERROR[0m	nacos_server/nacos_server.go:199	api</v1/cs/configs>,method:<GET>, params:<{"dataId":"ticketorder-srv-dev.yaml","group":"dev","tenant":"2bcef975-5415-46ab-b7d7-fdabcd634e58"}>, call domain error:<Get "http://10.102.109.196:8848/nacos/v1/cs/configs?dataId=ticketorder-srv-dev.yaml&group=dev&tenant=2bcef975-5415-46ab-b7d7-fdabcd634e58": context deadline exceeded (Client.Timeout exceeded while awaiting headers)> , result:<>
+2023-09-15T10:07:12.755+0800	[31mERROR[0m	nacos_server/nacos_server.go:199	api</v1/cs/configs>,method:<GET>, params:<{"dataId":"ticketorder-srv-dev.yaml","group":"dev","tenant":"2bcef975-5415-46ab-b7d7-fdabcd634e58"}>, call domain error:<Get "http://10.102.109.196:8848/nacos/v1/cs/configs?group=dev&tenant=2bcef975-5415-46ab-b7d7-fdabcd634e58&dataId=ticketorder-srv-dev.yaml": context deadline exceeded (Client.Timeout exceeded while awaiting headers)> , result:<>
+2023-09-15T10:07:17.755+0800	[31mERROR[0m	nacos_server/nacos_server.go:199	api</v1/cs/configs>,method:<GET>, params:<{"dataId":"ticketorder-srv-dev.yaml","group":"dev","tenant":"2bcef975-5415-46ab-b7d7-fdabcd634e58"}>, call domain error:<Get "http://10.102.109.196:8848/nacos/v1/cs/configs?dataId=ticketorder-srv-dev.yaml&group=dev&tenant=2bcef975-5415-46ab-b7d7-fdabcd634e58": context deadline exceeded (Client.Timeout exceeded while awaiting headers)> , result:<>
+2023-09-15T10:07:17.755+0800	[31mERROR[0m	config_client/config_client.go:202	get config from server error:Get "http://10.102.109.196:8848/nacos/v1/cs/configs?dataId=ticketorder-srv-dev.yaml&group=dev&tenant=2bcef975-5415-46ab-b7d7-fdabcd634e58": context deadline exceeded (Client.Timeout exceeded while awaiting headers) 

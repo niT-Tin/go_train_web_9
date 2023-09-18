@@ -15,6 +15,7 @@ import (
 	"github.com/apache/rocketmq-client-go/v2"
 	"github.com/apache/rocketmq-client-go/v2/primitive"
 	"github.com/apache/rocketmq-client-go/v2/producer"
+	_ "github.com/mbobakov/grpc-consul-resolver"
 	"github.com/opentracing/opentracing-go"
 
 	uuid "github.com/satori/go.uuid"
@@ -25,7 +26,8 @@ import (
 )
 
 type OrderListener struct {
-	Ctx context.Context
+	Ctx  context.Context
+	Code uint32
 }
 
 var (
@@ -42,9 +44,10 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 	parentSpan := opentracing.SpanFromContext(o.Ctx)
 	// zap.S().Infof("接收到订单信息: %#v", orderInfo)
 	global.DB.Begin()
+	// 打印orderinfo下的starttime和endtime
+	zap.S().Infof("接收到订单信息: %#v, endTime: %#v", orderInfo.StartTime.Format("2006-01-02"), orderInfo.EndTime.Format("2006-01-02 15:04:05"))
 
 	passengerSpan := opentracing.GlobalTracer().StartSpan("get_passenger_list", opentracing.ChildOf(parentSpan.Context()))
-	zap.S().Infof("UserClient: %#v", global.UserClient)
 	resp, err := global.UserClient.GetPassengerList(context.Background(), &proto.PassengerPageInfo{
 		UserId: orderInfo.UserID,
 	})
@@ -54,6 +57,7 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 	if err != nil {
 		global.DB.Rollback()
 		zap.S().Errorf("获取乘客列表失败: %s", err.Error())
+		o.Code = uint32(codes.Internal)
 		return primitive.RollbackMessageState
 	}
 	seats := []*proto.SeatInfo{}
@@ -81,10 +85,13 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 		OrderId:      orderInfo.OrderSn,
 		StartStation: orderInfo.StartStation,
 		EndStation:   orderInfo.EndStation,
-		StartTime:    orderInfo.StartTime.Format("2006-01-02 15:04:05"),
+		StartTime:    orderInfo.StartTime.Format("2006-01-02"),
 	}); err != nil {
+		zap.S().Errorf("扣减票失败: %s", err.Error())
 		global.DB.Rollback()
-		return primitive.RollbackMessageState
+		o.Code = uint32(codes.Internal)
+		reductTicketSpan.Finish()
+		return primitive.CommitMessageState
 	}
 	reductTicketSpan.Finish()
 
@@ -92,9 +99,11 @@ func (o *OrderListener) ExecuteLocalTransaction(msg *primitive.Message) primitiv
 	if result.Error != nil {
 		global.DB.Rollback()
 		zap.S().Errorf("创建订单失败: %s", result.Error.Error())
+		o.Code = uint32(codes.Internal)
 		return primitive.CommitMessageState
 	}
 	global.DB.Commit()
+	o.Code = uint32(codes.OK)
 	return primitive.RollbackMessageState
 }
 
@@ -181,14 +190,18 @@ func (o *OrderServer) CreateOrder(ctx context.Context, createinfo *proto.CreateO
 		zap.S().Errorf("序列化失败: %s", err.Error())
 		return nil, status.Error(codes.Internal, "序列化失败")
 	}
+	var err2 error
 
-	_, err = p.SendMessageInTransaction(context.Background(),
+	sendRes, err2 := p.SendMessageInTransaction(context.Background(),
 		primitive.NewMessage("order_reback", jsonString))
-	if err != nil {
+	if err2 != nil {
 		fmt.Printf("发送失败: %s\n", err)
 		return nil, status.Error(codes.Internal, "发送消息失败")
 	}
-
+	fmt.Printf("发送结果: %s\n", sendRes.String())
+	if orderListener.Code != uint32(codes.OK) {
+		return nil, status.Error(codes.Internal, "创建订单失败")
+	}
 	return &proto.OrderInfoResponse{
 		OrderSn: order.OrderSn,
 		UserId:  fmt.Sprintf("%d", order.UserID),

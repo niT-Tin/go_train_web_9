@@ -13,12 +13,18 @@ type ConsulConfig struct {
 	Port int    `mapstructure:"port" json:"port" yaml:"port"`
 }
 
+type RocketMQConfig struct {
+	Host string `mapstructure:"host" json:"host" yaml:"host"`
+	Port int    `mapstructure:"port" json:"port" yaml:"port"`
+}
+
 type ServerConfig struct {
 	Name string `mapstructure:"name" json:"name" yaml:"name"`
 	// Host       string       `mapstructure:"host" json:"host" yaml:"host"`
 	// Port       int          `mapstructure:"port" json:"port" yaml:"port"`
-	MySqlInfo  MysqlConfig  `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
-	ConsulInfo ConsulConfig `mapstructure:"consul" json:"consul" yaml:"consul"`
+	MySqlInfo      MysqlConfig    `mapstructure:"mysql" json:"mysql" yaml:"mysql"`
+	ConsulInfo     ConsulConfig   `mapstructure:"consul" json:"consul" yaml:"consul"`
+	RocketMQConfig RocketMQConfig `mapstructure:"rocketmq" json:"rocketmq" yaml:"rocketmq"`
 }
 
 type NewServerConfig struct {
