@@ -9,8 +9,8 @@ jwt:
   key: 'Pn5wO!E&l5%fnLnuVk^v0ZkXRgqT8qom'
 
 ali_sms:
-  access_key_id: 'LTAI5tPg6XEW6CD32H5Y5Tjp'
-  access_secret: 'ZyJQCFUZ7yOaPSW9xPn89LKFKaR7V3'
+  access_key_id: ''
+  access_secret: ''
   template_code: 'SMS_462015641'
   sign_name: '昊giegie'
   code_len: 5
